@@ -133,7 +133,7 @@ def set_data_location():
 		base_catagory_path = get_data_location_source()		
 
 	if get_data_location_type() == "git":
-		vardata.base_catagory_path = vardata.repo_dir+"/"+"notes"
+		vardata.base_catagory_path = vardata.repo_dir
 		if not os.path.isdir(vardata.base_catagory_path):
 			os.mkdir(vardata.base_catagory_path)
 		if not os.path.exists(vardata.base_catagory_path+"/"+".git"):

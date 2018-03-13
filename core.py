@@ -76,11 +76,7 @@ def cm_add(name, scope, verbose):
 
 	#add a note
 	if scope == "note":
-		print(vardata.base_catagory_path)
-		print(name)
 		path = vardata.base_catagory_path+"/"+name
-		print(path)
-		return
 		if not os.path.exists(os.path.dirname(path)):
 			print("path does not exist")
 			return False
