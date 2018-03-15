@@ -75,17 +75,20 @@ def cm_add(name, scope, verbose):
 	"""add a catagory or note"""
 
 	#add a note
-	if scope == "note":
-		path = vardata.base_catagory_path+"/"+name
-		if not os.path.exists(os.path.dirname(path)):
-			print("path does not exist")
-			return False
-		if os.path.exists(path) == False:
+	path = vardata.base_catagory_path+"/"+name
+	if not os.path.exists(os.path.dirname(path)):
+		print(name+" does not exist")
+		return False
+	elif os.path.exists(path) == False:
+		if scope == "note":
 			os.mknod(path)
-			return True
-		else:
-			print("note already exists")
-			return False
+		if scope == "catagory":
+			os.mkdir(path)
+		return True
+	else:
+		print(name+" already exists")
+		return False
+	
 
 def cm_list(scope, verbose):
 
