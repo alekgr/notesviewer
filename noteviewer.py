@@ -29,7 +29,7 @@ if __name__ == "__main__":
 		#delete
 		delete_parser = subparser.add_parser('delete')
 		delete_parser.add_argument('scope', action='store', choices=['catagory', 'note'])
-		delete_parser.add_argument('what', action='store')
+		delete_parser.add_argument('name', action='store')
 		delete_parser.add_argument('--verbose', '-v', action='store_true')
 
 		#list
@@ -64,6 +64,8 @@ if __name__ == "__main__":
 			cm_list(argument['scope'], argument['verbose'])
 		elif argument['cmd'] == 'add':
 			cm_add(argument['name'], argument['scope'], argument['verbose'])
+		elif argument['cmd'] == 'delete':
+			cm_delete(argument['name'],argument['scope'],argument['verbose'])
 		elif argument['cmd'] == 'showconfig':
 			cm_showconfig()	
 		elif argument['cmd'] == 'setdefaultconfig':
