@@ -6,6 +6,7 @@ import re
 import sys
 import shutil
 import vardata 
+import note
 from config import *
 
 
@@ -83,6 +84,7 @@ def cm_add(name, scope, verbose):
 	elif os.path.exists(path) == False:
 		if scope == "note":
 			os.mknod(path)
+			note.createnoteheader(name)
 		if scope == "catagory":
 			os.mkdir(path)
 		return True
