@@ -2,6 +2,7 @@
 
 
 from __future__ import print_function
+import os
 import re
 import utils 
 
@@ -19,7 +20,7 @@ def verifynoteheader(note):
 	#strip white charcaters from the end of line
 	line = line.rstrip()
 
-	if line=="******"+note+" notes"+"******":
+	if line=="******"+os.path.basename(note)+" notes"+"******":
 		print("match")
 	else:
 		print("no match")
@@ -35,7 +36,7 @@ def createnoteheader(note):
 	#open the file for writting
 	fp = open(note_path,"w")
 
-	fp.write("******"+note+" notes"+"******")	
+	fp.write("******"+os.path.basename(note)+" notes"+"******")	
 	fp.close()
 
 
