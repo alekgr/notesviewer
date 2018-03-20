@@ -17,16 +17,16 @@ def verifynoteheader(note):
 	#read the first line
 	line = fp.readline()
 
+	#close fp
+	fp.close()
+
 	#strip white charcaters from the end of line
 	line = line.rstrip()
 
 	if line=="******"+os.path.basename(note)+" notes"+"******":
-		print("match")
+		return True	
 	else:
-		print("no match")
-
-	fp.close()
-
+		return False
 
 def createnoteheader(note):
 
