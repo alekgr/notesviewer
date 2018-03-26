@@ -7,6 +7,7 @@ import sys
 import shutil
 import vardata 
 import note
+import utils
 from config import *
 
 
@@ -91,6 +92,39 @@ def cm_add(name, scope, verbose):
 	else:
 		print(name+" already exists")
 		return False
+
+def cm_insert(name, title):
+
+	note_path = utils.getpath(name)	
+
+	if not os.path.exists(note_path):	
+		print(name+" does not exist")
+		return False
+
+	if os.path.isdir(note_path):
+		print(name+" "+"seems to be a catagory")
+		return False
+
+	if not note.verifynoteheader(name):
+		print(name+" does not seem to be a noteviewer note")
+		return False
+
+	print("Enter your notes (CTRL/D) to exit:  ")
+	lines = sys.stdin.readlines()
+
+
+	#full_text = "\n******"+"\n"+"#"+title+"\n"+text+"\n"+"******"+"\n"
+
+	fp = open(note_path,"a")	
+	fp.write("\n"+"******"+"\n")
+	fp.write("#"+title+"\n")
+	for line in lines:
+		fp.write(line)
+	fp.write("******"+"\n")
+
+	#fp.write(full_text)
+
+	fp.close()
 
 def cm_delete(name, scope, verbose):
 	
