@@ -3,6 +3,7 @@
 from os.path import expanduser
 
 home = expanduser("~")
+program_name="noteviewer"
 
 
 #global constant variables
@@ -13,7 +14,8 @@ interactive_commands = [	['list_catagories', 'edit', 'search', 'settings', 'vers
 command_mode = interactive_commands[0] 
 
 #config file
-config_file = ".config"
+config_file = "config"
+config_file_path = home+"/"+"."+program_name+"/"+config_file
 
 #buffer location where all the work is being done 
 repo_dir = home+"/"+"notes"

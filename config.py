@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 import os
-import vardata
+import vardata 
 from repo import *
 import ConfigParser
 
@@ -17,7 +17,7 @@ def loadconfig():
 	else:	
 		#read config file
 		config = ConfigParser.ConfigParser()
-		config.read(vardata.config_file)
+		config.read(vardata.config_file_path)
 
 		#return False if no setttings section
 		if not config.has_section('settings'):
@@ -46,6 +46,7 @@ def loadconfig():
 def setdefaultconfig():
 	""" set the default configuration.. overwriting old configuration"""	
 
+
 	#add setting and options
 	config = ConfigParser.ConfigParser()
 	config.add_section("settings")
@@ -58,13 +59,13 @@ def setdefaultconfig():
 	config.set("settings", "data_location", DATA_DEFAULT)
 
 	#write to config_file
-	with open(config_file,"wb") as fp:
+	with open(config_file_path,"wb") as fp:
 		config.write(fp)
 
 
 def verifyconfigfile():
 	"""verify if config file is found """
-	if os.path.isfile(vardata.config_file) == True:
+	if os.path.isfile(vardata.config_file_path) == True:
 		return True
 	else:
 		return False
@@ -100,7 +101,7 @@ def verify_key_value(key, val):
 
 def checksection(conf,section):
 	""" check to see if config has a section"""
-	conf.read(config_file)
+	conf.read(config_file_path)
 	if conf.has_section(section):
 		return True
 	else:
@@ -110,11 +111,11 @@ def showconfig():
 	""" Main funcation for showconfig() """
 
 	if verifyconfigfile() == False:
-		print("There is no "+config_file)
+		print("There is no "+config_file_path)
 		return False
 
 	config = ConfigParser.ConfigParser()
-	config.read(vardata.config_file)
+	config.read(vardata.config_file_path)
 
 	#get items from config
 	items = dict(config.items("settings"))
