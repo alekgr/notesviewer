@@ -131,7 +131,7 @@ def set_data_location():
 	global base_catagory_path
 
 	if get_data_location_type() == "file":
-		base_catagory_path = get_data_location_source()		
+		vardata.base_catagory_path = get_data_location_source()		
 
 	if get_data_location_type() == "git":
 		vardata.base_catagory_path = vardata.repo_dir
