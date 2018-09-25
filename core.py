@@ -116,8 +116,10 @@ def cm_insert(name, title):
 	#full_text = "\n******"+"\n"+"#"+title+"\n"+text+"\n"+"******"+"\n"
 
 	fp = open(note_path,"a")	
+	fp.write("\n")
 	fp.write("\n"+"******"+"\n")
 	fp.write("#"+title+"\n")
+	
 	for line in lines:
 		fp.write(line)
 	fp.write("******"+"\n")
