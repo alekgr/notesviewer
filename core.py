@@ -74,24 +74,14 @@ def cm_version():
 	""" print version """
 	print("Version is "+str(vardata.VERSION))
 
-def cm_add(name, scope, verbose):
-	"""add a catagory or note"""
+def cm_add(name, verbose):
+	"""add a note"""
 
-	#add a note
-	path = vardata.base_catagory_path+"/"+name
-	if not os.path.exists(os.path.dirname(path)):
-		print(name+" does not exist")
-		return False
-	elif os.path.exists(path) == False:
-		if scope == "note":
-			os.mknod(path)
-			note.createnoteheader(name)
-		if scope == "catagory":
-			os.mkdir(path)
-		return True
-	else:
-		print(name+" already exists")
-		return False
+	meta_path=vardata.base_catagory+"/"+"meta"+"/"+name)
+	content_path=vardata.base_catagory+"/"+"content"+"/"+name)
+
+	os.mknod(meta_path)
+	os.mknod(content_path)
 
 def cm_insert(name, title):
 

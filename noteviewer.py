@@ -22,7 +22,6 @@ if __name__ == "__main__":
 		
 		#add
 		add_parser = subparser.add_parser('add')
-		add_parser.add_argument('scope', action='store', choices=['note','catagory']) 
 		add_parser.add_argument('name', action='store')
 		add_parser.add_argument('--verbose', '-v', action='store_true')	
 
@@ -70,7 +69,7 @@ if __name__ == "__main__":
 		elif argument['cmd'] == 'list':
 			cm_list(argument['scope'], argument['verbose'])
 		elif argument['cmd'] == 'add':
-			cm_add(argument['name'], argument['scope'], argument['verbose'])
+			cm_add(argument['name'], argument['verbose'])
 		elif argument['cmd'] == 'insert':
 			cm_insert(argument['name'], argument['title'])
 		elif argument['cmd'] == 'delete':
