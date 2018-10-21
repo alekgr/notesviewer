@@ -77,8 +77,8 @@ def cm_version():
 def cm_add(name, verbose):
 	"""add a note"""
 
-	meta_path=vardata.base_catagory+"/"+"meta"+"/"+name)
-	content_path=vardata.base_catagory+"/"+"content"+"/"+name)
+	meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+name
+	content_path=vardata.base_catagory_path+"/"+"content"+"/"+name
 
 	os.mknod(meta_path)
 	os.mknod(content_path)
