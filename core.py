@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+from __future__ import print_function
 import os
 import pprint
 import re
@@ -152,18 +152,14 @@ def cm_delete(name, scope, verbose):
 				prompt = raw_input("Are you sure you want to delete "+name+" (yes/no) ")
 				os.rmdir(path)
 				
-def cm_list(scope, verbose):
-
-	if scope == 'catagory':
-		print_list_per_line(getcatagories())
-	if scope == 'note':
-		for dirs, subdirs, files in os.walk(vardata.base_catagory_path):
-			if os.path.basename(dirs) != '.git':
-				print(os.path.basename(dirs))
-			else:
-				break
-			for fileindex in files:
-				print("\t"+"--->"+os.path.basename(fileindex))
+def cm_list(verbose):
+	""" print nameo of the notes"""
+	
+	print_list_per_line(os.listdir(vardata.base_catagory_path+"/"+"meta"))
+	if(verbose == True):
+		print("---------")
+		print("Total notes: ",end="")
+		print(len(os.listdir(vardata.base_catagory_path+"/"+"meta")))
 
 def cm_showconfig():
 	

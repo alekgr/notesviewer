@@ -40,7 +40,6 @@ if __name__ == "__main__":
 
 		#list
 		list_parser = subparser.add_parser('list')
-		list_parser.add_argument('scope', action='store', choices=['note', 'catagory'])
 		list_parser.add_argument('--verbose', '-v', action='store_true')
 	
 		#showconfig
@@ -67,7 +66,7 @@ if __name__ == "__main__":
 		if argument['cmd'] == 'version':
 			cm_version()
 		elif argument['cmd'] == 'list':
-			cm_list(argument['scope'], argument['verbose'])
+			cm_list(argument['verbose'])
 		elif argument['cmd'] == 'add':
 			cm_add(argument['name'], argument['verbose'])
 		elif argument['cmd'] == 'insert':
