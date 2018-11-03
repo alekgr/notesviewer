@@ -8,8 +8,26 @@ import shutil
 import vardata 
 import note
 import utils
+import uuid
+import tempfile
+import subprocess
 from config import *
 
+
+def edit_file(content):
+	"""open a file and return result"""
+
+	#Get the user's editor
+	editor = vardata.OPTIONS['editor']
+	
+	#Open the content with a temp file and send the reult back
+	with tempfile.NamedTemporaryFile("a+") as tmpfile:
+		tmpfile.write(content)
+		tmpfile.flush()
+		subprocess.check_call([editor, tmpfile.name])
+		output = tmpfile.read()
+
+	return(output)
 
 def getcatagoriespath():
 	"""return a list of note catagroies as directory paths"""
@@ -84,39 +102,45 @@ def cm_add(name, verbose):
 	os.mknod(content_path)
 
 def cm_insert(name, title):
+	"""Insert a note with a title"""
 
-	note_path = utils.getpath(name)	
+	#paths
+	meta_path = vardata.base_catagory_path+"/"+"meta"+"/"+name
+	content_path = vardata.base_catagory_path+"/"+"content"+"/"+name
 
-	if not os.path.exists(note_path):	
-		print(name+" does not exist")
-		return False
+	#check if the  note is present
+	if not os.path.exists(meta_path):
+		print("The note "+name+" does not exist -- bye") 
+		return
 
-	if os.path.isdir(note_path):
-		print(name+" "+"seems to be a catagory")
-		return False
+	#create uuid for the note
+	note_uuid = uuid.uuid4()
 
-	if not note.verifynoteheader(name):
-		print(name+" does not seem to be a noteviewer note")
-		return False
+	#edit the file
+	content = edit_file('')
+	content = content[:-1]
 
-	print("Enter your notes (CTRL/D) to exit:  ")
-	lines = sys.stdin.readlines()
-
-
-	#full_text = "\n******"+"\n"+"#"+title+"\n"+text+"\n"+"******"+"\n"
-
-	fp = open(note_path,"a")	
-	fp.write("\n")
-	fp.write("\n"+"******"+"\n")
-	fp.write("#"+title+"\n")
+	#convert the content into a string	
+	str_content =""
+	str_content  = str_content.join(content)
+	str_content = repr(str_content)	
+	str_content = str_content.replace("'","")		
 	
-	for line in lines:
-		fp.write(line)
-	fp.write("******"+"\n")
+	#open meta and content files
+	fp_meta = open(meta_path, "a")
+	fp_content = open(content_path, "a")
 
-	#fp.write(full_text)
+	#write to meta
+	meta_buffer_string = "uuid:"+str(note_uuid)+" "+"title:"+title
+	fp_meta.write(meta_buffer_string+"\n")
 
-	fp.close()
+	#write to content
+	content_buffer_string = "uuid:"+str(note_uuid)+" "+"content:"+str_content
+	fp_content.write(content_buffer_string+"\n")
+
+	#close files
+	fp_meta.close()
+	fp_content.close()
 
 def cm_delete(name, scope, verbose):
 	
@@ -174,4 +198,5 @@ def directoryempty(path):
 		return False
 	else:
 		return True
+
 
