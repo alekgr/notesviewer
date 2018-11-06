@@ -41,7 +41,12 @@ if __name__ == "__main__":
 		#list
 		list_parser = subparser.add_parser('list')
 		list_parser.add_argument('--verbose', '-v', action='store_true')
-	
+
+		#display
+		display_parser = subparser.add_parser('display')
+		display_parser.add_argument('note', action='store')
+		display_parser.add_argument('--short', '-s', action='store_true')
+
 		#showconfig
 		showconfig_parser = subparser.add_parser('showconfig')
 
@@ -73,6 +78,8 @@ if __name__ == "__main__":
 			cm_insert(argument['name'], argument['title'])
 		elif argument['cmd'] == 'delete':
 			cm_delete(argument['name'],argument['scope'],argument['verbose'])
+		elif argument['cmd'] == 'display':
+			cm_display(argument['note'],argument['short'])
 		elif argument['cmd'] == 'showconfig':
 			cm_showconfig()	
 		elif argument['cmd'] == 'setdefaultconfig':

@@ -11,8 +11,31 @@ import utils
 import uuid
 import tempfile
 import subprocess
+import codecs
 from config import *
 
+def get_uuid(str):
+	return(str.split(" ",1)[0])
+
+def get_title(str):
+	return(str.split(" ",1)[1])
+
+def get_content(str):
+	return(str.split(" ",1)[1])
+
+def remove_newline(str):
+	return(str.replace("\n",""))
+
+def get_content_by_uuid(content_lines, uuid):
+		
+	for line in content_lines:
+		u = get_uuid(line)	
+		u = u.split(":")[1]
+		if u == uuid:
+			c = get_content(line)
+			c = c.split(":")[1]
+			return(c)
+	return(0)	
 
 def edit_file(content):
 	"""open a file and return result"""
@@ -185,6 +208,65 @@ def cm_list(verbose):
 		print("Total notes: ",end="")
 		print(len(os.listdir(vardata.base_catagory_path+"/"+"meta")))
 
+def cm_display(note, short):
+	"""display a note"""
+
+	#Notes empty object
+	class Notes:
+		pass
+
+	#note list
+	notes = []
+	index = 0 
+
+	#paths
+	meta_path = vardata.base_catagory_path+"/"+"meta"+"/"+note
+	content_path = vardata.base_catagory_path+"/"+"content"+"/"+note
+
+	#check if the  note is present
+	if not os.path.exists(meta_path):
+		print("The note "+note+" does not exist -- bye") 
+		return
+
+	#open meta and content files
+	fp_meta = open(meta_path, "r")
+	fp_content = open(content_path, "r")
+
+	#read files
+	meta_lines = fp_meta.readlines()
+	content_lines = fp_content.readlines()
+
+	#loop over list and print 
+	for line in meta_lines:
+		uuid = get_uuid(line)
+		uuid = uuid.split(":")[1]
+		title  = get_title(line)
+		title  = remove_newline(title)
+		title  = title.split(":")[1]
+		content = get_content_by_uuid(content_lines, uuid)
+		notes.append(Notes())
+		notes[index].uuid = uuid
+		notes[index].title = title
+		notes[index].content = content
+		#print(notes[index].uuid)
+		if (short == True):
+			print(index+1,end="")
+			print("->", end="")
+			print(title,end="")
+		else:
+			#print("----------")
+			print(str(index+1)+") ", end="")
+			print("title-> "+notes[index].title)
+			print("content-> "+notes[index].content, end="")
+			print("\t  testing something")
+			print("-------------------------")
+		index = index+1
+		print()
+		
+	#close files
+	fp_meta.close()
+	fp_content.close()
+	
 def cm_showconfig():
 	
 	showconfig()
