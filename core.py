@@ -165,40 +165,34 @@ def cm_insert(name, title):
 	fp_meta.close()
 	fp_content.close()
 
-def cm_delete(name, scope, verbose):
-	
-	#delete  a note or catagory
+def cm_delete(name):
+	"""delete a note""" 	
 
-	path = vardata.base_catagory_path+"/"+name
+	#paths
+	meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+name
+	content_path=vardata.base_catagory_path+"/"+"content"+"/"+name
 
-	if not os.path.exists(path):
-		print(name+" does not exist")
+	#if meta_path does not exist
+	if not os.path.exists(meta_path):
+		print(name+" Note does not exist")
+		if os.path.exists(content_path):
+			os.remove(content_path)
 		return False
-		
-	elif os.path.exists(path) == True:
-		if scope == "note":
-			if not os.path.isfile(path):
-				print(name+" "+"does not seem to be a note")
-				return False
-				
-			prompt = raw_input("Are you sure you want to delete "+name+" (yes/no) ")	
-			if prompt == "yes":
-				os.remove(path)
-				return True
-			else:
-				return False 
-		if scope == "catagory":
-			if not os.path.isdir(path):
-				print(name+" "+"does not seem to be a catagory")
-				return False
-			if not directoryempty(path):
-				prompt = raw_input("Are you sure you want to delete "+name+" catagory and any notes and directories (yes/no) ")
-				if prompt == 'yes':
-					shutil.rmtree(path)
-			else:
-				prompt = raw_input("Are you sure you want to delete "+name+" (yes/no) ")
-				os.rmdir(path)
-				
+
+	#if meta_path exists
+	else:
+		prompt = raw_input("Are you sure you want to delete "+name+" (yes/no) ")	#prompt
+		prompt = prompt.lower()
+		if prompt == "yes":
+			os.remove(meta_path) #remove meta_path
+			if os.path.exists(content_path): #remove if there is a content_path
+				os.remove(content_path)
+			print("Deleted the "+name+" note")
+			return True
+		else:
+			print("Did not delete "+name+ " note")
+			return False	
+	
 def cm_list(verbose):
 	""" print nameo of the notes"""
 	

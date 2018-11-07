@@ -34,9 +34,7 @@ if __name__ == "__main__":
 
 		#delete
 		delete_parser = subparser.add_parser('delete')
-		delete_parser.add_argument('scope', action='store', choices=['catagory', 'note'])
 		delete_parser.add_argument('name', action='store')
-		delete_parser.add_argument('--verbose', '-v', action='store_true')
 
 		#list
 		list_parser = subparser.add_parser('list')
@@ -77,7 +75,7 @@ if __name__ == "__main__":
 		elif argument['cmd'] == 'insert':
 			cm_insert(argument['name'], argument['title'])
 		elif argument['cmd'] == 'delete':
-			cm_delete(argument['name'],argument['scope'],argument['verbose'])
+			cm_delete(argument['name'])
 		elif argument['cmd'] == 'display':
 			cm_display(argument['note'],argument['short'])
 		elif argument['cmd'] == 'showconfig':
