@@ -310,6 +310,7 @@ def cm_display(note, short):
 		title  = remove_newline(title)
 		title  = title.split(":")[1]
 		content = get_content_by_uuid(content_lines, uuid)
+                #print(content)
 		notes.append(Notes())
 		notes[index].uuid = uuid
 		notes[index].title = title
@@ -321,13 +322,11 @@ def cm_display(note, short):
 			print(title,end="")
 		else:
 			#print("----------")
-			print(str(index+1)+") ", end="")
+			print(str(index+1)+")") 
 			print("title-> "+notes[index].title)
 			print("content-> "+notes[index].content, end="")
-			print("\t  testing something")
 			print("-------------------------")
 		index = index+1
-		print()
 		
 	#close files
 	fp_meta.close()
