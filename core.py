@@ -52,6 +52,47 @@ def edit_file(content):
 
 	return(output)
 
+def validate_content_index(index, name):
+
+	meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+name
+
+	meta_fp = open(meta_path)
+	lines = meta_fp.readlines()
+
+	i = 0
+	for line in lines:
+		i = i+1 
+
+	meta_fp.close()
+
+	if index >= 1 and index <= i: 
+		return True	
+	else:
+		return False
+
+def getuuidbyindex(lines, index):
+	"""get uuid for a index into list"""
+	
+	ctr=1
+	for line in lines:
+		if ctr == index: 
+                    line = get_uuid(line)
+                    line = line.split(":")[1]
+                    return line
+                ctr = ctr+1
+
+def removeuuidfromlist(lines, uuid):
+    """remove uuid line from list"""
+
+    for i, line in enumerate(lines): 
+        line = get_uuid(line)    
+        line = line.split(":")[1]
+        if line == uuid:
+            lines.pop(i)
+            break;
+
+    return(False)	
+
 def getcatagoriespath():
 	"""return a list of note catagroies as directory paths"""
 	dirlist=[];
@@ -192,7 +233,38 @@ def cm_delete(name):
 		else:
 			print("Did not delete "+name+ " note")
 			return False	
-	
+
+def cm_remove(entry, name):
+	"""remove entry function"""
+
+	meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+name
+	content_path=vardata.base_catagory_path+"/"+"content"+"/"+name
+
+	if validate_content_index(entry, name) == False:
+            print("entry number is incorrect")	
+            return False
+        else:
+            #open files(content and meta) for reading 
+            fp_meta = open(meta_path,"r")
+            fp_content = open(content_path, "r")
+            meta_lines = fp_meta.readlines()
+            content_lines = fp_content.readlines()
+            uuid_meta = getuuidbyindex(meta_lines, entry)
+            uuid_content = getuuidbyindex(content_lines, entry)
+            removeuuidfromlist(meta_lines, uuid_meta)
+            removeuuidfromlist(content_lines, uuid_content)
+            string_meta = ''.join(meta_lines)
+            string_content = ''.join(content_lines)
+            fp_meta.close() 
+            fp_content.close()
+           
+            #open files(content and meta) for writting
+            fp_meta = open(meta_path,"w")   
+            fp_content= open(content_path,"w")
+            fp_meta.write(string_meta) 
+            fp_content.write(string_content)
+            fp_meta.close()
+
 def cm_list(verbose):
 	""" print nameo of the notes"""
 	
