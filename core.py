@@ -318,8 +318,9 @@ def cm_display(note, short):
 		#print(notes[index].uuid)
 		if (short == True):
 			print(index+1,end="")
-			print("->", end="")
-			print(title,end="")
+                        print(" ", end="")
+			print("-> ", end="")
+			print(title)
 		else:
 			#print("----------")
 			print(str(index+1)+")") 
