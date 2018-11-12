@@ -93,6 +93,13 @@ def removeuuidfromlist(lines, uuid):
 
     return(False)	
 
+def print_content(content_line):
+
+    #print("Content-> ",end="")
+    l = content_line.split("\\n") 
+    for i in l: 
+        print(i)
+
 def getcatagoriespath():
 	"""return a list of note catagroies as directory paths"""
 	dirlist=[];
@@ -310,12 +317,10 @@ def cm_display(note, short):
 		title  = remove_newline(title)
 		title  = title.split(":")[1]
 		content = get_content_by_uuid(content_lines, uuid)
-                #print(content)
 		notes.append(Notes())
 		notes[index].uuid = uuid
 		notes[index].title = title
 		notes[index].content = content
-		#print(notes[index].uuid)
 		if (short == True):
 			print(index+1,end="")
                         print(" ", end="")
@@ -323,10 +328,10 @@ def cm_display(note, short):
 			print(title)
 		else:
 			#print("----------")
-			print(str(index+1)+")") 
-			print("title-> "+notes[index].title)
-			print("content-> "+notes[index].content, end="")
-			print("-------------------------")
+			print(str(index+1)+") ", end="") 
+                        print(">>> "+notes[index].title)
+			#print("content-> "+notes[index].content,end="")
+                        print_content(notes[index].content)
 		index = index+1
 		
 	#close files
