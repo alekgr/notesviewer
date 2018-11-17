@@ -343,13 +343,9 @@ def cm_move(entry, fromnote, tonote):
 	fp_content = open(to_content_path, "a")
 
 	#write to meta
-	#meta_buffer_string = "uuid:"+str(note_uuid)+" "+"title:"+title
-	#fp_meta.write(meta_buffer_string+"\n")
         fp_meta.write(remove_note_meta)
 
 	#write to content
-	#content_buffer_string = "uuid:"+str(note_uuid)+" "+"content:"+str_content
-	#fp_content.write(content_buffer_string+"\n")
         fp_content.write(remove_note_content)
 
 	#close files
