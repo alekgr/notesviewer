@@ -88,8 +88,8 @@ def removeuuidfromlist(lines, uuid):
         line = get_uuid(line)    
         line = line.split(":")[1]
         if line == uuid:
-            lines.pop(i)
-            break;
+            note = lines.pop(i)
+            return(note)
 
     return(False)	
 
@@ -157,6 +157,7 @@ def getnotecatagory(note):
 def print_list_per_line(mylist):
 	for f in mylist:
 		print(f)
+
 
 def cm_version():
 
@@ -271,6 +272,90 @@ def cm_remove(entry, name):
             fp_meta.write(string_meta) 
             fp_content.write(string_content)
             fp_meta.close()
+
+            return string_content
+
+def cm_move(entry, fromnote, tonote):
+        """move an  entry from fromnote to tonote"""
+
+        #from note path
+        from_meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+fromnote
+	from_content_path=vardata.base_catagory_path+"/"+"content"+"/"+fromnote
+
+        #to note path
+        to_meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+tonote
+	to_content_path=vardata.base_catagory_path+"/"+"content"+"/"+tonote
+        
+        #check if from path exists
+        if not os.path.exists(from_meta_path):
+		print(from_note_path+" from Note does not exist")
+		return False
+
+        #check if to  path exists
+        if not os.path.exists(to_meta_path):
+		print(to_note_path+" To Note does not exist bye .. ")
+		return False
+
+        #check if from content exists
+        if not os.path.exists(from_content_path):
+                print(from_content_path+" From Note content does not exist")
+                return False
+
+        #check if to content exists
+        if not os.path.exists(to_content_path):
+                print(to_content_path+" To Note content does not exist")
+                return False
+
+        
+        #validate note entry from fromnote
+	if validate_content_index(entry, fromnote) == False:
+            print("entry number is incorrect")	
+            return False
+                
+        
+        #open files(content and meta) for reading 
+        fp_meta_from = open(from_meta_path,"r")
+        fp_content_from = open(from_content_path, "r")
+        meta_lines = fp_meta_from.readlines()
+        content_lines = fp_content_from.readlines()
+        uuid_meta = getuuidbyindex(meta_lines, entry)
+        uuid_content = getuuidbyindex(content_lines, entry)
+        remove_note_meta = removeuuidfromlist(meta_lines, uuid_meta)
+        remove_note_content = removeuuidfromlist(content_lines, uuid_content)
+        string_meta = ''.join(meta_lines)
+        string_content = ''.join(content_lines)
+        fp_meta_from.close() 
+        fp_content_from.close()
+           
+        #open files(content and meta) for writting
+        fp_meta_from = open(from_meta_path,"w")   
+        fp_content_from= open(from_content_path,"w")
+        fp_meta_from.write(string_meta) 
+        fp_content_from.write(string_content)
+        fp_meta_from.close()
+        fp_content_from.close() 
+
+
+        #Insert a note with a title for the move"""
+
+	#open meta and content files
+	fp_meta = open(to_meta_path, "a")
+	fp_content = open(to_content_path, "a")
+
+	#write to meta
+	#meta_buffer_string = "uuid:"+str(note_uuid)+" "+"title:"+title
+	#fp_meta.write(meta_buffer_string+"\n")
+        fp_meta.write(remove_note_meta)
+
+	#write to content
+	#content_buffer_string = "uuid:"+str(note_uuid)+" "+"content:"+str_content
+	#fp_content.write(content_buffer_string+"\n")
+        fp_content.write(remove_note_content)
+
+	#close files
+	fp_meta.close()
+	fp_content.close() 
+
 
 def cm_list(verbose):
 	""" print nameo of the notes"""

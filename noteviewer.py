@@ -40,6 +40,12 @@ if __name__ == "__main__":
 		remove_parser = subparser.add_parser('remove')
 		remove_parser.add_argument('entry', action='store', type=int)
 		remove_parser.add_argument('name', action='store')
+
+                #move
+                move_parser = subparser.add_parser('move')
+                move_parser.add_argument('entry', action='store', type=int)
+                move_parser.add_argument('fromnote', action='store')
+                move_parser.add_argument('tonote', action='store')
 		
 		#list
 		list_parser = subparser.add_parser('list')
@@ -83,6 +89,8 @@ if __name__ == "__main__":
 			cm_delete(argument['name'])
 		elif argument['cmd'] =='remove':
 			cm_remove(argument['entry'],argument['name'])
+                elif argument['cmd'] == 'move':
+                        cm_move(argument['entry'],argument['fromnote'],argument['tonote'])
 		elif argument['cmd'] == 'display':
 			cm_display(argument['note'],argument['short'])
 		elif argument['cmd'] == 'showconfig':
