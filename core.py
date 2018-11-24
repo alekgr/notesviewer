@@ -108,60 +108,6 @@ def print_content(content_line):
     for i in l: 
         print(i)
 
-def getcatagoriespath():
-	"""return a list of note catagroies as directory paths"""
-	dirlist=[];
-
-	for files in os.walk(vardata.base_catagory_path):
-		if not re.search(".git", files[0]):
-			dirlist.append(files[0])
-
-	return(dirlist)
-
-def getcatagories():
-
-	"""return a list of catagories from directory path"""
-
-	stripedlist=[]
-	
-	print(vardata.base_catagory_path)	
-	dirpathstr = getcatagoriespath()
-	length=len(vardata.base_catagory_path)
-
-	for strindex in dirpathstr:
-			stripforwardslash = strindex[length:]		
-   		 	stripedpath = stripcatagorypath(stripforwardslash)
-			if(strindex != vardata.base_catagory_path):
-				stripedlist.append(stripedpath)
-
-	return stripedlist
-
-def stripcatagorypath(catagorystring):
-	""" return the last base of catagorysstr"""	
-	
-	catagorylist = catagorystring.split('/')	
-	catagorylistlength=len(catagorylist)	
-	return(catagorylist[catagorylistlength-1])
-
-
-def getnotes(catagory):
-	filelist=[]
-
-	for dirname,subdir, files in os.walk(vardata.base_catagory_path):
-			filelist.append(files)
-
-	return filelist
-
-def getnotecatagory(note):
-
-	catagory_list=[]
-
-	for root,directories,files in os.walk(vardata.base_catagory_path):
-		if note in files:
-			catagory_list.append(root) 
-		
-	return(catagory_list)
-
 def print_list_per_line(mylist):
 	for f in mylist:
 		print(f)
