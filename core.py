@@ -34,7 +34,8 @@ def remove_first_and_last_chars(s):
     return(s)
 
 def get_content_by_uuid(content_lines, uuid):
-		
+    """return a uuid from content_lines"""		
+
 	for line in content_lines:
 		u = get_uuid(line)	
 		u = u.split(":")[1]
@@ -60,6 +61,7 @@ def edit_file(content):
 	return(output)
 
 def validate_content_index(index, name):
+        """validate an index for a note"""
 
 	meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+name
 
@@ -102,20 +104,22 @@ def removeuuidfromlist(lines, uuid):
     return(False)	
 
 def print_content(content_line):
+    """print content of a note"""
 
-    #print("Content-> ",end="")
     l = content_line.split("\\n") 
     for i in l: 
         print(i)
 
 def print_list_per_line(mylist):
+    """print a list"""
+
 	for f in mylist:
 		print(f)
 
 
 def cm_version():
-
-	""" print version """
+    """ print version """
+    
 	print("Version is "+str(vardata.VERSION))
 
 def cm_add(name, verbose):
@@ -422,7 +426,8 @@ def cm_display(note, short):
 	fp_content.close()
 	
 def cm_showconfig():
-	
+    """show config"""	
+
 	showconfig()
 
 def cm_setdefaultconfig():
