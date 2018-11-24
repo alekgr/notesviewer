@@ -12,6 +12,7 @@ import uuid
 import tempfile
 import subprocess
 import codecs
+from termcolor import colored
 from config import *
 
 def get_uuid(str):
@@ -34,16 +35,16 @@ def remove_first_and_last_chars(s):
     return(s)
 
 def get_content_by_uuid(content_lines, uuid):
-    """return a uuid from content_lines"""		
+    """return a uuid from content_lines"""
 
-	for line in content_lines:
+    for line in content_lines:
 		u = get_uuid(line)	
 		u = u.split(":")[1]
 		if u == uuid:
 			c = get_content(line)
 			c = c.split(":")[1]
 			return(c)
-	return(0)	
+    return(0)	
 
 def edit_file(content):
 	"""open a file and return result"""
@@ -108,19 +109,19 @@ def print_content(content_line):
 
     l = content_line.split("\\n") 
     for i in l: 
-        print(i)
+        print(colored(i,vardata.OPTIONS['color_content']))
 
 def print_list_per_line(mylist):
     """print a list"""
 
-	for f in mylist:
-		print(f)
+    for f in mylist:
+	print(colored(f,vardata.OPTIONS['color_note']))
 
 
 def cm_version():
     """ print version """
     
-	print("Version is "+str(vardata.VERSION))
+    print(colored("Version is "+str(vardata.VERSION),vardata.OPTIONS['color_msg']))
 
 def cm_add(name, verbose):
 	"""add a note"""
@@ -140,7 +141,7 @@ def cm_insert(name, title):
 
 	#check if the  note is present
 	if not os.path.exists(meta_path):
-		print("The note "+name+" does not exist -- bye") 
+		print(colored("The note "+name+" does not exist -- bye", vardata.OPTIONS['color_err'])) 
 		return
 
 	#create uuid for the note
@@ -179,15 +180,15 @@ def cm_edit(entry, note):
 	content_path=vardata.base_catagory_path+"/"+"content"+"/"+note
 
         if not os.path.exists(meta_path):
-            print("TRhe note "+note+" does not exist -- bye")
+            print(colored("The note "+note+" does not exist -- bye",vardata.OPTIONS['color_err']))
             return(False)
 
         if not os.path.exists(content_path):
-            print("The note  "+note+" content does not exist -- bye")
+            print(colored("The note  "+note+" content does not exist -- bye", vardata.OPTIONS['color_err']))
             return(False)
 
 	if validate_content_index(entry, note) == False:
-            print("entry number is incorrect")	
+            print(colored("entry number is incorrect -- bye",vardata.OPTIONS['color_err']))	
             return(False)
         else:
             fp_content = open(content_path)
@@ -229,7 +230,7 @@ def cm_delete(name):
 
 	#if meta_path does not exist
 	if not os.path.exists(meta_path):
-		print(name+" Note does not exist")
+		print(colored(name+" Note does not exist",vardata.OPTIONS['color_err']))
 		if os.path.exists(content_path):
 			os.remove(content_path)
 		return False
@@ -242,10 +243,10 @@ def cm_delete(name):
 			os.remove(meta_path) #remove meta_path
 			if os.path.exists(content_path): #remove if there is a content_path
 				os.remove(content_path)
-			print("Deleted the "+name+" note")
+			print(colored("Deleted the "+name+" note",vardata.OPTIONS['color_msg']))
 			return True
 		else:
-			print("Did not delete "+name+ " note")
+			print(colored("Did not delete "+name+ " note", vardata.OPTIONS['color_err']))
 			return False	
 
 def cm_remove(entry, name):
@@ -255,7 +256,7 @@ def cm_remove(entry, name):
 	content_path=vardata.base_catagory_path+"/"+"content"+"/"+name
 
 	if validate_content_index(entry, name) == False:
-            print("entry number is incorrect")	
+            print(colored("entry number is incorrect", vardata.OPTIONS['color_err']))	
             return False
         else:
             #open files(content and meta) for reading 
@@ -294,28 +295,28 @@ def cm_move(entry, fromnote, tonote):
         
         #check if from path exists
         if not os.path.exists(from_meta_path):
-		print(from_note_path+" from Note does not exist")
+		print(colored(from_note_path+" from Note does not exist", vardata.OPTIONS['color_err']))
 		return False
 
         #check if to  path exists
         if not os.path.exists(to_meta_path):
-		print(to_note_path+" To Note does not exist bye .. ")
+		print(colored(to_note_path+" To Note does not exist -- bye  ",vardata.OPTIONS['color_err']))
 		return False
 
         #check if from content exists
         if not os.path.exists(from_content_path):
-                print(from_content_path+" From Note content does not exist")
+                print(colored(from_content_path+" From Note content does not exist -- bye",vardata.OPTIONS['color_err']))
                 return False
 
         #check if to content exists
         if not os.path.exists(to_content_path):
-                print(to_content_path+" To Note content does not exist")
+                print(colored(to_content_path+" To Note content does not exist",vardata.OPTIONS['color_err']))
                 return False
 
         
         #validate note entry from fromnote
 	if validate_content_index(entry, fromnote) == False:
-            print("entry number is incorrect")	
+            print(colored("entry number is incorrect -- bye",vardata.OPTIONS['color_err']))	
             return False
                 
         
@@ -385,7 +386,7 @@ def cm_display(note, short):
 
 	#check if the  note is present
 	if not os.path.exists(meta_path):
-		print("The note "+note+" does not exist -- bye") 
+		print(colored("The note "+note+" does not exist -- bye", vardata.OPTIONS['color_err'])) 
 		return
 
 	#open meta and content files
@@ -412,11 +413,11 @@ def cm_display(note, short):
 			print(index+1,end="")
                         print(" ", end="")
 			print("-> ", end="")
-			print(title)
+			print(colored(title,vardata.OPTIONS['color_title']))
 		else:
 			#print("----------")
 			print(str(index+1)+") ", end="") 
-                        print(">>> "+notes[index].title)
+                        print(">>> "+colored(notes[index].title,vardata.OPTIONS['color_title']))
 			#print("content-> "+notes[index].content,end="")
                         print_content(notes[index].content)
 		index = index+1
@@ -428,7 +429,7 @@ def cm_display(note, short):
 def cm_showconfig():
     """show config"""	
 
-	showconfig()
+    showconfig()
 
 def cm_setdefaultconfig():
 

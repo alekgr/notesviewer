@@ -30,8 +30,10 @@ GRAPHICAL_DEFAULT = False
 VERBOSE_DEFAULT = False
 EDITOR_DEFAULT = "vim"
 COLOR_ERR_DEFAULT = "red"
-COLOR_CATA_DEFAULT = "blue"
+COLOR_MSG_DEFAULT = "grey"
 COLOR_NOTE_DEFAULT  = "yellow"
+COLOR_NOTE_TITLE_DEFAULT    = "blue"
+COLOR_NOTE_CONTENT_DEFAULT  = "green"
 DATA_DEFAULT = "file:/opt"
 
 EDITORS = ['vim','emacs']
@@ -45,8 +47,10 @@ OPTIONS  = {
 	"verbose":			VERBOSE_DEFAULT,
 	"editor":			EDITOR_DEFAULT,
 	"color_err":		COLOR_ERR_DEFAULT,
-	"color_cata":		COLOR_CATA_DEFAULT,
+        "color_msg":            COLOR_MSG_DEFAULT,
 	"color_note":		COLOR_NOTE_DEFAULT,
+        "color_title":          COLOR_NOTE_TITLE_DEFAULT,
+        "color_content":        COLOR_NOTE_CONTENT_DEFAULT,
 	"data_location":	DATA_DEFAULT
 	}
 

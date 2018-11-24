@@ -29,15 +29,19 @@ def loadconfig():
 			if config.has_option('settings', 'verbose'):
 				vardata.OPTIONS['verbose']   	=	config.get('settings','verbose')
 			if config.has_option('settings', 'editor'):
-				vardata.OPTIONS['editor']		=	config.get('settings','editor')
+				vardata.OPTIONS['editor']	=	config.get('settings','editor')
 			if config.has_option('settings', 'color_err'):
 				vardata.OPTIONS['color_err'] 	=	config.get('settings','color_err')
-			if config.has_option('settings', 'color_cata'):
-				vardata.OPTIONS['color_cata']	=	config.get('settings','color_cata')
+                        if config.has_option('settings', 'color_msg'):
+                                vardata.OPTIONS['color_msg']    =       config.get('settings','color_msg')
 			if config.has_option('settings', 'color_note'):
 				vardata.OPTIONS['color_note']	=	config.get('settings','color_note')
+                        if config.has_option('settings', 'color_title'):
+                                vardata.OPTIONS['color_title']  =       config.get('settings','color_title')
+                        if config.has_option('settings', 'color_content'):
+                                vardata.OPTIONS['color_content']=      config.get('settings','color_content')
 			if config.has_option('settings', 'data_location'):
-				vardata.OPTIONS['data_location'] =  config.get('settings','data_location')
+				vardata.OPTIONS['data_location']=  config.get('settings','data_location')
 
 	#return as True
 	return  True
@@ -54,8 +58,10 @@ def setdefaultconfig():
 	config.set("settings", "verbose", vardata.VERBOSE_DEFAULT)
 	config.set("settings", "editor", vardata.EDITOR_DEFAULT)
 	config.set("settings", "color_err", vardata.COLOR_ERR_DEFAULT)
-	config.set("settings", "color_cata", vardata.COLOR_CATA_DEFAULT)
+        config.set("settings", "color_msg", vardata.COLOR_MSG_DEFAULT)
 	config.set("settings", "color_note", vardata.COLOR_NOTE_DEFAULT) 
+        config.set("settings", "color_title", vardata.COLOR_TITLE_DEFAULT)
+        config.set("settings", "color_content", vardata.COLOR_CONTENt_DEFAULT)
 	config.set("settings", "data_location", vardata.DATA_DEFAULT)
 
 	#write to config_file
