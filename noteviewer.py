@@ -31,6 +31,10 @@ if __name__ == "__main__":
 		add_parser.add_argument('name', action='store')
 		add_parser.add_argument('title', action='store')
 
+                #edit 
+                edit_parser = subparser.add_parser('edit')
+                edit_parser.add_argument('entry', action='store', type=int)
+                edit_parser.add_argument('note', action='store')
 
 		#delete
 		delete_parser = subparser.add_parser('delete')
@@ -85,6 +89,8 @@ if __name__ == "__main__":
 			cm_add(argument['name'], argument['verbose'])
 		elif argument['cmd'] == 'insert':
 			cm_insert(argument['name'], argument['title'])
+                elif argument['cmd'] == 'edit':
+                        cm_edit(argument['entry'], argument['note'])
 		elif argument['cmd'] == 'delete':
 			cm_delete(argument['name'])
 		elif argument['cmd'] =='remove':

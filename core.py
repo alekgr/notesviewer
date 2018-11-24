@@ -26,6 +26,13 @@ def get_content(str):
 def remove_newline(str):
 	return(str.replace("\n",""))
 
+def remove_first_and_last_chars(s):
+    """remove first and last chars"""
+
+    s = s[1:]
+    s = s[:-1]
+    return(s)
+
 def get_content_by_uuid(content_lines, uuid):
 		
 	for line in content_lines:
@@ -48,8 +55,8 @@ def edit_file(content):
 		tmpfile.write(content)
 		tmpfile.flush()
 		subprocess.check_call([editor, tmpfile.name])
+                tmpfile.seek(0)
 		output = tmpfile.read()
-
 	return(output)
 
 def validate_content_index(index, name):
@@ -80,6 +87,7 @@ def getuuidbyindex(lines, index):
                     line = line.split(":")[1]
                     return line
                 ctr = ctr+1
+
 
 def removeuuidfromlist(lines, uuid):
     """remove uuid line from list"""
@@ -213,6 +221,54 @@ def cm_insert(name, title):
 	#close files
 	fp_meta.close()
 	fp_content.close()
+
+def cm_edit(entry, note):
+        """edit  a note entry"""
+        
+        meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+note
+	content_path=vardata.base_catagory_path+"/"+"content"+"/"+note
+
+        if not os.path.exists(meta_path):
+            print("TRhe note "+note+" does not exist -- bye")
+            return(False)
+
+        if not os.path.exists(content_path):
+            print("The note  "+note+" content does not exist -- bye")
+            return(False)
+
+	if validate_content_index(entry, note) == False:
+            print("entry number is incorrect")	
+            return(False)
+        else:
+            fp_content = open(content_path)
+            content_lines = fp_content.readlines()
+            
+            content_uuid = getuuidbyindex(content_lines, entry)
+            content_string = get_content_by_uuid(content_lines, content_uuid)
+            content_string = content_string.replace("\\n","\n")
+            content_string = edit_file(content_string)
+           
+            #remove newline and apostrophe
+            c = content_string
+            c = content_string.strip()
+            c = repr(c)
+            c = remove_first_and_last_chars(c)
+           
+            #close fp
+            fp_content.close()
+           
+            #fill content_lines to one that we edited
+            content_lines [entry-1] = "uuid"+":"+content_uuid+" "+"content"+":"+c+"\n"
+            
+            #convert content_lines list to string
+            str_content_lines = ""
+            str_content_lines = str_content_lines.join(content_lines)
+
+            #write back to content file
+            fp_content = open(content_path, "w+")
+            fp_content.write(str_content_lines)
+            fp_content.close()
+
 
 def cm_delete(name):
 	"""delete a note""" 	
