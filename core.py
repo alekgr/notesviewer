@@ -365,9 +365,9 @@ def cm_list(verbose):
 	
 	print_list_per_line(os.listdir(vardata.base_catagory_path+"/"+"meta"))
 	if(verbose == True):
-		print("---------")
-		print("Total notes: ",end="")
-		print(len(os.listdir(vardata.base_catagory_path+"/"+"meta")))
+		print(colored("---------",vardata.OPTIONS['color_msg'])) 
+		print(colored("Total notes: ",vardata.OPTIONS['color_msg']),end="")
+		print(colored(len(os.listdir(vardata.base_catagory_path+"/"+"meta")),vardata.OPTIONS['color_msg']))
 
 def cm_display(note, short):
 	"""display a note"""
