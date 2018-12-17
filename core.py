@@ -15,6 +15,15 @@ import codecs
 from termcolor import colored
 from config import *
 
+def get_searches_per_line(line):
+        return(len(line)/3)
+
+def get_search_number_line(line, num):
+        size = get_searches_per_line(line)
+        search_index = size-1
+        search_index = search_index*3
+        return(line[search_index],line[search_index+1],line[search_index+2])
+
 def get_uuid(str):
 	return(str.split(" ",1)[0])
 
@@ -34,6 +43,39 @@ def remove_first_and_last_chars(s):
     s = s[:-1]
     return(s)
 
+def print_search_line(search_line):
+    """print search line"""
+
+    index=0
+    matches = get_searches_per_line(search_line)
+    content = search_line[2]
+
+    for c in content:
+        #print("index is "+str(index))
+        print_char(c, index, search_line)
+        index=index+1
+    print("\n")
+
+def print_char(char, index, search_line):
+    """print a char match"""
+
+    inside = False 
+    matches  = get_searches_per_line(search_line) 
+    
+    for i in range(matches):
+        begin = i*3
+        end   = (i*3)+1
+
+        if index >= search_line[begin]:
+            if index <= search_line[end]:
+                inside = True 
+                break;
+
+    if inside == True:
+        print(colored(char, "red"),end="")
+    if inside == False:
+        print(char,end="")
+     
 def get_content_by_uuid(content_lines, uuid):
     """return a uuid from content_lines"""
 
@@ -117,7 +159,76 @@ def print_list_per_line(mylist):
     for f in mylist:
 	print(colored(f,vardata.OPTIONS['color_note']))
 
+def get_all_notes(ignore_empty=False):
+    """return a list of all notes from meta"""
 
+    notes = os.listdir(vardata.base_catagory_path+"/"+"meta")
+
+    #remove the empty file from the notes list
+    if ignore_empty == True:
+        for n in notes: 
+            if os.stat(vardata.base_catagory_path+"/"+"meta"+"/"+n).st_size == 0:
+                notes.remove(n)
+        
+    return(notes)
+
+def load_notes_content(notes):
+    """load list of notes into memory"""
+
+    index = 0
+
+    class Notes:
+        pass
+    
+    all_notes = []
+
+    for n in notes: 
+        #get te the fp for each note
+        meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+n
+        content_path=vardata.base_catagory_path+"/"+"content"+"/"+n
+        if  os.path.getsize(meta_path) > 0:
+            fp_meta = open(meta_path)    
+            meta_lines = fp_meta.readlines() 
+        if os.path.getsize(content_path) > 0:
+            fp_content = open(content_path)
+            content_lines = fp_content.readlines() 
+ 
+            for meta_line in meta_lines:
+                uuid = get_uuid(meta_line) 
+                uuid = uuid.split(":")[1]
+                title = get_title(meta_line)
+                title = title.split(":")[1]
+                title = remove_newline(title)
+                content = get_content_by_uuid(content_lines, uuid)
+                content = remove_newline(content)
+                all_notes.append(Notes())
+                all_notes[index].uuid = uuid
+                all_notes[index].title = title
+                all_notes[index].note  = n
+                all_notes[index].content = content
+                index = index+1
+
+    return(all_notes)
+
+def regex_string(note_enteries,regex):
+    ###regex Notes object"""
+
+    search_list = [] 
+    search_lists = []
+
+    for note_entry in note_enteries:
+        del search_list[:]
+        for match in re.finditer(regex, note_entry.content):
+            start = match.start() 
+            end   = match.end()
+            search_list.append(start)
+            search_list.append(end)
+            search_list.append(note_entry.content)
+        if search_list:
+            search_lists.append(list(search_list))
+  
+    return(search_lists)
+    
 def cm_version():
     """ print version """
     
@@ -425,7 +536,38 @@ def cm_display(note, short):
 	#close files
 	fp_meta.close()
 	fp_content.close()
-	
+
+def cm_search(regex, note, verbose):
+    """main search function""" 
+
+    index = 1
+    search_all_notes=True
+
+    #all the notes
+    n = note[0]
+    notes = n.split(",")
+
+    if len(notes) > 1:
+        #check note option for mulitiple notes 
+        for i in notes:
+            if i=="all":
+                print("Ambiguity between all and notes")
+                return(False)
+    else:
+        if notes[0] == "all":
+            search_all_notes = True
+
+    #if we choose all notes 
+    if search_all_notes == True:
+        #load all the notes
+        n = get_all_notes(True) 
+        all_notes =  load_notes_content(n)
+        searches = regex_string(all_notes, regex)
+        for i in searches:
+            print(str(index)+ " )", end="")
+            print_search_line(i)
+            index = index+1
+
 def cm_showconfig():
     """show config"""	
 
