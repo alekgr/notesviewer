@@ -34,6 +34,8 @@ COLOR_MSG_DEFAULT = "grey"
 COLOR_NOTE_DEFAULT  = "yellow"
 COLOR_NOTE_TITLE_DEFAULT    = "blue"
 COLOR_NOTE_CONTENT_DEFAULT  = "green"
+COLOR_SEARCH_STRING_DEFAULT = "blue"
+COLOR_SEARCH_NOTE_DEFAULT   = "green"
 DATA_DEFAULT = "file:/opt"
 
 EDITORS = ['vim','emacs']
@@ -51,6 +53,8 @@ OPTIONS  = {
 	"color_note":		COLOR_NOTE_DEFAULT,
         "color_title":          COLOR_NOTE_TITLE_DEFAULT,
         "color_content":        COLOR_NOTE_CONTENT_DEFAULT,
+        "color_search_string":  COLOR_SEARCH_STRING_DEFAULT,
+        "color_search_notename":COLOR_SEARCH_NOTE_DEFAULT,
 	"data_location":	DATA_DEFAULT
 	}
 

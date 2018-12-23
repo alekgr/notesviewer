@@ -94,7 +94,7 @@ def print_char(char, index, search_line):
                 break;
 
     if inside == True:
-        print(colored(char, "red"),end="")
+        print(colored(char, vardata.OPTIONS['color_search_string']),end="")
     if inside == False:
         print(char,end="")
      
@@ -635,7 +635,7 @@ def cm_search(regex, note, verbose):
          print_search_line(i)
          print("\n",end="")
          note_name = get_note_name(i[3])
-         print("("+colored(note_name,"green")+")",end="")
+         print("("+colored(note_name,vardata.OPTIONS['color_search_notename'])+")",end="")
          index = index+1
     
 def cm_showconfig():

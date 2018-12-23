@@ -40,6 +40,10 @@ def loadconfig():
                                 vardata.OPTIONS['color_title']  =       config.get('settings','color_title')
                         if config.has_option('settings', 'color_content'):
                                 vardata.OPTIONS['color_content']=      config.get('settings','color_content')
+                        if config.has_option('settings', 'color_search_string'):
+                                vardata.OPTIONS['color_search_string']= config.get('settings','color_search_string')  
+                        if config.has_option('settings', 'color_search_notename'):
+                                vardata.OPTIONS['settins', 'color_search_notenmae']= config.get('settings','color_search_noname')
 			if config.has_option('settings', 'data_location'):
 				vardata.OPTIONS['data_location']=  config.get('settings','data_location')
 
