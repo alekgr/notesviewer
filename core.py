@@ -15,11 +15,31 @@ import codecs
 from termcolor import colored
 from config import *
 
+def get_note_name(uuid):
+
+    notes = get_all_notes(ignore_empty=False)
+
+    for n in notes: 
+        meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+n
+        meta_fp = open(meta_path)
+	meta_lines = meta_fp.readlines()
+
+        for line in meta_lines:
+		u = get_uuid(line)
+		u = u.split(":")[1]
+                if  u == uuid:
+                    meta_fp.close()
+                    return(n)
+
+	#close files
+	meta_fp.close()
+
+
 def get_note_uuid(note):
     return(note.uuid)
 
 def get_searches_per_line(line):
-        return(len(line)/3)
+        return(len(line)/4)
 
 def get_search_number_line(line, num):
         size = get_searches_per_line(line)
@@ -56,7 +76,7 @@ def print_search_line(search_line):
     for c in content:
         print_char(c, index, search_line)
         index=index+1
-    print("\n")
+    print("\n",end="")
 
 def print_char(char, index, search_line):
     """print a char match"""
@@ -65,8 +85,8 @@ def print_char(char, index, search_line):
     matches  = get_searches_per_line(search_line) 
     
     for i in range(matches):
-        begin = i*3
-        end   = (i*3)+1
+        begin = i*4
+        end   = (i*4)+1
 
         if index >= search_line[begin]:
             if index <= search_line[end]:
@@ -256,6 +276,7 @@ def regex_string(note_enteries,regex):
             search_list.append(start)
             search_list.append(end)
             search_list.append(note_entry.content)
+            search_list.append(note_entry.uuid)
         if search_list:
             search_lists.append(list(search_list))
   
@@ -608,11 +629,12 @@ def cm_search(regex, note, verbose):
     #regex the string
     searches = regex_string(notes_info, regex)
 
-
     #print output
     for i in searches:
-         print(str(index)+ " )", end="")
+         print(str(index)+ ")", end="")
          print_search_line(i)
+         note_name = get_note_name(i[3])
+         print("("+colored(note_name,"green")+")")
          index = index+1
     
 def cm_showconfig():
