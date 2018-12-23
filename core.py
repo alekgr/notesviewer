@@ -15,6 +15,9 @@ import codecs
 from termcolor import colored
 from config import *
 
+def get_note_uuid(note):
+    return(note.uuid)
+
 def get_searches_per_line(line):
         return(len(line)/3)
 
@@ -51,7 +54,6 @@ def print_search_line(search_line):
     content = search_line[2]
 
     for c in content:
-        #print("index is "+str(index))
         print_char(c, index, search_line)
         index=index+1
     print("\n")
@@ -164,7 +166,7 @@ def get_all_notes(ignore_empty=False):
 
     notes = os.listdir(vardata.base_catagory_path+"/"+"meta")
 
-    #remove the empty file from the notes list
+    #remove the empty file from the notes list if we choose igonore
     if ignore_empty == True:
         for n in notes: 
             if os.stat(vardata.base_catagory_path+"/"+"meta"+"/"+n).st_size == 0:
@@ -172,7 +174,7 @@ def get_all_notes(ignore_empty=False):
         
     return(notes)
 
-def load_notes_content(notes):
+def load_notes_enteries(notes):
     """load list of notes into memory"""
 
     index = 0
@@ -180,7 +182,7 @@ def load_notes_content(notes):
     class Notes:
         pass
     
-    all_notes = []
+    all_notes_enteries = []
 
     for n in notes: 
         #get te the fp for each note
@@ -201,21 +203,51 @@ def load_notes_content(notes):
                 title = remove_newline(title)
                 content = get_content_by_uuid(content_lines, uuid)
                 content = remove_newline(content)
-                all_notes.append(Notes())
-                all_notes[index].uuid = uuid
-                all_notes[index].title = title
-                all_notes[index].note  = n
-                all_notes[index].content = content
+                all_notes_enteries.append(Notes())
+                all_notes_enteries[index].uuid = uuid
+                all_notes_enteries[index].title = title
+                all_notes_enteries[index].note  = n
+                all_notes_enteries[index].content = content
                 index = index+1
 
-    return(all_notes)
+    return(all_notes_enteries)
 
+def split_multline_note_enteries(notes):
+    """ if notes have multiple line split them into seperate enteries"""
+
+    class Notes:
+        pass
+
+    splited_notes = []
+      
+    splited_index = 0
+    for note in notes:
+        content = note.content.split('\\n')
+        if len(content) > 1:
+               for c in content:
+                   splited_notes.append(Notes())
+                   splited_notes[splited_index].uuid = note.uuid
+                   splited_notes[splited_index].title = note.title
+                   splited_notes[splited_index].note   = note.note
+                   splited_notes[splited_index].content = c
+                   splited_index = splited_index+1 
+        else:
+                splited_notes.append(Notes())    
+                splited_notes[splited_index].uuid = note.uuid
+                splited_notes[splited_index].title = note.title
+                splited_notes[splited_index].note  = note.note
+                splited_notes[splited_index].content = note.content
+                splited_index = splited_index+1
+
+    return(splited_notes)
+    
 def regex_string(note_enteries,regex):
-    ###regex Notes object"""
+    """regex notes_eneries"""
 
     search_list = [] 
     search_lists = []
 
+    #loop over not enteries
     for note_entry in note_enteries:
         del search_list[:]
         for match in re.finditer(regex, note_entry.content):
@@ -540,34 +572,49 @@ def cm_display(note, short):
 def cm_search(regex, note, verbose):
     """main search function""" 
 
+    #index for search starts at 1
     index = 1
+
+    #by defatul set it true 
     search_all_notes=True
 
-    #all the notes
+    #split note argument by comma into notes
     n = note[0]
     notes = n.split(",")
 
+    #cheking for multiple argument with all
     if len(notes) > 1:
-        #check note option for mulitiple notes 
         for i in notes:
-            if i=="all":
+            if i == "all":
                 print("Ambiguity between all and notes")
                 return(False)
+
+    #check and set the search_all_notes
     else:
         if notes[0] == "all":
             search_all_notes = True
-
+            
+        else:
+            search_all_notes = False  
+     
     #if we choose all notes 
     if search_all_notes == True:
-        #load all the notes
-        n = get_all_notes(True) 
-        all_notes =  load_notes_content(n)
-        searches = regex_string(all_notes, regex)
-        for i in searches:
-            print(str(index)+ " )", end="")
-            print_search_line(i)
-            index = index+1
+        notes = get_all_notes(True) 
+    
+    #load notes info and split if multi line enteries 
+    notes_info = load_notes_enteries(notes)
+    notes_info = split_multline_note_enteries(notes_info)
+   
+    #regex the string
+    searches = regex_string(notes_info, regex)
 
+
+    #print output
+    for i in searches:
+         print(str(index)+ " )", end="")
+         print_search_line(i)
+         index = index+1
+    
 def cm_showconfig():
     """show config"""	
 
