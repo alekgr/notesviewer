@@ -76,7 +76,7 @@ def print_search_line(search_line):
     for c in content:
         print_char(c, index, search_line)
         index=index+1
-    print("\n",end="")
+    #print("\n",end="")
 
 def print_char(char, index, search_line):
     """print a char match"""
@@ -633,8 +633,9 @@ def cm_search(regex, note, verbose):
     for i in searches:
          print(str(index)+ ")", end="")
          print_search_line(i)
+         print("\n",end="")
          note_name = get_note_name(i[3])
-         print("("+colored(note_name,"green")+")")
+         print("("+colored(note_name,"green")+")",end="")
          index = index+1
     
 def cm_showconfig():
