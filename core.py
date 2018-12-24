@@ -629,13 +629,13 @@ def cm_search(regex, note, verbose):
     #regex the string
     searches = regex_string(notes_info, regex)
 
+
     #print output
     for i in searches:
          print(str(index)+ ")", end="")
          print_search_line(i)
-         print("\n",end="")
          note_name = get_note_name(i[3])
-         print("("+colored(note_name,vardata.OPTIONS['color_search_notename'])+")",end="")
+         print(" ("+colored(note_name,vardata.OPTIONS['color_search_notename'])+")")
          index = index+1
     
 def cm_showconfig():
