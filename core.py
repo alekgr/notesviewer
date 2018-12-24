@@ -590,7 +590,7 @@ def cm_display(note, short):
 	fp_meta.close()
 	fp_content.close()
 
-def cm_search(regex, note, verbose):
+def cm_search(regex, note):
     """main search function""" 
 
     #index for search starts at 1

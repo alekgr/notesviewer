@@ -70,8 +70,6 @@ if __name__ == "__main__":
 		search_parser = subparser.add_parser('search')
 		search_parser.add_argument('regex', action='store')
 		search_parser.add_argument(dest="note",nargs='*', default='all')
-                #search_parser.add_argument(dest="note",nargs='*', default='all')
-		search_parser.add_argument('--verbose', '-v', action='store_true')
 
 		#interactive
 		interactive_parser = subparser.add_parser('interactive')
@@ -105,7 +103,7 @@ if __name__ == "__main__":
 		elif argument['cmd'] == 'setdefaultconfig':
 			cm_setdefaultconfig()
 		elif argument['cmd'] == 'search':
-		        cm_search(argument['regex'],argument['note'],argument['verbose'])
+		        cm_search(argument['regex'],argument['note'])
 		elif argument['cmd'] == 'interactive':
 			interactive()
 			
