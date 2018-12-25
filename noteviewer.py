@@ -69,7 +69,7 @@ if __name__ == "__main__":
 		#search
 		search_parser = subparser.add_parser('search')
 		search_parser.add_argument('regex', action='store')
-		search_parser.add_argument(dest="note",nargs='*', default='all')
+		search_parser.add_argument(dest="note",action='store')
 
 		#interactive
 		interactive_parser = subparser.add_parser('interactive')

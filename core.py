@@ -600,8 +600,8 @@ def cm_search(regex, note):
     search_all_notes=True
 
     #split note argument by comma into notes
-    n = note[0]
-    notes = n.split(",")
+    #n = note[0]
+    notes = note.split(",")
 
     #cheking for multiple argument with all
     if len(notes) > 1:
