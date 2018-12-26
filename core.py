@@ -524,6 +524,35 @@ def cm_move(entry, fromnote, tonote):
 	fp_content.close() 
 
 
+
+def cm_addtags(note, tag):
+        """ adding tags to note file"""
+
+        #get all the tags
+        tags = tag.split(',')
+    
+        meta_path = vardata.base_catagory_path+"/"+"meta"+"/"+note
+        tag_path = vardata.base_catagory_path+"/"+"tags"+"/"+note
+
+        #check if meta path exists
+        if not os.path.exists(meta_path):
+		print(colored(note+"Note does not exist", vardata.OPTIONS['color_err']))
+		return False
+
+        if not os.path.exists(tag_path):
+		print(colored(note+"Tags note file does not exist", vardata.OPTIONS['color_err']))
+		return False
+
+        #open tag file 
+        fp_tags = open(tag_path, "a")
+       
+        #write tag(s) to tag file
+        for t in tags:
+            fp_tags.write(t+"\n") 
+
+        fp_tags.close() 
+ 
+
 def cm_list(verbose):
 	""" print nameo of the notes"""
 	
