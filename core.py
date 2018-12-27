@@ -585,6 +585,30 @@ def cm_addtags(note, tag):
        
         #close tag file  
         fp_tags.close() 
+
+def cm_tags(note):
+        """show tags for a note"""
+
+        meta_path = vardata.base_catagory_path+"/"+"meta"+"/"+note
+        tag_path = vardata.base_catagory_path+"/"+"tags"+"/"+note
+
+        #check if meta path exists
+        if not os.path.exists(meta_path):
+	    print(colored(note+"Note does not exist", vardata.OPTIONS['color_err']))
+       	    return False
+        
+        #check if tags file exists
+        if not os.path.exists(tag_path):
+		print(colored(note+"Tags note file does not exist", vardata.OPTIONS['color_err']))
+		return False
+
+        fp_tags = open(tag_path, "r")
+
+        lines = fp_tags.readlines()
+        for line in lines:
+            line = "#"+line
+            print(line,end="")
+
          
 def cm_list(verbose):
 	""" print nameo of the notes"""
