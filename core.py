@@ -15,6 +15,18 @@ import codecs
 from termcolor import colored
 from config import *
 
+def is_a_member_of_list(l,item):
+    """ utility function to see if item is member of a list"""
+  
+    is_a_member = False
+    
+    for i in l:
+        if i == item:
+            is_a_member = True
+            break
+
+    return(is_a_member)
+
 def get_note_name(uuid):
 
     notes = get_all_notes(ignore_empty=False)
@@ -528,9 +540,11 @@ def cm_move(entry, fromnote, tonote):
 def cm_addtags(note, tag):
         """ adding tags to note file"""
 
+        duplicate_tags = [] 
+
         #get all the tags
         tags = tag.split(',')
-    
+  
         meta_path = vardata.base_catagory_path+"/"+"meta"+"/"+note
         tag_path = vardata.base_catagory_path+"/"+"tags"+"/"+note
 
@@ -539,20 +553,39 @@ def cm_addtags(note, tag):
 		print(colored(note+"Note does not exist", vardata.OPTIONS['color_err']))
 		return False
 
+        #check if tags file exists
         if not os.path.exists(tag_path):
 		print(colored(note+"Tags note file does not exist", vardata.OPTIONS['color_err']))
 		return False
+        
+
+        #read tags for existing tag
+        fp_tags_read=open(tag_path,"r")
+        lines=fp_tags_read.readlines()
+        for line in lines:
+            line = remove_newline(line) 
+            for t in tags:
+                if t == line:
+                   duplicate_tags.append(t)
+                   break; 
+        #close tag file
+        fp_tags_read.close()
 
         #open tag file 
         fp_tags = open(tag_path, "a")
        
         #write tag(s) to tag file
         for t in tags:
-            fp_tags.write(t+"\n") 
-
+            if is_a_member_of_list(duplicate_tags,t) == True:
+                print(t+" is already a tag")
+            else:
+                fp_tags.write(t+"\n") 
+                print("Added "+t)
+        
+       
+        #close tag file  
         fp_tags.close() 
- 
-
+         
 def cm_list(verbose):
 	""" print nameo of the notes"""
 	
