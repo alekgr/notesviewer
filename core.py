@@ -577,12 +577,10 @@ def cm_addtags(note, tag):
         #write tag(s) to tag file
         for t in tags:
             if is_a_member_of_list(duplicate_tags,t) == True:
-                print(t+" is already a tag")
+                print(colored(t+" is already a tag",vardata.OPTIONS['color_msg']))
             else:
                 fp_tags.write(t+"\n") 
-                print("Added "+t)
-        
-       
+                print(colored("Added "+t, vardata.OPTIONS['color_msg']))
         #close tag file  
         fp_tags.close() 
 
@@ -607,7 +605,7 @@ def cm_tags(note):
         lines = fp_tags.readlines()
         for line in lines:
             line = "#"+line
-            print(line,end="")
+            print(colored(line,vardata.OPTIONS['color_msg']),end="")
 
          
 def cm_list(verbose):
