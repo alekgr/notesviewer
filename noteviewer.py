@@ -88,6 +88,9 @@ if __name__ == "__main__":
 		#interactive
 		interactive_parser = subparser.add_parser('interactive')
 
+                #info lists python version and modues vesion for debugging
+                info_parser = subparser.add_parser('info')
+
 		#parse user arguments
 		args = vars(parser.parse_args())
 		process_args(args)
@@ -126,6 +129,8 @@ if __name__ == "__main__":
 		        cm_search(argument['regex'],argument['note'])
 		elif argument['cmd'] == 'interactive':
 			interactive()
+                elif argument['cmd'] == 'info':
+                        cm_info()
 			
 	loadconfig() 
 	set_data_location()

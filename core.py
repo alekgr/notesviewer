@@ -767,6 +767,18 @@ def cm_showconfig():
 
     showconfig()
 
+def cm_info():
+    """info display pyton and modueles version"""
+    
+    print("Major Version:"+str(sys.version_info.major))
+    print("Minor Version:"+str(sys.version_info.minor))
+    print("Micro Version:"+str(sys.version_info.micro))
+    print("Release Version:"+str(sys.version_info.releaselevel))
+    print("Serial Release number:"+str(sys.version_info.serial))
+    print(sys.version)
+    print("Platform:"+sys.platform)
+    print("Os name:"+os.name)
+
 def cm_setdefaultconfig():
 
 	setdefaultconfig() 
