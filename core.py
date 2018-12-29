@@ -607,6 +607,46 @@ def cm_tags(note):
             line = "#"+line
             print(colored(line,vardata.OPTIONS['color_msg']),end="")
 
+
+def cm_removetags(note, tags):
+        """ remove tag(s) for a note """
+
+        removed_lines = []
+
+        tag_list = tags.split(',')
+
+        meta_path = vardata.base_catagory_path+"/"+"meta"+"/"+note
+        tag_path = vardata.base_catagory_path+"/"+"tags"+"/"+note
+
+        #check if meta path exists
+        if not os.path.exists(meta_path):
+	    print(colored(note+"Note does not exist", vardata.OPTIONS['color_err']))
+       	    return False
+        
+        #check if tags file exists
+        if not os.path.exists(tag_path):
+		print(colored(note+"Tags note file does not exist", vardata.OPTIONS['color_err']))
+		return False
+
+        #open file and readlines
+        fp_tags = open(tag_path, "r")
+        lines = fp_tags.readlines()
+
+        #move item's not to be removed
+        for line in lines:
+            line = remove_newline(line)
+            if is_a_member_of_list(tag_list,line) == False:
+                removed_lines.append(line)  
+
+        #write to tag file 
+        fp_tags_removed=open(tag_path, "w")         
+        removed_tag_strings = '\n'.join(removed_lines)
+        removed_tag_strings = removed_tag_strings+"\n"
+        fp_tags_removed.write(removed_tag_strings)
+
+        #close files 
+        fp_tags.close()
+        fp_tags_removed.close()
          
 def cm_list(verbose):
 	""" print nameo of the notes"""

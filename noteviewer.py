@@ -60,6 +60,10 @@ if __name__ == "__main__":
                 tags_parser = subparser.add_parser('tags')
                 tags_parser.add_argument('note', action='store')
             
+                #remove tags
+                remove_parser = subparser.add_parser('removetags')
+                remove_parser.add_argument('note', action='store') 
+                remove_parser.add_argument('tags', action='store')
                 
 		#list
 		list_parser = subparser.add_parser('list')
@@ -110,6 +114,8 @@ if __name__ == "__main__":
                         cm_addtags(argument['note'],argument['tag'])
                 elif argument['cmd'] == 'tags':
                         cm_tags(argument['note'])
+                elif argument['cmd'] == 'removetags':
+                        cm_removetags(argument['note'], argument['tags'])
 		elif argument['cmd'] == 'display':
 			cm_display(argument['note'],argument['short'])
 		elif argument['cmd'] == 'showconfig':
