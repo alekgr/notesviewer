@@ -51,7 +51,7 @@ def get_note_uuid(note):
     return(note.uuid)
 
 def get_searches_per_line(line):
-        return(len(line)/4)
+        return(len(line)//4)
 
 def get_search_number_line(line, num):
         size = get_searches_per_line(line)
@@ -92,7 +92,7 @@ def print_search_line(search_line):
 
 def print_char(char, index, search_line):
     """print a char match"""
-
+    
     inside = False 
     matches  = get_searches_per_line(search_line) 
     
