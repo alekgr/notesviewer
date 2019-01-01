@@ -22,15 +22,15 @@ def checkinput(text):
 def interactive():
         readline.set_completer(completer)
         readline.parse_and_bind("tab: complete")
-        input=""
+        prompt=""
         while input != 'quit':
                 readline.set_completer(completer)
                 readline.parse_and_bind("tab: complete")
-                input = raw_input(">>> ")       
-                if checkinput(input) == False:
+                prompt = input(">>> ")       
+                if checkinput(prompt) == False:
                         print("Unknown Command")
                 else:
-                        process_interactive_command(input)              
+                        process_interactive_command(prompt)              
 
 def process_interactive_command(input):
 
