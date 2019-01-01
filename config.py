@@ -56,7 +56,7 @@ def setdefaultconfig():
 
 
         #add setting and options
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.add_section("settings")
         config.set("settings", "graphical", vardata.GRAPHICAL_DEFAULT)
         config.set("settings", "verbose", vardata.VERBOSE_DEFAULT)
@@ -124,7 +124,7 @@ def showconfig():
                 print("There is no "+config_file_path)
                 return False
 
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.read(vardata.config_file_path)
 
         #get items from config
