@@ -34,17 +34,17 @@ def get_note_name(uuid):
     for n in notes: 
         meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+n
         meta_fp = open(meta_path)
-	meta_lines = meta_fp.readlines()
+        meta_lines = meta_fp.readlines()
 
         for line in meta_lines:
-		u = get_uuid(line)
-		u = u.split(":")[1]
+                u = get_uuid(line)
+                u = u.split(":")[1]
                 if  u == uuid:
                     meta_fp.close()
                     return(n)
 
-	#close files
-	meta_fp.close()
+        #close files
+        meta_fp.close()
 
 
 def get_note_uuid(note):
@@ -60,16 +60,16 @@ def get_search_number_line(line, num):
         return(line[search_index],line[search_index+1],line[search_index+2])
 
 def get_uuid(str):
-	return(str.split(" ",1)[0])
+        return(str.split(" ",1)[0])
 
 def get_title(str):
-	return(str.split(" ",1)[1])
+        return(str.split(" ",1)[1])
 
 def get_content(str):
-	return(str.split(" ",1)[1])
+        return(str.split(" ",1)[1])
 
 def remove_newline(str):
-	return(str.replace("\n",""))
+        return(str.replace("\n",""))
 
 def remove_first_and_last_chars(s):
     """remove first and last chars"""
@@ -114,54 +114,54 @@ def get_content_by_uuid(content_lines, uuid):
     """return a uuid from content_lines"""
 
     for line in content_lines:
-		u = get_uuid(line)	
-		u = u.split(":")[1]
-		if u == uuid:
-			c = get_content(line)
-			c = c.split(":")[1]
-			return(c)
-    return(0)	
+                u = get_uuid(line)      
+                u = u.split(":")[1]
+                if u == uuid:
+                        c = get_content(line)
+                        c = c.split(":")[1]
+                        return(c)
+    return(0)   
 
 def edit_file(content):
-	"""open a file and return result"""
+        """open a file and return result"""
 
-	#Get the user's editor
-	editor = vardata.OPTIONS['editor']
-	
-	#Open the content with a temp file and send the reult back
-	with tempfile.NamedTemporaryFile("a+") as tmpfile:
-		tmpfile.write(content)
-		tmpfile.flush()
-		subprocess.check_call([editor, tmpfile.name])
+        #Get the user's editor
+        editor = vardata.OPTIONS['editor']
+        
+        #Open the content with a temp file and send the reult back
+        with tempfile.NamedTemporaryFile("a+") as tmpfile:
+                tmpfile.write(content)
+                tmpfile.flush()
+                subprocess.check_call([editor, tmpfile.name])
                 tmpfile.seek(0)
-		output = tmpfile.read()
-	return(output)
+                output = tmpfile.read()
+        return(output)
 
 def validate_content_index(index, name):
         """validate an index for a note"""
 
-	meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+name
+        meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+name
 
-	meta_fp = open(meta_path)
-	lines = meta_fp.readlines()
+        meta_fp = open(meta_path)
+        lines = meta_fp.readlines()
 
-	i = 0
-	for line in lines:
-		i = i+1 
+        i = 0
+        for line in lines:
+                i = i+1 
 
-	meta_fp.close()
+        meta_fp.close()
 
-	if index >= 1 and index <= i: 
-		return True	
-	else:
-		return False
+        if index >= 1 and index <= i: 
+                return True     
+        else:
+                return False
 
 def getuuidbyindex(lines, index):
-	"""get uuid for a index into list"""
-	
-	ctr=1
-	for line in lines:
-		if ctr == index: 
+        """get uuid for a index into list"""
+        
+        ctr=1
+        for line in lines:
+                if ctr == index: 
                     line = get_uuid(line)
                     line = line.split(":")[1]
                     return line
@@ -178,7 +178,7 @@ def removeuuidfromlist(lines, uuid):
             note = lines.pop(i)
             return(note)
 
-    return(False)	
+    return(False)       
 
 def print_content(content_line):
     """print content of a note"""
@@ -191,7 +191,7 @@ def print_list_per_line(mylist):
     """print a list"""
 
     for f in mylist:
-	print(colored(f,vardata.OPTIONS['color_note']))
+        print(colored(f,vardata.OPTIONS['color_note']))
 
 def get_all_notes(ignore_empty=False):
     """return a list of all notes from meta"""
@@ -300,60 +300,60 @@ def cm_version():
     print(colored("Version is "+str(vardata.VERSION),vardata.OPTIONS['color_msg']))
 
 def cm_add(name, verbose):
-	"""add a note"""
+        """add a note"""
 
-	meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+name
-	content_path=vardata.base_catagory_path+"/"+"content"+"/"+name
+        meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+name
+        content_path=vardata.base_catagory_path+"/"+"content"+"/"+name
 
-	os.mknod(meta_path)
-	os.mknod(content_path)
+        os.mknod(meta_path)
+        os.mknod(content_path)
 
 def cm_insert(name, title):
-	"""Insert a note with a title"""
+        """Insert a note with a title"""
 
-	#paths
-	meta_path = vardata.base_catagory_path+"/"+"meta"+"/"+name
-	content_path = vardata.base_catagory_path+"/"+"content"+"/"+name
+        #paths
+        meta_path = vardata.base_catagory_path+"/"+"meta"+"/"+name
+        content_path = vardata.base_catagory_path+"/"+"content"+"/"+name
 
-	#check if the  note is present
-	if not os.path.exists(meta_path):
-		print(colored("The note "+name+" does not exist -- bye", vardata.OPTIONS['color_err'])) 
-		return
+        #check if the  note is present
+        if not os.path.exists(meta_path):
+                print(colored("The note "+name+" does not exist -- bye", vardata.OPTIONS['color_err'])) 
+                return
 
-	#create uuid for the note
-	note_uuid = uuid.uuid4()
+        #create uuid for the note
+        note_uuid = uuid.uuid4()
 
-	#edit the file
-	content = edit_file('')
-	content = content[:-1]
+        #edit the file
+        content = edit_file('')
+        content = content[:-1]
 
-	#convert the content into a string	
-	str_content =""
-	str_content  = str_content.join(content)
-	str_content = repr(str_content)	
-	str_content = str_content.replace("'","")		
-	
-	#open meta and content files
-	fp_meta = open(meta_path, "a")
-	fp_content = open(content_path, "a")
+        #convert the content into a string      
+        str_content =""
+        str_content  = str_content.join(content)
+        str_content = repr(str_content) 
+        str_content = str_content.replace("'","")               
+        
+        #open meta and content files
+        fp_meta = open(meta_path, "a")
+        fp_content = open(content_path, "a")
 
-	#write to meta
-	meta_buffer_string = "uuid:"+str(note_uuid)+" "+"title:"+title
-	fp_meta.write(meta_buffer_string+"\n")
+        #write to meta
+        meta_buffer_string = "uuid:"+str(note_uuid)+" "+"title:"+title
+        fp_meta.write(meta_buffer_string+"\n")
 
-	#write to content
-	content_buffer_string = "uuid:"+str(note_uuid)+" "+"content:"+str_content
-	fp_content.write(content_buffer_string+"\n")
+        #write to content
+        content_buffer_string = "uuid:"+str(note_uuid)+" "+"content:"+str_content
+        fp_content.write(content_buffer_string+"\n")
 
-	#close files
-	fp_meta.close()
-	fp_content.close()
+        #close files
+        fp_meta.close()
+        fp_content.close()
 
 def cm_edit(entry, note):
         """edit  a note entry"""
         
         meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+note
-	content_path=vardata.base_catagory_path+"/"+"content"+"/"+note
+        content_path=vardata.base_catagory_path+"/"+"content"+"/"+note
 
         if not os.path.exists(meta_path):
             print(colored("The note "+note+" does not exist -- bye",vardata.OPTIONS['color_err']))
@@ -363,8 +363,8 @@ def cm_edit(entry, note):
             print(colored("The note  "+note+" content does not exist -- bye", vardata.OPTIONS['color_err']))
             return(False)
 
-	if validate_content_index(entry, note) == False:
-            print(colored("entry number is incorrect -- bye",vardata.OPTIONS['color_err']))	
+        if validate_content_index(entry, note) == False:
+            print(colored("entry number is incorrect -- bye",vardata.OPTIONS['color_err']))     
             return(False)
         else:
             fp_content = open(content_path)
@@ -398,41 +398,41 @@ def cm_edit(entry, note):
 
 
 def cm_delete(name):
-	"""delete a note""" 	
+        """delete a note"""     
 
-	#paths
-	meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+name
-	content_path=vardata.base_catagory_path+"/"+"content"+"/"+name
+        #paths
+        meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+name
+        content_path=vardata.base_catagory_path+"/"+"content"+"/"+name
 
-	#if meta_path does not exist
-	if not os.path.exists(meta_path):
-		print(colored(name+" Note does not exist",vardata.OPTIONS['color_err']))
-		if os.path.exists(content_path):
-			os.remove(content_path)
-		return False
+        #if meta_path does not exist
+        if not os.path.exists(meta_path):
+                print(colored(name+" Note does not exist",vardata.OPTIONS['color_err']))
+                if os.path.exists(content_path):
+                        os.remove(content_path)
+                return False
 
-	#if meta_path exists
-	else:
-		prompt = raw_input("Are you sure you want to delete "+name+" (yes/no) ")	#prompt
-		prompt = prompt.lower()
-		if prompt == "yes":
-			os.remove(meta_path) #remove meta_path
-			if os.path.exists(content_path): #remove if there is a content_path
-				os.remove(content_path)
-			print(colored("Deleted the "+name+" note",vardata.OPTIONS['color_msg']))
-			return True
-		else:
-			print(colored("Did not delete "+name+ " note", vardata.OPTIONS['color_err']))
-			return False	
+        #if meta_path exists
+        else:
+                prompt = raw_input("Are you sure you want to delete "+name+" (yes/no) ")        #prompt
+                prompt = prompt.lower()
+                if prompt == "yes":
+                        os.remove(meta_path) #remove meta_path
+                        if os.path.exists(content_path): #remove if there is a content_path
+                                os.remove(content_path)
+                        print(colored("Deleted the "+name+" note",vardata.OPTIONS['color_msg']))
+                        return True
+                else:
+                        print(colored("Did not delete "+name+ " note", vardata.OPTIONS['color_err']))
+                        return False    
 
 def cm_remove(entry, name):
-	"""remove entry function"""
+        """remove entry function"""
 
-	meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+name
-	content_path=vardata.base_catagory_path+"/"+"content"+"/"+name
+        meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+name
+        content_path=vardata.base_catagory_path+"/"+"content"+"/"+name
 
-	if validate_content_index(entry, name) == False:
-            print(colored("entry number is incorrect", vardata.OPTIONS['color_err']))	
+        if validate_content_index(entry, name) == False:
+            print(colored("entry number is incorrect", vardata.OPTIONS['color_err']))   
             return False
         else:
             #open files(content and meta) for reading 
@@ -463,21 +463,21 @@ def cm_move(entry, fromnote, tonote):
 
         #from note path
         from_meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+fromnote
-	from_content_path=vardata.base_catagory_path+"/"+"content"+"/"+fromnote
+        from_content_path=vardata.base_catagory_path+"/"+"content"+"/"+fromnote
 
         #to note path
         to_meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+tonote
-	to_content_path=vardata.base_catagory_path+"/"+"content"+"/"+tonote
+        to_content_path=vardata.base_catagory_path+"/"+"content"+"/"+tonote
         
         #check if from path exists
         if not os.path.exists(from_meta_path):
-		print(colored(from_note_path+" from Note does not exist", vardata.OPTIONS['color_err']))
-		return False
+                print(colored(from_note_path+" from Note does not exist", vardata.OPTIONS['color_err']))
+                return False
 
         #check if to  path exists
         if not os.path.exists(to_meta_path):
-		print(colored(to_note_path+" To Note does not exist -- bye  ",vardata.OPTIONS['color_err']))
-		return False
+                print(colored(to_note_path+" To Note does not exist -- bye  ",vardata.OPTIONS['color_err']))
+                return False
 
         #check if from content exists
         if not os.path.exists(from_content_path):
@@ -491,8 +491,8 @@ def cm_move(entry, fromnote, tonote):
 
         
         #validate note entry from fromnote
-	if validate_content_index(entry, fromnote) == False:
-            print(colored("entry number is incorrect -- bye",vardata.OPTIONS['color_err']))	
+        if validate_content_index(entry, fromnote) == False:
+            print(colored("entry number is incorrect -- bye",vardata.OPTIONS['color_err']))     
             return False
                 
         
@@ -521,19 +521,19 @@ def cm_move(entry, fromnote, tonote):
 
         #Insert a note with a title for the move"""
 
-	#open meta and content files
-	fp_meta = open(to_meta_path, "a")
-	fp_content = open(to_content_path, "a")
+        #open meta and content files
+        fp_meta = open(to_meta_path, "a")
+        fp_content = open(to_content_path, "a")
 
-	#write to meta
+        #write to meta
         fp_meta.write(remove_note_meta)
 
-	#write to content
+        #write to content
         fp_content.write(remove_note_content)
 
-	#close files
-	fp_meta.close()
-	fp_content.close() 
+        #close files
+        fp_meta.close()
+        fp_content.close() 
 
 
 
@@ -550,13 +550,13 @@ def cm_addtags(note, tag):
 
         #check if meta path exists
         if not os.path.exists(meta_path):
-		print(colored(note+"Note does not exist", vardata.OPTIONS['color_err']))
-		return False
+                print(colored(note+"Note does not exist", vardata.OPTIONS['color_err']))
+                return False
 
         #check if tags file exists
         if not os.path.exists(tag_path):
-		print(colored(note+"Tags note file does not exist", vardata.OPTIONS['color_err']))
-		return False
+                print(colored(note+"Tags note file does not exist", vardata.OPTIONS['color_err']))
+                return False
         
 
         #read tags for existing tag
@@ -592,13 +592,13 @@ def cm_tags(note):
 
         #check if meta path exists
         if not os.path.exists(meta_path):
-	    print(colored(note+"Note does not exist", vardata.OPTIONS['color_err']))
-       	    return False
+            print(colored(note+"Note does not exist", vardata.OPTIONS['color_err']))
+            return False
         
         #check if tags file exists
         if not os.path.exists(tag_path):
-		print(colored(note+"Tags note file does not exist", vardata.OPTIONS['color_err']))
-		return False
+                print(colored(note+"Tags note file does not exist", vardata.OPTIONS['color_err']))
+                return False
 
         fp_tags = open(tag_path, "r")
 
@@ -620,13 +620,13 @@ def cm_removetags(note, tags):
 
         #check if meta path exists
         if not os.path.exists(meta_path):
-	    print(colored(note+"Note does not exist", vardata.OPTIONS['color_err']))
-       	    return False
+            print(colored(note+"Note does not exist", vardata.OPTIONS['color_err']))
+            return False
         
         #check if tags file exists
         if not os.path.exists(tag_path):
-		print(colored(note+"Tags note file does not exist", vardata.OPTIONS['color_err']))
-		return False
+                print(colored(note+"Tags note file does not exist", vardata.OPTIONS['color_err']))
+                return False
 
         #open file and readlines
         fp_tags = open(tag_path, "r")
@@ -649,70 +649,70 @@ def cm_removetags(note, tags):
         fp_tags_removed.close()
          
 def cm_list(verbose):
-	""" print nameo of the notes"""
-	
-	print_list_per_line(os.listdir(vardata.base_catagory_path+"/"+"meta"))
-	if(verbose == True):
-		print(colored("---------",vardata.OPTIONS['color_msg'])) 
-		print(colored("Total notes: ",vardata.OPTIONS['color_msg']),end="")
-		print(colored(len(os.listdir(vardata.base_catagory_path+"/"+"meta")),vardata.OPTIONS['color_msg']))
+        """ print nameo of the notes"""
+        
+        print_list_per_line(os.listdir(vardata.base_catagory_path+"/"+"meta"))
+        if(verbose == True):
+                print(colored("---------",vardata.OPTIONS['color_msg'])) 
+                print(colored("Total notes: ",vardata.OPTIONS['color_msg']),end="")
+                print(colored(len(os.listdir(vardata.base_catagory_path+"/"+"meta")),vardata.OPTIONS['color_msg']))
 
 def cm_display(note, short):
-	"""display a note"""
+        """display a note"""
 
-	#Notes empty object
-	class Notes:
-		pass
+        #Notes empty object
+        class Notes:
+                pass
 
-	#note list
-	notes = []
-	index = 0 
+        #note list
+        notes = []
+        index = 0 
 
-	#paths
-	meta_path = vardata.base_catagory_path+"/"+"meta"+"/"+note
-	content_path = vardata.base_catagory_path+"/"+"content"+"/"+note
+        #paths
+        meta_path = vardata.base_catagory_path+"/"+"meta"+"/"+note
+        content_path = vardata.base_catagory_path+"/"+"content"+"/"+note
 
-	#check if the  note is present
-	if not os.path.exists(meta_path):
-		print(colored("The note "+note+" does not exist -- bye", vardata.OPTIONS['color_err'])) 
-		return
+        #check if the  note is present
+        if not os.path.exists(meta_path):
+                print(colored("The note "+note+" does not exist -- bye", vardata.OPTIONS['color_err'])) 
+                return
 
-	#open meta and content files
-	fp_meta = open(meta_path, "r")
-	fp_content = open(content_path, "r")
+        #open meta and content files
+        fp_meta = open(meta_path, "r")
+        fp_content = open(content_path, "r")
 
-	#read files
-	meta_lines = fp_meta.readlines()
-	content_lines = fp_content.readlines()
+        #read files
+        meta_lines = fp_meta.readlines()
+        content_lines = fp_content.readlines()
 
-	#loop over list and print 
-	for line in meta_lines:
-		uuid = get_uuid(line)
-		uuid = uuid.split(":")[1]
-		title  = get_title(line)
-		title  = remove_newline(title)
-		title  = title.split(":")[1]
-		content = get_content_by_uuid(content_lines, uuid)
-		notes.append(Notes())
-		notes[index].uuid = uuid
-		notes[index].title = title
-		notes[index].content = content
-		if (short == True):
-			print(index+1,end="")
+        #loop over list and print 
+        for line in meta_lines:
+                uuid = get_uuid(line)
+                uuid = uuid.split(":")[1]
+                title  = get_title(line)
+                title  = remove_newline(title)
+                title  = title.split(":")[1]
+                content = get_content_by_uuid(content_lines, uuid)
+                notes.append(Notes())
+                notes[index].uuid = uuid
+                notes[index].title = title
+                notes[index].content = content
+                if (short == True):
+                        print(index+1,end="")
                         print(" ", end="")
-			print("-> ", end="")
-			print(colored(title,vardata.OPTIONS['color_title']))
-		else:
-			#print("----------")
-			print(str(index+1)+") ", end="") 
+                        print("-> ", end="")
+                        print(colored(title,vardata.OPTIONS['color_title']))
+                else:
+                        #print("----------")
+                        print(str(index+1)+") ", end="") 
                         print(">>> "+colored(notes[index].title,vardata.OPTIONS['color_title']))
-			#print("content-> "+notes[index].content,end="")
+                        #print("content-> "+notes[index].content,end="")
                         print_content(notes[index].content)
-		index = index+1
-		
-	#close files
-	fp_meta.close()
-	fp_content.close()
+                index = index+1
+                
+        #close files
+        fp_meta.close()
+        fp_content.close()
 
 def cm_search(regex, note):
     """main search function""" 
@@ -763,7 +763,7 @@ def cm_search(regex, note):
          index = index+1
     
 def cm_showconfig():
-    """show config"""	
+    """show config"""   
 
     showconfig()
 
@@ -781,12 +781,12 @@ def cm_info():
 
 def cm_setdefaultconfig():
 
-	setdefaultconfig() 
+        setdefaultconfig() 
 
 def directoryempty(path):
-	if len(os.listdir(path))>0:
-		return False
-	else:
-		return True
+        if len(os.listdir(path))>0:
+                return False
+        else:
+                return True
 
 

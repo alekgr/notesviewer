@@ -3,4 +3,4 @@
 import vardata
 
 def getpath(name):
-	return vardata.base_catagory_path+"/"+name
+        return vardata.base_catagory_path+"/"+name

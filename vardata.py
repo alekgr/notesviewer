@@ -7,9 +7,9 @@ program_name="noteviewer"
 
 
 #global constant variables
-interactive_commands = [	['list_catagories', 'edit', 'search', 'settings', 'version', 'quit'],
-								['graphical on', 'Scope', 'verbose on', 'exit','quit'], 		 
-								['global', 'catagory', 'note', 'comment','exit','quit']	]
+interactive_commands = [        ['list_catagories', 'edit', 'search', 'settings', 'version', 'quit'],
+                                                                ['graphical on', 'Scope', 'verbose on', 'exit','quit'],                  
+                                                                ['global', 'catagory', 'note', 'comment','exit','quit'] ]
 #command mode
 command_mode = interactive_commands[0] 
 
@@ -39,23 +39,23 @@ COLOR_SEARCH_NOTE_DEFAULT   = "green"
 DATA_DEFAULT = "file:/opt"
 
 EDITORS = ['vim','emacs']
-COLORS	= ['red','blue','green','yellow', 'black','white']
+COLORS  = ['red','blue','green','yellow', 'black','white']
 
 protocol_git  = "git"
-protocol_file =	"file" 
+protocol_file = "file" 
 
 OPTIONS  = {
-	"graphical":		GRAPHICAL_DEFAULT,
-	"verbose":			VERBOSE_DEFAULT,
-	"editor":			EDITOR_DEFAULT,
-	"color_err":		COLOR_ERR_DEFAULT,
+        "graphical":            GRAPHICAL_DEFAULT,
+        "verbose":                      VERBOSE_DEFAULT,
+        "editor":                       EDITOR_DEFAULT,
+        "color_err":            COLOR_ERR_DEFAULT,
         "color_msg":            COLOR_MSG_DEFAULT,
-	"color_note":		COLOR_NOTE_DEFAULT,
+        "color_note":           COLOR_NOTE_DEFAULT,
         "color_title":          COLOR_NOTE_TITLE_DEFAULT,
         "color_content":        COLOR_NOTE_CONTENT_DEFAULT,
         "color_search_string":  COLOR_SEARCH_STRING_DEFAULT,
         "color_search_notename":COLOR_SEARCH_NOTE_DEFAULT,
-	"data_location":	DATA_DEFAULT
-	}
+        "data_location":        DATA_DEFAULT
+        }
 
 
