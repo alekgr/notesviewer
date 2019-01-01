@@ -7,7 +7,7 @@ from  core import *
 import argparse
 import curses
 import readline 
-import ConfigParser
+import configparser
 
 
 def checkinput(text):

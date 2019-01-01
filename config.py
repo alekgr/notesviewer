@@ -3,7 +3,7 @@
 import os
 import vardata 
 from repo import *
-import ConfigParser
+import configparser
 
 
 def loadconfig():
@@ -16,7 +16,7 @@ def loadconfig():
                 return False    
         else:   
                 #read config file
-                config = ConfigParser.ConfigParser()
+                config = configparser.ConfigParser()
                 config.read(vardata.config_file_path)
 
                 #return False if no setttings section
