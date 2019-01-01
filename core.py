@@ -413,7 +413,7 @@ def cm_delete(name):
 
         #if meta_path exists
         else:
-                prompt = raw_input("Are you sure you want to delete "+name+" (yes/no) ")        #prompt
+                prompt = input("Are you sure you want to delete "+name+" (yes/no) ")        #prompt
                 prompt = prompt.lower()
                 if prompt == "yes":
                         os.remove(meta_path) #remove meta_path
