@@ -292,10 +292,6 @@ def regex_string(note_enteries,regex):
   
     return(search_lists)
 
-def cm_setdefaultconfig():
-
-        setdefaultconfig() 
-
 def directoryempty(path):
         if len(os.listdir(path))>0:
                 return False

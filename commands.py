@@ -485,4 +485,7 @@ def cm_info():
     print("Platform:"+sys.platform)
     print("Os name:"+os.name)
 
+def cm_setdefaultconfig():
+
+        setdefaultconfig() 
 
