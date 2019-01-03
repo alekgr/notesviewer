@@ -5,7 +5,7 @@ if __name__ == "__main__":
 
         from vardata import *
         from interactive import *
-        from core import *
+        from commands import *
         from config import *
 
 

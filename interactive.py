@@ -3,6 +3,7 @@
 
 from  vardata import *
 from  core import *
+from  commands import *
 import argparse
 import curses
 import readline 
