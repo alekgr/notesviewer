@@ -26,8 +26,8 @@ base_catagory_path="test"
 VERSION = 1.0
 
 
-GRAPHICAL_DEFAULT = False
-VERBOSE_DEFAULT = False
+GRAPHICAL_DEFAULT = False 
+VERBOSE_DEFAULT = False 
 EDITOR_DEFAULT = "vim"
 COLOR_ERR_DEFAULT = "red"
 COLOR_MSG_DEFAULT = "grey"
@@ -36,7 +36,7 @@ COLOR_NOTE_TITLE_DEFAULT    = "blue"
 COLOR_NOTE_CONTENT_DEFAULT  = "green"
 COLOR_SEARCH_STRING_DEFAULT = "blue"
 COLOR_SEARCH_NOTE_DEFAULT   = "green"
-DATA_DEFAULT = "file:/opt"
+DATA_DEFAULT = "file"+":"+home+"/"+"notes"
 
 EDITORS = ['vim','emacs']
 COLORS  = ['red','blue','green','yellow', 'black','white']

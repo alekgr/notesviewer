@@ -58,18 +58,18 @@ def setdefaultconfig():
         #add setting and options
         config = configparser.ConfigParser()
         config.add_section("settings")
-        config.set("settings", "graphical", vardata.GRAPHICAL_DEFAULT)
-        config.set("settings", "verbose", vardata.VERBOSE_DEFAULT)
+        config.set("settings", "graphical", str(vardata.GRAPHICAL_DEFAULT))
+        config.set("settings", "verbose", str(vardata.VERBOSE_DEFAULT))
         config.set("settings", "editor", vardata.EDITOR_DEFAULT)
         config.set("settings", "color_err", vardata.COLOR_ERR_DEFAULT)
         config.set("settings", "color_msg", vardata.COLOR_MSG_DEFAULT)
         config.set("settings", "color_note", vardata.COLOR_NOTE_DEFAULT) 
-        config.set("settings", "color_title", vardata.COLOR_TITLE_DEFAULT)
-        config.set("settings", "color_content", vardata.COLOR_CONTENt_DEFAULT)
+        config.set("settings", "color_title", vardata.COLOR_NOTE_TITLE_DEFAULT)
+        config.set("settings", "color_content", vardata.COLOR_NOTE_CONTENT_DEFAULT)
         config.set("settings", "data_location", vardata.DATA_DEFAULT)
 
         #write to config_file
-        with open(vardata.config_file_path,"wb") as fp:
+        with open(vardata.config_file_path,"w") as fp:
                 config.write(fp)
 
 
