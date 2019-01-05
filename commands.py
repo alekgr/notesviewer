@@ -1,4 +1,9 @@
-from core import *
+import sys
+import uuid
+from note import *
+from utils import *
+from config import showconfig,setdefaultconfig
+
 
 def cm_version():
     """ print version """
