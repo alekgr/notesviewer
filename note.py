@@ -4,6 +4,7 @@ import subprocess
 import tempfile
 import os
 from  utils import *
+from  file  import *
 
 def edit_file(content):
         """open a file and return result"""
@@ -35,10 +36,10 @@ def load_notes_enteries(notes):
         meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+n
         content_path=vardata.base_catagory_path+"/"+"content"+"/"+n
         if  os.path.getsize(meta_path) > 0:
-            fp_meta = open(meta_path)    
+            fp_meta = open_note("meta", n, "r")
             meta_lines = fp_meta.readlines() 
         if os.path.getsize(content_path) > 0:
-            fp_content = open(content_path)
+            fp_content = open_note("content", n, "r")
             content_lines = fp_content.readlines() 
  
             for meta_line in meta_lines:

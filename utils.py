@@ -4,6 +4,7 @@ from termcolor import colored
 import os 
 import re
 import vardata
+from file import *
 
 
 def getpath(name):
@@ -27,7 +28,7 @@ def get_note_name(uuid):
 
     for n in notes: 
         meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+n
-        meta_fp = open(meta_path)
+        meta_fp = open_note("meta", n, "r")
         meta_lines = meta_fp.readlines()
 
         for line in meta_lines:
@@ -38,7 +39,7 @@ def get_note_name(uuid):
                     return(n)
 
         #close files
-        meta_fp.close()
+        close_note(meta_fp)
 
 def get_all_notes(ignore_empty=False):
     """return a list of all notes from meta"""
@@ -156,14 +157,15 @@ def validate_content_index(index, name):
 
         meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+name
 
-        meta_fp = open(meta_path)
+        meta_fp = open_note("meta", name, "r")
         lines = meta_fp.readlines()
 
         i = 0
         for line in lines:
                 i = i+1 
 
-        meta_fp.close()
+        #meta_fp.close()
+        close_note(meta_fp)
 
         if index >= 1 and index <= i: 
                 return True     

@@ -3,6 +3,7 @@ import uuid
 from note import *
 from utils import *
 from config import showconfig,setdefaultconfig
+from  file import *
 
 
 def cm_version():
@@ -45,8 +46,8 @@ def cm_insert(name, title):
         str_content = str_content.replace("'","")               
         
         #open meta and content files
-        fp_meta = open(meta_path, "a")
-        fp_content = open(content_path, "a")
+        fp_meta    = open_note("meta", name, "a") 
+        fp_content  = open_note("content", name, "a")
 
         #write to meta
         meta_buffer_string = "uuid:"+str(note_uuid)+" "+"title:"+title
@@ -57,8 +58,8 @@ def cm_insert(name, title):
         fp_content.write(content_buffer_string+"\n")
 
         #close files
-        fp_meta.close()
-        fp_content.close()
+        close_note(fp_meta)
+        close_note(fp_content)
 
 def cm_edit(entry, note):
         """edit  a note entry"""
@@ -78,7 +79,7 @@ def cm_edit(entry, note):
             print(colored("entry number is incorrect -- bye",vardata.OPTIONS['color_err']))     
             return(False)
         else:
-            fp_content = open(content_path)
+            fp_content = open_note("content", note, "r") 
             content_lines = fp_content.readlines()
             
             content_uuid = getuuidbyindex(content_lines, entry)
@@ -93,7 +94,7 @@ def cm_edit(entry, note):
             c = remove_first_and_last_chars(c)
            
             #close fp
-            fp_content.close()
+            close_note(fp_content)
            
             #fill content_lines to one that we edited
             content_lines [entry-1] = "uuid"+":"+content_uuid+" "+"content"+":"+c+"\n"
@@ -103,9 +104,9 @@ def cm_edit(entry, note):
             str_content_lines = str_content_lines.join(content_lines)
 
             #write back to content file
-            fp_content = open(content_path, "w+")
+            fp_content = open_note("content", note, "w+")
             fp_content.write(str_content_lines)
-            fp_content.close()
+            close_note(fp_content)
 
 
 def cm_delete(name):
@@ -147,8 +148,8 @@ def cm_remove(entry, name):
             return False
         else:
             #open files(content and meta) for reading 
-            fp_meta = open(meta_path,"r")
-            fp_content = open(content_path, "r")
+            fp_meta =  open_note("meta", name, "r")
+            fp_content = open_note("content", name, "r")
             meta_lines = fp_meta.readlines()
             content_lines = fp_content.readlines()
             uuid_meta = getuuidbyindex(meta_lines, entry)
@@ -157,15 +158,17 @@ def cm_remove(entry, name):
             removeuuidfromlist(content_lines, uuid_content)
             string_meta = ''.join(meta_lines)
             string_content = ''.join(content_lines)
-            fp_meta.close() 
-            fp_content.close()
+            close_note(fp_meta)
+            close_note(fp_content)
            
             #open files(content and meta) for writting
-            fp_meta = open(meta_path,"w")   
-            fp_content= open(content_path,"w")
+            fp_meta = open_note("meta", name, "w")
+            fp_content = open_note("content", name, "w")
             fp_meta.write(string_meta) 
             fp_content.write(string_content)
-            fp_meta.close()
+            close_note(fp_meta)
+            close_note(fp_content)
+            
 
             return string_content
 
@@ -208,8 +211,9 @@ def cm_move(entry, fromnote, tonote):
                 
         
         #open files(content and meta) for reading 
-        fp_meta_from = open(from_meta_path,"r")
-        fp_content_from = open(from_content_path, "r")
+        fp_meta_from    = open_note("meta",fromnote,"r") 
+        fp_content_from = open_note("content", fromnote,"r")
+
         meta_lines = fp_meta_from.readlines()
         content_lines = fp_content_from.readlines()
         uuid_meta = getuuidbyindex(meta_lines, entry)
@@ -218,23 +222,24 @@ def cm_move(entry, fromnote, tonote):
         remove_note_content = removeuuidfromlist(content_lines, uuid_content)
         string_meta = ''.join(meta_lines)
         string_content = ''.join(content_lines)
-        fp_meta_from.close() 
-        fp_content_from.close()
+        close_note(fp_meta_from)
+        close_note(fp_content_from)
+
            
         #open files(content and meta) for writting
-        fp_meta_from = open(from_meta_path,"w")   
-        fp_content_from= open(from_content_path,"w")
+        fp_meta_from    = open_note("meta",fromnote,"w")
+        fp_content_from = open_note("content",fromnote,"w")
         fp_meta_from.write(string_meta) 
         fp_content_from.write(string_content)
-        fp_meta_from.close()
-        fp_content_from.close() 
+        close_note(fp_meta_from)
+        close_note(fp_content_from)
 
 
         #Insert a note with a title for the move"""
 
         #open meta and content files
-        fp_meta = open(to_meta_path, "a")
-        fp_content = open(to_content_path, "a")
+        fp_meta = open_note("meta", tonote, "a")
+        fp_content = open_note("content", tonote, "a")
 
         #write to meta
         fp_meta.write(remove_note_meta)
@@ -243,8 +248,8 @@ def cm_move(entry, fromnote, tonote):
         fp_content.write(remove_note_content)
 
         #close files
-        fp_meta.close()
-        fp_content.close() 
+        close_note(fp_meta)
+        close_note(fp_content)
 
 
 
@@ -271,7 +276,7 @@ def cm_addtags(note, tag):
         
 
         #read tags for existing tag
-        fp_tags_read=open(tag_path,"r")
+        fp_tags_read = open_note("tag", note, "r") 
         lines=fp_tags_read.readlines()
         for line in lines:
             line = remove_newline(line) 
@@ -280,10 +285,10 @@ def cm_addtags(note, tag):
                    duplicate_tags.append(t)
                    break; 
         #close tag file
-        fp_tags_read.close()
+        close_note(fp_tags_read)
 
         #open tag file 
-        fp_tags = open(tag_path, "a")
+        fp_tags  = open_note("tag", note, "a")
        
         #write tag(s) to tag file
         for t in tags:
@@ -293,7 +298,7 @@ def cm_addtags(note, tag):
                 fp_tags.write(t+"\n") 
                 print(colored("Added "+t, vardata.OPTIONS['color_msg']))
         #close tag file  
-        fp_tags.close() 
+        close_note(fp_tags)
 
 def cm_tags(note):
         """show tags for a note"""
@@ -311,12 +316,14 @@ def cm_tags(note):
                 print(colored(note+"Tags note file does not exist", vardata.OPTIONS['color_err']))
                 return False
 
-        fp_tags = open(tag_path, "r")
+        fp_tags = open_note("tag", note, "r")
 
         lines = fp_tags.readlines()
         for line in lines:
             line = "#"+line
             print(colored(line,vardata.OPTIONS['color_msg']),end="")
+
+        close_note(fp_tags) 
 
 
 def cm_removetags(note, tags):
@@ -340,7 +347,7 @@ def cm_removetags(note, tags):
                 return False
 
         #open file and readlines
-        fp_tags = open(tag_path, "r")
+        fp_tags = open_note("tag", note, "r")
         lines = fp_tags.readlines()
 
         #move item's not to be removed
@@ -350,14 +357,14 @@ def cm_removetags(note, tags):
                 removed_lines.append(line)  
 
         #write to tag file 
-        fp_tags_removed=open(tag_path, "w")         
+        fp_tags_removed = open_note("tag", note, "w")
         removed_tag_strings = '\n'.join(removed_lines)
         removed_tag_strings = removed_tag_strings+"\n"
         fp_tags_removed.write(removed_tag_strings)
 
         #close files 
-        fp_tags.close()
-        fp_tags_removed.close()
+        close_note(fp_tags)
+        close_note(fp_tags_removed)
          
 def cm_list(verbose):
         """ print nameo of the notes"""
@@ -389,8 +396,8 @@ def cm_display(note, short):
                 return
 
         #open meta and content files
-        fp_meta = open(meta_path, "r")
-        fp_content = open(content_path, "r")
+        fp_meta    = open_note("meta", note, "r") 
+        fp_content = open_note("content", note, "r")
 
         #read files
         meta_lines = fp_meta.readlines()
@@ -422,8 +429,10 @@ def cm_display(note, short):
                 index = index+1
                 
         #close files
-        fp_meta.close()
-        fp_content.close()
+        #fp_meta.close()
+        #fp_content.close()
+        close_note(fp_meta)
+        close_note(fp_content)
 
 def cm_search(regex, note):
     """main search function""" 
