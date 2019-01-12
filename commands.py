@@ -1,5 +1,6 @@
 import sys
 import uuid
+import error
 from note import *
 from utils import *
 from config import showconfig,setdefaultconfig
@@ -14,23 +15,33 @@ def cm_version():
 def cm_add(name, verbose):
         """add a note"""
 
-        meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+name
-        content_path=vardata.base_catagory_path+"/"+"content"+"/"+name
+        meta_path       =   getnotepath(name, "meta")
+        content_path    =   getnotepath(name, "content")
+        tag_path        =   getnotepath(name, "tag") 
+        link_path       =   getnotepath(name, "link")
 
-        os.mknod(meta_path)
-        os.mknod(content_path)
+        #create files
 
+        if verify_note(name, "meta") == True:
+            print_err_msg("The note "+name+" already exists")
+            exit(error.ERROR_META_FILE_ALREADY_EXISTS)
+        else:
+            os.mknod(meta_path)
+            os.mknod(content_path)
+            os.mknod(tag_path)
+            os.mknod(link_path)
+            print_info_msg("Added "+name+" note")
+        
 def cm_insert(name, title):
         """Insert a note with a title"""
 
-        #paths
-        meta_path = vardata.base_catagory_path+"/"+"meta"+"/"+name
-        content_path = vardata.base_catagory_path+"/"+"content"+"/"+name
-
-        #check if the  note is present
-        if not os.path.exists(meta_path):
-                print(colored("The note "+name+" does not exist -- bye", vardata.OPTIONS['color_err'])) 
-                return
+        # verfiy note
+        if verify_note(name, "meta") == False:
+            print_err_msg("The meta note "+name+" does not exist -- bye")
+            exit(error.ERROR_NO_META_FILE)
+        if verify_note(name, "content") == False:
+            print_msg("The content "+name+" does not exist -- bye")
+            exit(error.ERROR_NO_CONTENT_FILE)
 
         #create uuid for the note
         note_uuid = uuid.uuid4()
@@ -64,16 +75,13 @@ def cm_insert(name, title):
 def cm_edit(entry, note):
         """edit  a note entry"""
         
-        meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+note
-        content_path=vardata.base_catagory_path+"/"+"content"+"/"+note
-
-        if not os.path.exists(meta_path):
-            print(colored("The note "+note+" does not exist -- bye",vardata.OPTIONS['color_err']))
-            return(False)
-
-        if not os.path.exists(content_path):
-            print(colored("The note  "+note+" content does not exist -- bye", vardata.OPTIONS['color_err']))
-            return(False)
+        # verfiy note
+        if verify_note(note, "meta") == False:
+            print_err_msg("The meta note "+note+" does not exist -- bye")
+            exit(error.ERROR_NO_META_FILE)
+        if verify_note(note, "content") == False:
+            print_msg("The content "+note+" does not exist -- bye")
+            exit(error.ERROR_NO_CONTENT_FILE)
 
         if validate_content_index(entry, note) == False:
             print(colored("entry number is incorrect -- bye",vardata.OPTIONS['color_err']))     
@@ -112,42 +120,38 @@ def cm_edit(entry, note):
 def cm_delete(name):
         """delete a note"""     
 
-        #paths
-        meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+name
-        content_path=vardata.base_catagory_path+"/"+"content"+"/"+name
-
-        #if meta_path does not exist
-        if not os.path.exists(meta_path):
-                print(colored(name+" Note does not exist",vardata.OPTIONS['color_err']))
-                if os.path.exists(content_path):
-                        os.remove(content_path)
-                return False
-
-        #if meta_path exists
+        if verify_note(name, "meta") == False:
+            print_err_msg("The meta note "+name+" does not exist -- bye")
+            exit(error.ERROR_NO_META_FILE)
         else:
-                prompt = input("Are you sure you want to delete "+name+" (yes/no) ")        #prompt
-                prompt = prompt.lower()
-                if prompt == "yes":
-                        os.remove(meta_path) #remove meta_path
-                        if os.path.exists(content_path): #remove if there is a content_path
-                                os.remove(content_path)
-                        print(colored("Deleted the "+name+" note",vardata.OPTIONS['color_msg']))
-                        return True
-                else:
-                        print(colored("Did not delete "+name+ " note", vardata.OPTIONS['color_err']))
-                        return False    
+            prompt = input("Are you sure you want to delete "+name+" (yes/no) ")
+            prompt = prompt.lower()
+            if prompt == "yes":
+                os.remove(getnotepath(name, "meta"))
+                if verify_note(name, "content") == True:
+                    os.remove(getnotepath(name, "content"))
+                if verify_note(name, "link") == True:
+                    os.remove(getnotepath(name, "link"))
+                if verify_note(name, "tag") == True:
+                    os.remove(getnotepath(name, "tag"))
+
+                print_info_msg("Deleted "+name+" note") 
 
 def cm_remove(entry, name):
         """remove entry function"""
 
-        meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+name
-        content_path=vardata.base_catagory_path+"/"+"content"+"/"+name
-
+       # verfiy note and entry 
+        if verify_note(name, "meta") == False:
+            print_err_msg("The meta note "+name+" does not exist -- bye")
+            exit(error.ERROR_NO_META_FILE)
+        if verify_note(name, "content") == False:
+            print_msg("The content "+name+" does not exist -- bye")
+            exit(error.ERROR_NO_CONTENT_FILE)
         if validate_content_index(entry, name) == False:
-            print(colored("entry number is incorrect", vardata.OPTIONS['color_err']))   
-            return False
+            print_err_msg("Note entry number is incorrect")
+            exit(error.ERROR_INVALID_INDEX)
+
         else:
-            #open files(content and meta) for reading 
             fp_meta =  open_note("meta", name, "r")
             fp_content = open_note("content", name, "r")
             meta_lines = fp_meta.readlines()
@@ -168,40 +172,31 @@ def cm_remove(entry, name):
             fp_content.write(string_content)
             close_note(fp_meta)
             close_note(fp_content)
-            
 
+            print_info_msg("Removed "+name+" Note")
+        
             return string_content
 
 def cm_move(entry, fromnote, tonote):
         """move an  entry from fromnote to tonote"""
-
-        #from note path
-        from_meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+fromnote
-        from_content_path=vardata.base_catagory_path+"/"+"content"+"/"+fromnote
-
-        #to note path
-        to_meta_path=vardata.base_catagory_path+"/"+"meta"+"/"+tonote
-        to_content_path=vardata.base_catagory_path+"/"+"content"+"/"+tonote
         
-        #check if from path exists
-        if not os.path.exists(from_meta_path):
-                print(colored(from_note_path+" from Note does not exist", vardata.OPTIONS['color_err']))
-                return False
+        if verify_note(fromnote, "meta") == False:
+                print_err_msg("The fromnote "+fromnote+" does not exist -- bye")
+                exit(error.ERROR_NO_META_FILE)
 
-        #check if to  path exists
-        if not os.path.exists(to_meta_path):
-                print(colored(to_note_path+" To Note does not exist -- bye  ",vardata.OPTIONS['color_err']))
-                return False
+        if verify_note(tonote, "meta") == False:
+                print_err_msg("The tonote "+tonote+" does not exist -- bye")
+                exit(error.ERROR_NO_META_FILE)
 
-        #check if from content exists
-        if not os.path.exists(from_content_path):
-                print(colored(from_content_path+" From Note content does not exist -- bye",vardata.OPTIONS['color_err']))
-                return False
 
-        #check if to content exists
-        if not os.path.exists(to_content_path):
-                print(colored(to_content_path+" To Note content does not exist",vardata.OPTIONS['color_err']))
-                return False
+        if verify_note(fromnote, "content") == False:
+                print_err_msg("The fromnote "+fromnote+" content does not exist --bye")
+                exit(error.ERROR_NO_CONTENT_FILE)
+
+
+        if verify_note(tonote, "content") == False:
+                print_err_msg("The tonote "+tonote+" content does not exist --bye")
+                exit(error.ERROR_NO_CONTENT_FILE)
 
         
         #validate note entry from fromnote
@@ -247,10 +242,11 @@ def cm_move(entry, fromnote, tonote):
         #write to content
         fp_content.write(remove_note_content)
 
+        print_info_msg("The note entry "+str(entry)+" at "+fromnote+" has been moved to "+tonote)
+
         #close files
         close_note(fp_meta)
         close_note(fp_content)
-
 
 
 def cm_addtags(note, tag):
@@ -261,20 +257,14 @@ def cm_addtags(note, tag):
         #get all the tags
         tags = tag.split(',')
   
-        meta_path = vardata.base_catagory_path+"/"+"meta"+"/"+note
-        tag_path = vardata.base_catagory_path+"/"+"tags"+"/"+note
-
-        #check if meta path exists
-        if not os.path.exists(meta_path):
-                print(colored(note+"Note does not exist", vardata.OPTIONS['color_err']))
-                return False
-
-        #check if tags file exists
-        if not os.path.exists(tag_path):
-                print(colored(note+"Tags note file does not exist", vardata.OPTIONS['color_err']))
-                return False
+        if verify_note(note, "meta") == False:
+            print_err_msg(note+" Note does not exist -- bye")
+            exit(error.ERROR_NO_META_FILE)
         
-
+        if verify_note(note, "tag") == False:
+            print_err_msg(note+ " Tag file does not exist -- bye") 
+            exit(error.ERROR_NO_META_FILE)
+    
         #read tags for existing tag
         fp_tags_read = open_note("tag", note, "r") 
         lines=fp_tags_read.readlines()
@@ -296,25 +286,21 @@ def cm_addtags(note, tag):
                 print(colored(t+" is already a tag",vardata.OPTIONS['color_msg']))
             else:
                 fp_tags.write(t+"\n") 
-                print(colored("Added "+t, vardata.OPTIONS['color_msg']))
+                print_info_msg("Added "+"#"+t+" tag")
         #close tag file  
         close_note(fp_tags)
 
 def cm_tags(note):
         """show tags for a note"""
 
-        meta_path = vardata.base_catagory_path+"/"+"meta"+"/"+note
-        tag_path = vardata.base_catagory_path+"/"+"tags"+"/"+note
 
-        #check if meta path exists
-        if not os.path.exists(meta_path):
-            print(colored(note+"Note does not exist", vardata.OPTIONS['color_err']))
-            return False
-        
-        #check if tags file exists
-        if not os.path.exists(tag_path):
-                print(colored(note+"Tags note file does not exist", vardata.OPTIONS['color_err']))
-                return False
+        if verify_note(note, "meta") == False:
+            print_err_msg(note+ " Note does not exist --bye")
+            exit(error.ERROR_NO_META_FILE)
+
+        if verify_note(note, "tag") == False:
+            print_err_msg(note+ " Tag file does not exist --bye")
+            exit(error.ERROR_NO_TAG_FILE)
 
         fp_tags = open_note("tag", note, "r")
 
@@ -333,18 +319,13 @@ def cm_removetags(note, tags):
 
         tag_list = tags.split(',')
 
-        meta_path = vardata.base_catagory_path+"/"+"meta"+"/"+note
-        tag_path = vardata.base_catagory_path+"/"+"tags"+"/"+note
-
-        #check if meta path exists
-        if not os.path.exists(meta_path):
-            print(colored(note+"Note does not exist", vardata.OPTIONS['color_err']))
-            return False
+        if verify_note(note, "meta") == False:
+            print_err_msg(note+ " Note does not exist --bye")
+            exit(error.ERROR_NO_META_FILE)
         
-        #check if tags file exists
-        if not os.path.exists(tag_path):
-                print(colored(note+"Tags note file does not exist", vardata.OPTIONS['color_err']))
-                return False
+        if verify_note(note, "tag") == False:
+            print_err_msg(note+ " Note tag file does not exist --bye")
+            exit(error.ERROR_NO_TAG_FILE)
 
         #open file and readlines
         fp_tags = open_note("tag", note, "r")
@@ -362,13 +343,15 @@ def cm_removetags(note, tags):
         removed_tag_strings = removed_tag_strings+"\n"
         fp_tags_removed.write(removed_tag_strings)
 
+        print_info_msg("Removed "+tags)
+
         #close files 
         close_note(fp_tags)
         close_note(fp_tags_removed)
          
 def cm_list(verbose):
         """ print nameo of the notes"""
-        
+   
         print_list_per_line(os.listdir(vardata.base_catagory_path+"/"+"meta"))
         if(verbose == True):
                 print(colored("---------",vardata.OPTIONS['color_msg'])) 
@@ -391,9 +374,11 @@ def cm_display(note, short):
         content_path = vardata.base_catagory_path+"/"+"content"+"/"+note
 
         #check if the  note is present
-        if not os.path.exists(meta_path):
-                print(colored("The note "+note+" does not exist -- bye", vardata.OPTIONS['color_err'])) 
-                return
+        #        return
+
+        if verify_note(note, "meta") == False:
+            print_err_msg("The note "+note+" does not exist -- bye")
+            exit(error.ERROR_NO_META_FILE)
 
         #open meta and content files
         fp_meta    = open_note("meta", note, "r") 
@@ -429,8 +414,6 @@ def cm_display(note, short):
                 index = index+1
                 
         #close files
-        #fp_meta.close()
-        #fp_content.close()
         close_note(fp_meta)
         close_note(fp_content)
 
@@ -447,12 +430,16 @@ def cm_search(regex, note):
     #n = note[0]
     notes = note.split(",")
 
+    
+
     #cheking for multiple argument with all
     if len(notes) > 1:
         for i in notes:
             if i == "all":
-                print("Ambiguity between all and notes")
-                return(False)
+                print_err_msg("Ambiguity between all and notes")
+                exit(error.ERROR_SEARCH_NOTE_AMBIGUITY)
+            elif verify_note(i, "meta") == False:
+                print_err_msg("The note "+i+" does not exist -- bye")
 
     #check and set the search_all_notes
     else:

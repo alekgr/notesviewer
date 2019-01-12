@@ -136,12 +136,6 @@ def print_content(content_line):
     for i in l: 
         print(colored(i,vardata.OPTIONS['color_content']))
 
-def print_list_per_line(mylist):
-    """print a list"""
-
-    for f in mylist:
-        print(colored(f,vardata.OPTIONS['color_note']))
-
 
 def get_searches_per_line(line):
         return(len(line)//4)
