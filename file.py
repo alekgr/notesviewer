@@ -25,12 +25,6 @@ def open_note(file_context, note, mode):
         if not mode in modes: 
             return(error.ERROR_WRONG_MODE)
 
-
-        #check if file exists
-        #if not os.path.exists(path):
-        #    print(colored("The note "+note+" "+file_context+" file does not exist -- bye",vardata.OPTIONS['color_err']))
-        #    exit() 
-
         fp = open(path,mode)
 
         if fp == None:
