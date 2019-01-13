@@ -405,6 +405,11 @@ def cm_display(note, short):
             print_err_msg("The note "+note+" does not exist -- bye")
             exit(error.ERROR_NO_META_FILE)
 
+        if verify_empty_note(note, "meta"):
+            print_info_msg("Empty note")
+            exit(error.ERROR_OK)
+
+
         #open meta and content files
         fp_meta    = open_note("meta", note, "r") 
         fp_content = open_note("content", note, "r")
