@@ -355,12 +355,33 @@ def cm_removetags(note, tags):
          
 def cm_list(verbose):
         """ print nameo of the notes"""
-   
-        print_list_per_line(os.listdir(vardata.base_catagory_path+"/"+"meta"))
-        if(verbose == True):
+
+        notes = os.listdir(vardata.base_catagory_path+"/"+"meta")
+        if verbose == False:
+            print_list_per_line(os.listdir(vardata.base_catagory_path+"/"+"meta"))
+
+        else:
+            for note in notes:
+                if verify_empty_note(note,"meta") == True:
+                    print_msg(vardata.OPTIONS['color_note'],note+" "+"(empty)")
+                else:
+                    path_meta = getnotepath(note, "meta")
+                    path_content = getnotepath(note, "content")
+                    path_tags    = getnotepath(note, "tag")
+                    path_links    = getnotepath(note, "link")
+                    size_meta = os.stat(path_meta)
+                    size_content = os.stat(path_content)
+                    size_tags   = os.stat(path_tags)
+                    size_link   = os.stat(path_links)
+                    size_total = size_meta.st_size+size_content.st_size+size_tags.st_size+size_link.st_size
+                    print_msg(vardata.OPTIONS['color_note'], note+" ("+str(size_total)+"b)") 
+
+        
+            if(verbose == True):
                 print(colored("---------",vardata.OPTIONS['color_msg'])) 
                 print(colored("Total notes: ",vardata.OPTIONS['color_msg']),end="")
                 print(colored(len(os.listdir(vardata.base_catagory_path+"/"+"meta")),vardata.OPTIONS['color_msg']))
+        
 
 def cm_display(note, short):
         """display a note"""

@@ -49,7 +49,7 @@ def verify_note(note, file_context):
 def verify_empty_note(note, file_context):
         """ check note if empty """
 
-        if os.stat(get_note_path(note)).st_size == 0:
+        if os.stat(getnotepath(note,file_context)).st_size == 0:
             return True
         else:
             return False
