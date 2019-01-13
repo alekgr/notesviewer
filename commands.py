@@ -1,6 +1,7 @@
 import sys
 import uuid
 import error
+import stat
 from note import *
 from utils import *
 from config import showconfig,setdefaultconfig
@@ -15,21 +16,24 @@ def cm_version():
 def cm_add(name, verbose):
         """add a note"""
 
+        #file permission
+        mode = 0o600 | stat.S_IRUSR
+
         meta_path       =   getnotepath(name, "meta")
         content_path    =   getnotepath(name, "content")
         tag_path        =   getnotepath(name, "tag") 
         link_path       =   getnotepath(name, "link")
 
-        #create files
+        #create the note files
 
         if verify_note(name, "meta") == True:
             print_err_msg("The note "+name+" already exists")
             exit(error.ERROR_META_FILE_ALREADY_EXISTS)
         else:
-            os.mknod(meta_path)
-            os.mknod(content_path)
-            os.mknod(tag_path)
-            os.mknod(link_path)
+            os.mknod(meta_path,mode)
+            os.mknod(content_path,mode)
+            os.mknod(tag_path,mode)
+            os.mknod(link_path,mode)
             print_info_msg("Added "+name+" note")
         
 def cm_insert(name, title):
