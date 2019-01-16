@@ -442,7 +442,7 @@ def cm_display(note, short):
                         print(str(index+1)+") ", end="") 
                         print(">>> "+colored(notes[index].title,vardata.OPTIONS['color_title']))
                         #print("content-> "+notes[index].content,end="")
-                        print_content(meta_notes[index].content)
+                        print_content(notes[index].content)
                 index = index+1
                 
         #close files
