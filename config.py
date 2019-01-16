@@ -2,7 +2,6 @@
 
 import os
 import vardata 
-from repo import *
 import configparser
 
 
@@ -143,12 +142,6 @@ def set_data_location():
         if get_data_location_type() == "file":
                 vardata.base_catagory_path = get_data_location_source()         
 
-        if get_data_location_type() == "git":
-                vardata.base_catagory_path = vardata.repo_dir
-                if not os.path.isdir(vardata.base_catagory_path):
-                        os.mkdir(vardata.base_catagory_path)
-                if not os.path.exists(vardata.base_catagory_path+"/"+".git"):
-                        note_clone(get_data_location_source(), vardata.base_catagory_path)
 
 def get_data_location_source():
         return vardata.OPTIONS['data_location'].split(":",1)[1]
