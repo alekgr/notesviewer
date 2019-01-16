@@ -88,3 +88,46 @@ def split_multline_note_enteries(notes):
 
     return(splited_notes)
  
+
+def inspect_note(note):
+    """ check note for any inconsistencies or corruption"""
+
+    note_error = {'meta':True, 'content':True, 'link':True, 'tags':True}   
+   
+    note_error['meta'] = verify_note(note, "meta")
+    note_error['content'] = verify_note(note, "content")
+    note_error['link']    = verify_note(note, "link")
+    note_error['tags']    = verify_note(note,  "tag")
+   
+    return note_error
+
+def get_note_uuids(note):
+    """ check index between meta and content """ 
+
+    meta_uuid = [] 
+    content_uuid = []
+    match_uuids = []
+
+    meta_fp     = open_note("meta", note, "r")
+    content_fp  = open_note("content", note, "r")
+   
+    meta_lines      = meta_fp.readlines()
+    content_lines   = content_fp.readlines()
+    
+
+    for line in meta_lines:
+        m_uuid  = get_uuid(line)
+        m_uuid = m_uuid.split(":")[1]
+        meta_uuid.append(m_uuid)
+        
+         
+    for line in content_lines:
+        c_uuid = get_uuid(line)
+        c_uuid = c_uuid.split(":")[1]
+        content_uuid.append(c_uuid)
+       
+
+    close_note(meta_fp)
+    close_note(content_fp)
+
+    return meta_uuid, content_uuid

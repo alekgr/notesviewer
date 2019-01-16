@@ -12,6 +12,8 @@ def cm_version():
     """ print version """
     
     print(colored("Version is "+str(vardata.VERSION),vardata.OPTIONS['color_msg']))
+    note_status = inspect_note("testing2")
+    print(note_status['meta'])
 
 def cm_add(name, verbose):
         """add a note"""
@@ -440,7 +442,7 @@ def cm_display(note, short):
                         print(str(index+1)+") ", end="") 
                         print(">>> "+colored(notes[index].title,vardata.OPTIONS['color_title']))
                         #print("content-> "+notes[index].content,end="")
-                        print_content(notes[index].content)
+                        print_content(meta_notes[index].content)
                 index = index+1
                 
         #close files
@@ -498,7 +500,59 @@ def cm_search(regex, note):
          note_name = get_note_name(i[3])
          print(" ("+colored(note_name,vardata.OPTIONS['color_search_notename'])+")")
          index = index+1
-    
+
+def cm_check():
+   
+    print("Checking notes files..")
+
+    notes = os.listdir(vardata.base_catagory_path+"/"+"meta")   
+   
+    for n in notes:
+        status = inspect_note(n)
+        print("Checking "+n)
+        
+        if status['meta'] == True:
+            print_info_msg("meta..OK")
+        else:
+            print_err_msg('meta..MISSING') 
+
+        if status['content'] == True:
+            print_info_msg("content..OK")
+        else:
+            print_err_msg('content..MISSING') 
+
+        if status['link'] == True:
+            print_info_msg("link..OK")
+        else:
+            print_err_msg('link..MISSING')  
+       
+        if status['tags'] == True:
+            print_info_msg("tags..OK")
+        else:
+            print_err_msg('tags..MISSING') 
+
+    print("\n")
+   
+    #check for index mismatch
+    print("Chekcing notes metadata..")
+    for note in notes: 
+        print("checking "+note)
+        #ignore empty notes
+        if verify_empty_note(note, "meta") == True:
+            print_info_msg(note+ "(Ignoring ..empty)")
+            continue
+        meta_uuid, content_uuid = get_note_uuids(note)
+        meta_size = len(meta_uuid)
+        content_size = len(content_uuid)
+        if meta_size == content_size:
+            for index in range(meta_size):
+                if meta_uuid[index] == content_uuid[index]:
+                    print_info_msg(meta_uuid[index]+"..,passed")
+                else:
+                    print_err_msg(meta_uuid[index]+"...not passed")
+        else:
+            print_err_msg("Note entry mismatch")
+
 def cm_showconfig():
     """show config"""   
 

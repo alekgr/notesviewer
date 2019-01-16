@@ -85,6 +85,9 @@ if __name__ == "__main__":
                 search_parser.add_argument('regex', action='store')
                 search_parser.add_argument(dest="note",action='store')
 
+                #status
+                status_parser = subparser.add_parser('check')
+
                 #interactive
                 interactive_parser = subparser.add_parser('interactive')
 
@@ -127,6 +130,8 @@ if __name__ == "__main__":
                         cm_setdefaultconfig()
                 elif argument['cmd'] == 'search':
                         cm_search(argument['regex'],argument['note'])
+                elif argument['cmd'] == 'check':
+                        cm_check()
                 elif argument['cmd'] == 'interactive':
                         interactive()
                 elif argument['cmd'] == 'info':
