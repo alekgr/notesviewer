@@ -1,3 +1,4 @@
+""" setup file """
 from setuptools import setup, find_packages
 
 setup(
@@ -12,7 +13,7 @@ setup(
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     url='https://gitlab.com/Alekgr/notesviewer.git',
-    classifiers=[ 
+    classifiers=[
         'Development Status :: 3 - Alpha',
 
         # Indicate who your project is intended for
@@ -38,4 +39,3 @@ setup(
         ]
     },
 )
-
