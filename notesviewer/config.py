@@ -1,150 +1,186 @@
-#! /usr/bin/env python3
+""" config module """
 
 import os
-import vardata 
 import configparser
+import notesviewer.vardata
+import notesviewer.file
 
 
 def loadconfig():
-        """ load config file into the OPTIONS dictionary """
-        
-        global OPTIONS
+    """ load config file into the OPTIONS dictionary """
 
-        #return False if there is no config file
-        if not verifyconfigfile(): 
-                return False    
-        else:   
-                #read config file
-                config = configparser.ConfigParser()
-                config.read(vardata.config_file_path)
+    # return False if there is no config file
+    if not verifyconfigfile():
+        return False
 
-                #return False if no setttings section
-                if not config.has_section('settings'):
-                        return False
-                else:
-                        #load each setting option if available else it will go with default
-                        if config.has_option('settings', 'graphical'):
-                                vardata.OPTIONS['graphical']    =       config.get('settings','graphical')
-                        if config.has_option('settings', 'verbose'):
-                                vardata.OPTIONS['verbose']      =       config.get('settings','verbose')
-                        if config.has_option('settings', 'editor'):
-                                vardata.OPTIONS['editor']       =       config.get('settings','editor')
-                        if config.has_option('settings', 'color_err'):
-                                vardata.OPTIONS['color_err']    =       config.get('settings','color_err')
-                        if config.has_option('settings', 'color_msg'):
-                                vardata.OPTIONS['color_msg']    =       config.get('settings','color_msg')
-                        if config.has_option('settings', 'color_note'):
-                                vardata.OPTIONS['color_note']   =       config.get('settings','color_note')
-                        if config.has_option('settings', 'color_title'):
-                                vardata.OPTIONS['color_title']  =       config.get('settings','color_title')
-                        if config.has_option('settings', 'color_content'):
-                                vardata.OPTIONS['color_content']=      config.get('settings','color_content')
-                        if config.has_option('settings', 'color_search_string'):
-                                vardata.OPTIONS['color_search_string']= config.get('settings','color_search_string')  
-                        if config.has_option('settings', 'color_search_notename'):
-                                vardata.OPTIONS['settins', 'color_search_notenmae']= config.get('settings','color_search_noname')
-                        if config.has_option('settings', 'data_location'):
-                                vardata.OPTIONS['data_location']=  config.get('settings','data_location')
+    # read config file
+    config = configparser.ConfigParser()
+    config.read(notesviewer.vardata.CONFIG_FILE_PATH)
 
-        #return as True
-        return  True
+    # return False if no setttings section
+    if not config.has_section('settings'):
+        return False
+
+    # load each setting option if
+    # available else it will go with default
+    if config.has_option('settings', 'graphical'):
+        notesviewer.vardata.OPTIONS['graphical'] = \
+            config.get('settings', 'graphical')
+        if config.has_option('settings', 'verbose'):
+            notesviewer.vardata.OPTIONS['verbose'] = \
+                config.get('settings', 'verbose')
+        if config.has_option('settings', 'editor'):
+            notesviewer.vardata.OPTIONS['editor'] = \
+                config.get('settings', 'editor')
+        if config.has_option('settings', 'color_err'):
+            notesviewer.vardata.OPTIONS['color_err'] = \
+                config.get('settings', 'color_err')
+        if config.has_option('settings', 'color_msg'):
+            notesviewer.vardata.OPTIONS['color_msg'] = \
+                config.get('settings', 'color_msg')
+        if config.has_option('settings', 'color_note'):
+            notesviewer.vardata.OPTIONS['color_note'] = \
+                config.get('settings', 'color_note')
+        if config.has_option('settings', 'color_title'):
+            notesviewer.vardata.OPTIONS['color_title'] = \
+                config.get('settings', 'color_title')
+        if config.has_option('settings', 'color_content'):
+            notesviewer.vardata.OPTIONS[
+                'color_content'] = \
+                config.get('settings', 'color_content')
+        if config.has_option(
+                'settings', 'color_search_string'):
+            notesviewer.vardata.OPTIONS[
+                'color_search_string'] = \
+                config.get('settings',
+                           'color_search_string')
+        if config.has_option('settings',
+                             'color_search_notename'):
+            notesviewer.vardata.OPTIONS[
+                'settings',
+                'color_search_notenmae'] = \
+                config.get('settings',
+                           'color_search_notename')
+        if config.has_option('settings',
+                             'data_location'):
+            notesviewer.vardata.OPTIONS[
+                'data_location'] = \
+                config.get('settings',
+                           'data_location')
+    return True
 
 
 def setdefaultconfig():
-        """ set the default configuration.. overwriting old configuration"""    
+    """ set the default configuration.. overwriting old configuration"""
 
+    # add setting and options
+    config = configparser.ConfigParser()
+    config.add_section("settings")
+    config.set("settings", "graphical", str(
+        notesviewer.vardata.GRAPHICAL_DEFAULT))
+    config.set("settings", "verbose", str(
+        notesviewer.vardata.VERBOSE_DEFAULT))
+    config.set("settings", "editor",
+               notesviewer.vardata.EDITOR_DEFAULT)
+    config.set("settings", "color_err",
+               notesviewer.vardata.COLOR_ERR_DEFAULT)
+    config.set("settings", "color_msg",
+               notesviewer.vardata.COLOR_MSG_DEFAULT)
+    config.set("settings", "color_note",
+               notesviewer.vardata.COLOR_NOTE_DEFAULT)
+    config.set("settings", "color_title",
+               notesviewer.vardata.COLOR_NOTE_TITLE_DEFAULT)
+    config.set("settings", "color_content",
+               notesviewer.vardata.COLOR_NOTE_CONTENT_DEFAULT)
+    config.set("settings", "color_search_string",
+               notesviewer.vardata.COLOR_SEARCH_STRING_DEFAULT)
+    config.set("settings", "color_search_notename",
+               notesviewer.vardata.COLOR_SEARCH_NOTE_DEFAULT)
+    config.set("settings", "data_location",
+               notesviewer.vardata.DATA_DEFAULT)
 
-        #add setting and options
-        config = configparser.ConfigParser()
-        config.add_section("settings")
-        config.set("settings", "graphical", str(vardata.GRAPHICAL_DEFAULT))
-        config.set("settings", "verbose", str(vardata.VERBOSE_DEFAULT))
-        config.set("settings", "editor", vardata.EDITOR_DEFAULT)
-        config.set("settings", "color_err", vardata.COLOR_ERR_DEFAULT)
-        config.set("settings", "color_msg", vardata.COLOR_MSG_DEFAULT)
-        config.set("settings", "color_note", vardata.COLOR_NOTE_DEFAULT) 
-        config.set("settings", "color_title", vardata.COLOR_NOTE_TITLE_DEFAULT)
-        config.set("settings", "color_content", vardata.COLOR_NOTE_CONTENT_DEFAULT)
-        config.set("settings", "data_location", vardata.DATA_DEFAULT)
+    # write to CONFIG_FILE
+    with open(notesviewer.vardata.CONFIG_FILE_PATH, "w") as filepointer:
+        config.write(filepointer)
 
-        #write to config_file
-        with open(vardata.config_file_path,"w") as fp:
-                config.write(fp)
+    notesviewer.file.print_info_msg("Default settings copied")
 
 
 def verifyconfigfile():
-        """verify if config file is found """
-        if os.path.isfile(vardata.config_file_path) == True:
-                return True
-        else:
-                return False
+    """verify if config file is found """
+    if os.path.isfile(notesviewer.vardata.CONFIG_FILE_PATH) is True:
+        return True
+    return False
+
 
 def verify_key(key):
-        " verify if the key is a valid option """
+    " verify if the key is a valid option """
 
-        for k in OPTIONS.keys():
-                if key == k:
-                        return True     
-        return False
+    for k in notesviewer.vardata.OPTIONS.keys():
+        if key == k:
+            return True
+    return False
+
 
 def verify_key_value(key, val):
-        """verify if a value is a valid option for a key"""
+    """verify if a value is a valid option for a key"""
 
-        if key == "graphical" or key == "verbose":
-                if val == "true" or val == "false":
-                        return True
-                else:
-                        return False
-        if key == "editor":
-                if val in EDITORS:
-                        return True
-                else:
-                        return False
-        if key == "color_err" or key == "color_cata" or key == "color_note":
-                if val in COLORS:
-                        return True
-                else:
-                        return False
+    if key in ("verbose", "graphical"):
+        if val in ("true", "false"):
+            return True
+    if key == "editor":
+        if val in notesviewer.vardata.EDITORS:
+            return True
+    if key in ("color_err", "color_cata", "color_note"):
+        if val in notesviewer.vardata.COLORS:
+            return True
+    return False
 
-        return False
 
-def checksection(conf,section):
-        """ check to see if config has a section"""
-        conf.read(config_file_path)
-        if conf.has_section(section):
-                return True
-        else:
-                return False    
+def checksection(conf, section):
+    """ check to see if config has a section"""
+    conf.read(notesviewer.vardata.CONFIG_FILE_PATH)
+    if conf.has_section(section):
+        return True
+    return False
+
 
 def showconfig():
-        """ Main funcation for showconfig() """
+    """ Main funcation for showconfig() """
 
-        if verifyconfigfile() == False:
-                print("There is no "+config_file_path)
-                return False
+    if verifyconfigfile() is False:
+        print("There is no " + notesviewer.vardata.CONFIG_FILE_PATH)
+        return False
 
-        config = configparser.ConfigParser()
-        config.read(vardata.config_file_path)
+    config = configparser.ConfigParser()
+    config.read(notesviewer.vardata.CONFIG_FILE_PATH)
 
-        #get items from config
-        items = dict(config.items("settings"))
-        for key,value in zip( items.keys(),items.values()): 
-                print(key+":"+value)    
+    # get items from config
+    items = dict(config.items("settings"))
+    for key, value in zip(items.keys(), items.values()):
+        print(key + ":" + value)
+
+    return True
+
 
 def printconfigoptoin(conf, option):
-        """ print an option"""  
-        print(conf.get('settings',option))
+    """ print an option"""
+    print(conf.get('settings', option))
+
 
 def set_data_location():
-        
-        global base_catagory_path
-
-        if get_data_location_type() == "file":
-                vardata.base_catagory_path = get_data_location_source()         
+    """ set data location """
+    if get_data_location_type() == "file":
+        notesviewer.vardata.set_notes_root_path(
+            get_data_location_source())
 
 
 def get_data_location_source():
-        return vardata.OPTIONS['data_location'].split(":",1)[1]
+    """ get data location source """
+
+    return notesviewer.vardata.OPTIONS['data_location'].split(":", 1)[1]
+
 
 def get_data_location_type():
-        return vardata.OPTIONS['data_location'].split(":")[0]
+    """ get data location type """
+    return notesviewer.vardata.OPTIONS['data_location'].split(":")[0]

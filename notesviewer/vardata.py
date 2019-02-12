@@ -2,60 +2,84 @@
 
 from os.path import expanduser
 
-home = expanduser("~")
-program_name="noteviewer"
+HOME = expanduser("~")
+PROGRAM_NAME = "noteviewer"
 
 
-#global constant variables
-interactive_commands = [        ['list_catagories', 'edit', 'search', 'settings', 'version', 'quit'],
-                                                                ['graphical on', 'Scope', 'verbose on', 'exit','quit'],                  
-                                                                ['global', 'catagory', 'note', 'comment','exit','quit'] ]
-#command mode
-command_mode = interactive_commands[0] 
+# global constant variables
+INTERACTIVE_COMMANDS = [
+    [
+        'list_catagories', 'edit',
+        'search', 'settings', 'version', 'quit'
+    ],
+    [
+        'graphical on', 'Scope', 'verbose on',
+        'exit', 'quit'
+    ],
+    ['global', 'catagory', 'note',
+     'comment', 'exit', 'quit']
+]
 
-#config file
-config_file = "config"
-config_file_path = home+"/"+"."+program_name+"/"+config_file
+# command mode
+COMMAND_MODE = INTERACTIVE_COMMANDS[0]
 
-#buffer location where all the work is being done 
-repo_dir = home+"/"+"notes"
+# config file
+CONFIG_FILE = "config"
+CONFIG_FILE_PATH = HOME + "/" + "." + PROGRAM_NAME + "/" + CONFIG_FILE
 
-base_catagory_path="test"
+# buffer location where all the work is being done
+REPO_DIR = HOME + "/" + "notes"
 
-#version
+NOTES_ROOT_PATH = ""
+
+# version
 VERSION = 1.0
 
 
-GRAPHICAL_DEFAULT = False 
-VERBOSE_DEFAULT = False 
+GRAPHICAL_DEFAULT = False
+VERBOSE_DEFAULT = False
 EDITOR_DEFAULT = "vim"
-COLOR_ERR_DEFAULT = "red"
-COLOR_MSG_DEFAULT = "grey"
-COLOR_NOTE_DEFAULT  = "yellow"
-COLOR_NOTE_TITLE_DEFAULT    = "blue"
-COLOR_NOTE_CONTENT_DEFAULT  = "green"
+COLOR_ERR_DEFAULT = "white"
+COLOR_MSG_DEFAULT = "yellow"
+COLOR_NOTE_DEFAULT = "yellow"
+COLOR_NOTE_TITLE_DEFAULT = "blue"
+COLOR_NOTE_CONTENT_DEFAULT = "green"
 COLOR_SEARCH_STRING_DEFAULT = "blue"
-COLOR_SEARCH_NOTE_DEFAULT   = "green"
-DATA_DEFAULT = "file"+":"+home+"/"+"notes"
+COLOR_SEARCH_NOTE_DEFAULT = "green"
+DATA_DEFAULT = "file" + ":" + HOME + "/" + "notes"
 
-EDITORS = ['vim','emacs']
-COLORS  = ['red','blue','green','yellow', 'black','white']
+EDITORS = ['vim', 'emacs']
+COLORS = ['red', 'blue', 'green', 'yellow', 'black', 'white']
 
-protocol_git  = "git"
-protocol_file = "file" 
+PROTOCOL_GIT = "git"
+PROTOCOL_FILE = "file"
 
-OPTIONS  = {
-        "graphical":            GRAPHICAL_DEFAULT,
-        "verbose":                      VERBOSE_DEFAULT,
-        "editor":                       EDITOR_DEFAULT,
-        "color_err":            COLOR_ERR_DEFAULT,
-        "color_msg":            COLOR_MSG_DEFAULT,
-        "color_note":           COLOR_NOTE_DEFAULT,
-        "color_title":          COLOR_NOTE_TITLE_DEFAULT,
-        "color_content":        COLOR_NOTE_CONTENT_DEFAULT,
-        "color_search_string":  COLOR_SEARCH_STRING_DEFAULT,
-        "color_search_notename":COLOR_SEARCH_NOTE_DEFAULT,
-        "data_location":        DATA_DEFAULT
-        }
+OPTIONS = {
+    "graphical": GRAPHICAL_DEFAULT,
+    "verbose": VERBOSE_DEFAULT,
+    "editor": EDITOR_DEFAULT,
+    "color_err": COLOR_ERR_DEFAULT,
+    "color_msg": COLOR_MSG_DEFAULT,
+    "color_note": COLOR_NOTE_DEFAULT,
+    "color_title": COLOR_NOTE_TITLE_DEFAULT,
+    "color_content": COLOR_NOTE_CONTENT_DEFAULT,
+    "color_search_string": COLOR_SEARCH_STRING_DEFAULT,
+    "color_search_notename": COLOR_SEARCH_NOTE_DEFAULT,
+    "data_location": DATA_DEFAULT,
+}
 
 
+def set_notes_root_path(path):
+    """ set notes_root_path"""
+
+    global NOTES_ROOT_PATH
+
+    NOTES_ROOT_PATH = path
+
+
+def set_command_mode(interactive_command):
+    """ set COMMAND_MODE"""
+
+    global COMMAND_MODE
+
+    COMMAND_MODE = interactive_command
