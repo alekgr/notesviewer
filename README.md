@@ -2,11 +2,11 @@
 
 A notes viewer written in python
 
-### install
+## install
 
 pip install notesviewer
 
-#### usage
+### usage
 
 ```
 notesviewer --help
