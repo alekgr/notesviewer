@@ -16,7 +16,9 @@ import notesviewer.utils
 def cm_version():
     """ print version """
 
-    version = open("./version").read()
+    path = os.path.dirname(__file__)
+
+    version = open(path+"/"+"version").read()
     version = version.replace('\n', '')
 
     print(colored("Version is " + str(version),
