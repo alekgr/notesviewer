@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='notesviewer',
-    version=open('notesviewer/version').read(),
+    version=open('notesviewer/_version').read(),
     description='notesviewer',
     packages=find_packages(),
     include_package_data=True,

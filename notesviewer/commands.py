@@ -18,7 +18,7 @@ def cm_version():
 
     path = os.path.dirname(__file__)
 
-    version = open(path+"/"+"version").read()
+    version = open(path+"/"+"_version").read()
     version = version.replace('\n', '')
 
     print(colored("Version is " + str(version),
