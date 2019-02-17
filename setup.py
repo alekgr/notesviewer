@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='notesviewer',
-    version='1.0.994',
+    version=open('notesviewer/version').read(),
     description='notesviewer',
     packages=find_packages(),
     include_package_data=True,
@@ -35,7 +35,7 @@ setup(
 
     entry_points={
         "console_scripts": [
-            "notesviewer=notesviewer.notesviewer:main",
+            "notesviewer=notesviewer.nv:main",
         ]
     },
 )

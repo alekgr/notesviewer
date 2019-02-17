@@ -32,10 +32,6 @@ REPO_DIR = HOME + "/" + "notes"
 
 NOTES_ROOT_PATH = ""
 
-# version
-VERSION = 1.0
-
-
 GRAPHICAL_DEFAULT = False
 VERBOSE_DEFAULT = False
 EDITOR_DEFAULT = "vim"

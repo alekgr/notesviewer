@@ -16,7 +16,10 @@ import notesviewer.utils
 def cm_version():
     """ print version """
 
-    print(colored("Version is " + str(notesviewer.vardata.VERSION),
+    version = open("./version").read()
+    version = version.replace('\n', '')
+
+    print(colored("Version is " + str(version),
                   notesviewer.vardata.OPTIONS['color_msg']))
 
 
