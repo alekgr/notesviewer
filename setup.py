@@ -38,4 +38,10 @@ setup(
             "notesviewer=notesviewer.nv:main",
         ]
     },
+
+    install_requires=[
+        'termcolor',
+        'configparser',
+        ]
+
 )
