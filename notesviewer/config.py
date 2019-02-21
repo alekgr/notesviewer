@@ -11,7 +11,8 @@ def loadconfig():
 
     # return False if there is no config file
     if not verifyconfigfile():
-        return False
+        notesviewer.file.print_info_msg("Looks like you don't have a .config file")
+        notesviewer.file.create_config_file()
 
     # read config file
     config = configparser.ConfigParser()

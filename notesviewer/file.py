@@ -1,6 +1,7 @@
 """ Module file """
 
 import os
+import stat
 from termcolor import colored
 import notesviewer.vardata
 import notesviewer.error
@@ -40,6 +41,19 @@ def close_note(filepointer):
     """ close a file pointer"""
     filepointer.close()
 
+
+def create_config_file():
+    """ create config file """
+
+    mode = 0o600 | stat.S_IRUSR
+
+    error = os.mknod(notesviewer.vardata.CONFIG_FILE_PATH, mode)
+    if error is not None:
+        print_err_msg("There was error creating config file "+ notesviewer.vardata.CONFIG_FILE_PATH)
+        exit(-1)
+    else:
+        print_info_msg("Created config file at "+notesviewer.vardata.CONFIG_FILE_PATH)
+        notesviewer.commands.setdefaultconfig()
 
 def verify_note(note, file_context):
     """ check note """
