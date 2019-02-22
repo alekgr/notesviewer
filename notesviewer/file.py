@@ -47,6 +47,9 @@ def create_config_file():
 
     mode = 0o600 | stat.S_IRUSR
 
+    if  not os.path.exists(notesviewer.vardata.HOME+"/"+"."+notesviewer.vardata.PROGRAM_NAME):
+        os.makedirs(notesviewer.vardata.CONFIG_FILE_PATH, exist_ok=True)
+
     error = os.mknod(notesviewer.vardata.CONFIG_FILE_PATH, mode)
     if error is not None:
         print_err_msg("There was error creating config file "+ notesviewer.vardata.CONFIG_FILE_PATH)
