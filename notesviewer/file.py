@@ -55,6 +55,16 @@ def create_config_file():
         print_info_msg("Created config file at "+notesviewer.vardata.CONFIG_FILE_PATH)
         notesviewer.commands.setdefaultconfig()
 
+def create_notes_root_path():
+    """ creat a note root directory """
+
+    mode = 0o755 | stat.S_IRUSR
+
+    os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH+"/"+"meta", exist_ok=True)
+    os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH+"/"+"content", exist_ok=True)
+    os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH+"/"+"tags", exist_ok=True)
+    os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH+"/"+"links", exist_ok=True)
+
 def verify_note(note, file_context):
     """ check note """
     path = getnotepath(note, file_context)
@@ -62,6 +72,12 @@ def verify_note(note, file_context):
         return True
     return False
 
+def verify_notes_root_path():
+    """ check NOTES_ROOT_PATH folder exists"""
+
+    if os.path.exists(notesviewer.vardata.NOTES_ROOT_PATH):
+        return True
+    return False
 
 def verify_empty_note(note, file_context):
     """ check note if empty """

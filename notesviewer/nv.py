@@ -13,6 +13,12 @@ def main():
     """ main application function """
     loadconfig()
     set_data_location()
+    if not notesviewer.file.verify_notes_root_path():
+        notesviewer.file.print_info_msg("Initalizing notes base")
+        notesviewer.file.create_notes_root_path()
+
+
+
     parse_arguments()
 
 
