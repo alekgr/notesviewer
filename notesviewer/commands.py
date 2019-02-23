@@ -431,6 +431,9 @@ def cm_removetags(note, tags):
 def cm_list(verbose):
     """ print nameo of the notes"""
 
+    if len(os.listdir(notesviewer.vardata.NOTES_ROOT_PATH+"/"+"meta")) is int(0):
+        notesviewer.file.print_info_msg("empty")
+
     notes = os.listdir(notesviewer.vardata.NOTES_ROOT_PATH + "/" + "meta")
     if verbose is False:
         notesviewer.file.print_list_per_line(os.listdir(
