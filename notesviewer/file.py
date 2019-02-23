@@ -66,7 +66,7 @@ def create_notes_root_path():
     os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH+"/"+"meta", exist_ok=True)
     os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH+"/"+"content", exist_ok=True)
     os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH+"/"+"tags", exist_ok=True)
-    os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH+"/"+"links", exist_ok=True)
+    os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH+"/"+"link", exist_ok=True)
 
 def verify_note(note, file_context):
     """ check note """
