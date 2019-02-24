@@ -108,6 +108,9 @@ def parse_arguments():
 
     # parse user arguments
     args = vars(parser.parse_args())
+    if args['cmd'] is None:
+        notesviewer.file.print_err_msg("Missing command")
+        parser.print_usage()
     process_args(args)
 
 
