@@ -13,14 +13,7 @@ def main():
     """ main application function """
     loadconfig()
     set_data_location()
-    if not notesviewer.file.verify_notes_root_path():
-        notesviewer.file.print_info_msg("Initalizing notes base")
-        notesviewer.file.create_notes_root_path()
-
-
-
     parse_arguments()
-
 
 def parse_arguments():
     """ parse all the program arguments """
@@ -33,6 +26,9 @@ def parse_arguments():
 
     # version command
     version_parser = subparser.add_parser('version')
+
+    # init notes directory
+    init_parser = subparser.add_parser('init')
 
     # add
     add_parser = subparser.add_parser('add')
@@ -119,6 +115,14 @@ def process_args(argument):
 
     if argument['cmd'] == 'version':
         notesviewer.commands.cm_version()
+    elif argument['cmd'] == 'info':
+        notesviewer.commands.cm_info()
+    elif argument['cmd'] == 'setdefaultconfig':
+        notesviewer.commands.cm_setdefaultconfig()
+    elif argument['cmd'] == 'showconfig':
+        notesviewer.commands.cm_showconfig()
+    elif argument['cmd'] == 'init':
+        notesviewer.commands.cm_init()
     elif argument['cmd'] == 'list':
         notesviewer.commands.cm_list(argument['verbose'])
     elif argument['cmd'] == 'add':
@@ -145,19 +149,12 @@ def process_args(argument):
     elif argument['cmd'] == 'display':
         notesviewer.commands.cm_display(argument['note'],
                                         argument['short'])
-    elif argument['cmd'] == 'showconfig':
-        notesviewer.commands.cm_showconfig()
-    elif argument['cmd'] == 'setdefaultconfig':
-        notesviewer.commands.cm_setdefaultconfig()
     elif argument['cmd'] == 'search':
         notesviewer.commands.cm_search(argument['regex'], argument['note'])
     elif argument['cmd'] == 'check':
         notesviewer.commands.cm_check()
     elif argument['cmd'] == 'interactive':
         notesviewer.interactive.interactive()
-    elif argument['cmd'] == 'info':
-        notesviewer.commands.cm_info()
-
 
 if __name__ == '__main__':
     main()

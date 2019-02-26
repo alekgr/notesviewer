@@ -16,6 +16,15 @@ def checkinput(text):
 
 def interactive():
     """ interactive main command """
+
+    no_root_msg = "No root note directory found"
+    run_init_msg = "Use the init command to initalize Notes"
+
+    if not notesviewer.file.verify_notes_root_path():
+        notesviewer.file.print_err_msg(no_root_msg)
+        notesviewer.file.print_info_msg(run_init_msg)
+        exit(notesviewer.error.ERROR_NO_ROOT_NOTE)
+
     readline.set_completer(completer)
     readline.parse_and_bind("tab: complete")
     prompt = ""
