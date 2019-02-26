@@ -69,6 +69,7 @@ def create_notes_root_path():
         os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH+"/"+"content")
         os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH+"/"+"tags")
         os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH+"/"+"link")
+        notesviewer.file.print_info_msg("initalized Root note directory...")
     except OSError:
         notesviewer.file.print_info_msg("Note directory already exists")
         prompt_msg1 = "Would you like to initalize it again(yes/no)\n"
