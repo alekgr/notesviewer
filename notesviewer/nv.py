@@ -124,36 +124,50 @@ def process_args(argument):
     elif argument['cmd'] == 'init':
         notesviewer.commands.cm_init()
     elif argument['cmd'] == 'list':
+        notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_list(argument['verbose'])
     elif argument['cmd'] == 'add':
+        notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_add(argument['name'])
     elif argument['cmd'] == 'insert':
+        notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_insert(argument['name'], argument['title'])
     elif argument['cmd'] == 'edit':
+        notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_edit(argument['entry'], argument['note'])
     elif argument['cmd'] == 'delete':
+        notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_delete(argument['name'])
     elif argument['cmd'] == 'remove':
+        notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_remove(argument['entry'], argument['name'])
     elif argument['cmd'] == 'move':
+        notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_move(argument['entry'],
                                      argument['fromnote'],
                                      argument['tonote'])
     elif argument['cmd'] == 'addtags':
+        notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_addtags(argument['note'], argument['tag'])
     elif argument['cmd'] == 'tags':
+        notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_tags(argument['note'])
     elif argument['cmd'] == 'removetags':
+        notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_removetags(argument['note'],
                                            argument['tags'])
     elif argument['cmd'] == 'display':
+        notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_display(argument['note'],
                                         argument['short'])
     elif argument['cmd'] == 'search':
+        notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_search(argument['regex'], argument['note'])
     elif argument['cmd'] == 'check':
+        notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_check()
     elif argument['cmd'] == 'interactive':
+        notesviewer.file.verify_notes_root_path()
         notesviewer.interactive.interactive()
 
 if __name__ == '__main__':

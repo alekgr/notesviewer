@@ -95,9 +95,13 @@ def verify_note(note, file_context):
 def verify_notes_root_path():
     """ check NOTES_ROOT_PATH folder exists"""
 
-    if os.path.exists(notesviewer.vardata.NOTES_ROOT_PATH):
-        return True
-    return False
+    no_root_msg = "No root note directory found"
+    run_init_msg = "Use the init command to initalize Notes"
+
+    if not os.path.exists(notesviewer.vardata.NOTES_ROOT_PATH):
+        notesviewer.file.print_err_msg(no_root_msg)
+        notesviewer.file.print_info_msg(run_init_msg)
+        exit(notesviewer.error.ERROR_NO_ROOT_NOTE)
 
 def verify_empty_note(note, file_context):
     """ check note if empty """

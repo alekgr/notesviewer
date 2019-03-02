@@ -32,15 +32,6 @@ def cm_init():
 def cm_add(name):
     """add a note"""
 
-    no_root_msg = "No root note directory found"
-    run_init_msg = "Use the init command to initalize Notes"
-
-    if not notesviewer.file.verify_notes_root_path():
-        notesviewer.file.print_err_msg(no_root_msg)
-        notesviewer.file.print_info_msg(run_init_msg)
-        exit(notesviewer.error.ERROR_NO_ROOT_NOTE)
-
-
     # file permission
     mode = 0o600 | stat.S_IRUSR
 
@@ -63,15 +54,6 @@ def cm_add(name):
 
 def cm_insert(name, title):
     """Insert a note with a title"""
-
-    no_root_msg = "No root note directory found"
-    run_init_msg = "Use the init command to initalize Notes"
-
-    if not notesviewer.file.verify_notes_root_path():
-        notesviewer.file.print_err_msg(no_root_msg)
-        notesviewer.file.print_info_msg(run_init_msg)
-        exit(notesviewer.error.ERROR_NO_ROOT_NOTE)
-
 
     # verfiy note
     if notesviewer.file.verify_note(name, "meta") is False:
@@ -116,15 +98,6 @@ def cm_insert(name, title):
 
 def cm_edit(entry, note):
     """edit  a note entry"""
-
-    no_root_msg = "No root note directory found"
-    run_init_msg = "Use the init command to initalize Notes"
-
-    if not notesviewer.file.verify_notes_root_path():
-        notesviewer.file.print_err_msg(no_root_msg)
-        notesviewer.file.print_info_msg(run_init_msg)
-        exit(notesviewer.error.ERROR_NO_ROOT_NOTE)
-
 
     # verfiy note
     if notesviewer.file.verify_note(note, "meta") is False:
@@ -178,15 +151,6 @@ def cm_edit(entry, note):
 def cm_delete(name):
     """delete a note"""
 
-    no_root_msg = "No root note directory found"
-    run_init_msg = "Use the init command to initalize Notes"
-
-    if not notesviewer.file.verify_notes_root_path():
-        notesviewer.file.print_err_msg(no_root_msg)
-        notesviewer.file.print_info_msg(run_init_msg)
-        exit(notesviewer.error.ERROR_NO_ROOT_NOTE)
-
-
     prompt_msg = "Are you sure you want to delete " + name + " (yes/no)"
 
     if notesviewer.file.verify_note(name, "meta") is False:
@@ -211,15 +175,6 @@ def cm_delete(name):
 
 def cm_remove(entry, name):
     """remove entry function"""
-
-    no_root_msg = "No root note directory found"
-    run_init_msg = "Use the init command to initalize Notes"
-
-    if not notesviewer.file.verify_notes_root_path():
-        notesviewer.file.print_err_msg(no_root_msg)
-        notesviewer.file.print_info_msg(run_init_msg)
-        exit(notesviewer.error.ERROR_NO_ROOT_NOTE)
-
 
     meta_error_msg = "The note " + name + " does not exist or corrupted -- bye"
     content_error_msg = "The content " + name + \
@@ -271,15 +226,6 @@ def cm_remove(entry, name):
 
 def cm_move(entry, fromnote, tonote):
     """move an  entry from fromnote to tonote"""
-
-    no_root_msg = "No root note directory found"
-    run_init_msg = "Use the init command to initalize Notes"
-
-    if not notesviewer.file.verify_notes_root_path():
-        notesviewer.file.print_err_msg(no_root_msg)
-        notesviewer.file.print_info_msg(run_init_msg)
-        exit(notesviewer.error.ERROR_NO_ROOT_NOTE)
-
 
     move_msg1 = "The note entry " + str(entry) + " at " + fromnote
     move_msg2 = " has been moved to " + tonote
@@ -355,15 +301,6 @@ def cm_move(entry, fromnote, tonote):
 def cm_addtags(note, tag):
     """ adding tags to note file"""
 
-    no_root_msg = "No root note directory found"
-    run_init_msg = "Use the init command to initalize Notes"
-
-    if not notesviewer.file.verify_notes_root_path():
-        notesviewer.file.print_err_msg(no_root_msg)
-        notesviewer.file.print_info_msg(run_init_msg)
-        exit(notesviewer.error.ERROR_NO_ROOT_NOTE)
-
-
     duplicate_tags = []
 
     # get all the tags
@@ -409,15 +346,6 @@ def cm_addtags(note, tag):
 def cm_tags(note):
     """show tags for a note"""
 
-    no_root_msg = "No root note directory found"
-    run_init_msg = "Use the init command to initalize Notes"
-
-    if not notesviewer.file.verify_notes_root_path():
-        notesviewer.file.print_err_msg(no_root_msg)
-        notesviewer.file.print_info_msg(run_init_msg)
-        exit(notesviewer.error.ERROR_NO_ROOT_NOTE)
-
-
     if notesviewer.file.verify_note(note, "meta") is False:
         notesviewer.file.print_err_msg(note + " Note does not exist --bye")
         exit(notesviewer.error.ERROR_NO_META_FILE)
@@ -445,14 +373,6 @@ def cm_tags(note):
 
 def cm_removetags(note, tags):
     """ remove tag(s) for a note """
-
-    no_root_msg = "No root note directory found"
-    run_init_msg = "Use the init command to initalize Notes"
-
-    if not notesviewer.file.verify_notes_root_path():
-        notesviewer.file.print_err_msg(no_root_msg)
-        notesviewer.file.print_info_msg(run_init_msg)
-        exit(notesviewer.error.ERROR_NO_ROOT_NOTE)
 
     removed_lines = []
     lines_without_newlines = []
@@ -514,14 +434,6 @@ def cm_removetags(note, tags):
 
 def cm_list(verbose):
     """ print name of the notes"""
-
-    no_root_msg = "No root note directory found"
-    run_init_msg = "Use the init command to initalize Notes"
-
-    if not notesviewer.file.verify_notes_root_path():
-        notesviewer.file.print_err_msg(no_root_msg)
-        notesviewer.file.print_info_msg(run_init_msg)
-        exit(notesviewer.error.ERROR_NO_ROOT_NOTE)
 
     if len(os.listdir(notesviewer.vardata.NOTES_ROOT_PATH+"/"+"meta")) is int(0):
         notesviewer.file.print_info_msg("empty")
@@ -586,15 +498,6 @@ def cm_display(note, short):
     # check if the  note is present
     #        return
 
-    no_root_msg = "No root note directory found"
-    run_init_msg = "Use the init command to initalize Notes"
-
-    if not notesviewer.file.verify_notes_root_path():
-        notesviewer.file.print_err_msg(no_root_msg)
-        notesviewer.file.print_info_msg(run_init_msg)
-
-        exit(notesviewer.error.ERROR_NO_ROOT_NOTE)
-
     if notesviewer.file.verify_note(note, "meta") is False:
         error_msg = "The note " + note + " does not exist -- bye"
         notesviewer.file.print_err_msg(error_msg)
@@ -646,14 +549,6 @@ def cm_display(note, short):
 
 def cm_search(regex, note):
     """main search function"""
-
-    no_root_msg = "No root note directory found"
-    run_init_msg = "Use the init command to initalize Notes"
-
-    if not notesviewer.file.verify_notes_root_path():
-        notesviewer.file.print_err_msg(no_root_msg)
-        notesviewer.file.print_info_msg(run_init_msg)
-        exit(notesviewer.error.ERROR_NO_ROOT_NOTE)
 
     # index for search starts at 1
     index = 1
@@ -717,14 +612,6 @@ def cm_search(regex, note):
 
 def cm_check():
     """ command to verify notes """
-
-    no_root_msg = "No root note directory found"
-    run_init_msg = "Use the init command to initalize Notes"
- 
-    if not notesviewer.file.verify_notes_root_path():
-        notesviewer.file.print_err_msg(no_root_msg)
-        notesviewer.file.print_info_msg(run_init_msg)
-        exit(notesviewer.error.ERROR_NO_ROOT_NOTE)
 
     print("Checking notes files..")
 
