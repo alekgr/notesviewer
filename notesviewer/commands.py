@@ -18,16 +18,18 @@ def cm_version():
 
     path = os.path.dirname(__file__)
 
-    version = open(path+"/"+"_version").read()
+    version = open(path + "/" + "_version").read()
     version = version.replace('\n', '')
 
     print(colored("Version is " + str(version),
                   notesviewer.vardata.OPTIONS['color_msg']))
 
+
 def cm_init():
     """ initalize data """
 
     notesviewer.file.create_notes_root_path()
+
 
 def cm_add(name):
     """add a note"""
@@ -435,7 +437,9 @@ def cm_removetags(note, tags):
 def cm_list(verbose):
     """ print name of the notes"""
 
-    if len(os.listdir(notesviewer.vardata.NOTES_ROOT_PATH+"/"+"meta")) is int(0):
+    meta_path = notesviewer.vardata.NOTES_ROOT_PATH + "/" + "meta"
+
+    if len(os.listdir(meta_path)) is int(0):
         notesviewer.file.print_info_msg("empty")
 
     notes = os.listdir(notesviewer.vardata.NOTES_ROOT_PATH + "/" + "meta")
