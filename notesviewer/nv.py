@@ -15,6 +15,7 @@ def main():
     set_data_location()
     parse_arguments()
 
+
 def parse_arguments():
     """ parse all the program arguments """
 
@@ -169,6 +170,7 @@ def process_args(argument):
     elif argument['cmd'] == 'interactive':
         notesviewer.file.verify_notes_root_path()
         notesviewer.interactive.interactive()
+
 
 if __name__ == '__main__':
     main()
