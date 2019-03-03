@@ -42,6 +42,6 @@ setup(
     install_requires=[
         'termcolor',
         'configparser',
-        ]
+    ]
 
 )
