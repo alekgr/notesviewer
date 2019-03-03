@@ -9,9 +9,11 @@ import notesviewer.file
 def loadconfig():
     """ load config file into the OPTIONS dictionary """
 
+    config_missing_msg = "Looks like you don't have a .config file"
+
     # return False if there is no config file
     if not verifyconfigfile():
-        notesviewer.file.print_info_msg("Looks like you don't have a .config file")
+        notesviewer.file.print_info_msg(config_missing_msg)
         notesviewer.file.create_config_file()
 
     # read config file
