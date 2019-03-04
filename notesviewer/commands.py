@@ -691,4 +691,4 @@ def cm_info():
 
 def cm_setdefaultconfig():
     """ command to set default config """
-    setdefaultconfig()
+    setdefaultconfig(True)

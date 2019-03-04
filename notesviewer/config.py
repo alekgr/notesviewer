@@ -9,11 +9,8 @@ import notesviewer.file
 def loadconfig():
     """ load config file into the OPTIONS dictionary """
 
-    config_missing_msg = "Looks like you don't have a .config file"
-
     # return False if there is no config file
     if not verifyconfigfile():
-        notesviewer.file.print_info_msg(config_missing_msg)
         notesviewer.file.create_config_file()
 
     # read config file
@@ -73,7 +70,7 @@ def loadconfig():
     return True
 
 
-def setdefaultconfig():
+def setdefaultconfig(verbose):
     """ set the default configuration.. overwriting old configuration"""
 
     # add setting and options
@@ -106,7 +103,8 @@ def setdefaultconfig():
     with open(notesviewer.vardata.CONFIG_FILE_PATH, "w") as filepointer:
         config.write(filepointer)
 
-    notesviewer.file.print_info_msg("Default settings copied")
+    if verbose is True:
+        notesviewer.file.print_info_msg("Default settings copied")
 
 
 def verifyconfigfile():
