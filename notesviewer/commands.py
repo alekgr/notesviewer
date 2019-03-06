@@ -175,32 +175,32 @@ def cm_delete(note):
             notesviewer.file.print_info_msg("Deleted " + note + " note")
 
 
-def cm_remove(entry, name):
+def cm_remove(entry, note):
     """remove entry function"""
 
-    meta_error_msg = "The note " + name + " does not exist or corrupted -- bye"
-    content_error_msg = "The content " + name + \
+    meta_error_msg = "The note " + note + " does not exist or corrupted -- bye"
+    content_error_msg = "The content " + note + \
                         " does not exist or corrupted -- bye"
 
     remove_msg = "Removed note entry " + str(entry) + \
-                 " from " + name + " Note"
+                 " from " + note + " Note"
 
     remove_invalid_entry = "Invalid note entry " + str(entry) + " -- bye"
 
     # verfiy note and entry
-    if notesviewer.file.verify_note(name, "meta") is False:
+    if notesviewer.file.verify_note(note, "meta") is False:
         notesviewer.file.print_err_msg(meta_error_msg)
         exit(notesviewer.error.ERROR_NO_META_FILE)
-    if notesviewer.file.verify_note(name, "content") is False:
+    if notesviewer.file.verify_note(note, "content") is False:
         notesviewer.file.print_msg(content_error_msg)
         exit(notesviewer.error.ERROR_NO_CONTENT_FILE)
-    if notesviewer.utils.validate_content_index(entry, name) is False:
+    if notesviewer.utils.validate_content_index(entry, note) is False:
         notesviewer.file.print_err_msg(remove_invalid_entry)
         exit(notesviewer.error.ERROR_INVALID_INDEX)
 
     else:
-        fp_meta = notesviewer.file.open_note("meta", name, "r")
-        fp_content = notesviewer.file.open_note("content", name, "r")
+        fp_meta = notesviewer.file.open_note("meta", note, "r")
+        fp_content = notesviewer.file.open_note("content", note, "r")
         meta_lines = fp_meta.readlines()
         content_lines = fp_content.readlines()
         uuid_meta = notesviewer.utils.getuuidbyindex(meta_lines, entry)
@@ -214,8 +214,8 @@ def cm_remove(entry, name):
         notesviewer.file.close_note(fp_content)
 
         # open files(content and meta) for writting
-        fp_meta = notesviewer.file.open_note("meta", name, "w")
-        fp_content = notesviewer.file.open_note("content", name, "w")
+        fp_meta = notesviewer.file.open_note("meta", note, "w")
+        fp_content = notesviewer.file.open_note("content", note, "w")
         fp_meta.write(string_meta)
         fp_content.write(string_content)
         notesviewer.file.close_note(fp_meta)

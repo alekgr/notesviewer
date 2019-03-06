@@ -52,7 +52,7 @@ def parse_arguments():
     # remove
     remove_parser = subparser.add_parser('remove')
     remove_parser.add_argument('entry', action='store', type=int)
-    remove_parser.add_argument('name', action='store')
+    remove_parser.add_argument('note', action='store')
 
     # move
     move_parser = subparser.add_parser('move')
@@ -141,7 +141,7 @@ def process_args(argument):
         notesviewer.commands.cm_delete(argument['note'])
     elif argument['cmd'] == 'remove':
         notesviewer.file.verify_notes_root_path()
-        notesviewer.commands.cm_remove(argument['entry'], argument['name'])
+        notesviewer.commands.cm_remove(argument['entry'], argument['note'])
     elif argument['cmd'] == 'move':
         notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_move(argument['entry'],
