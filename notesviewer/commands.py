@@ -54,16 +54,16 @@ def cm_add(note):
         notesviewer.file.print_info_msg("Added " + note + " note")
 
 
-def cm_insert(name, title):
+def cm_insert(note, title):
     """Insert a note with a title"""
 
     # verfiy note
-    if notesviewer.file.verify_note(name, "meta") is False:
-        notesviewer.file.print_err_msg("The meta note " + name + " \
+    if notesviewer.file.verify_note(note, "meta") is False:
+        notesviewer.file.print_err_msg("The meta note " + note + " \
                                             does not exist -- bye")
         exit(notesviewer.error.ERROR_NO_META_FILE)
-    if notesviewer.file.verify_note(name, "content") is False:
-        notesviewer.file.print_msg("The content " + name + " \
+    if notesviewer.file.verify_note(note, "content") is False:
+        notesviewer.file.print_msg("The content " + note + " \
                                             does not exist -- bye")
         exit(notesviewer.error.ERROR_NO_CONTENT_FILE)
 
@@ -81,8 +81,8 @@ def cm_insert(name, title):
     str_content = str_content.replace("'", "")
 
     # open meta and content files
-    fp_meta = notesviewer.file.open_note("meta", name, "a")
-    fp_content = notesviewer.file.open_note("content", name, "a")
+    fp_meta = notesviewer.file.open_note("meta", note, "a")
+    fp_content = notesviewer.file.open_note("content", note, "a")
 
     # write to meta
     meta_buffer_string = "uuid:" + str(note_uuid) + " " + "title:" + title
