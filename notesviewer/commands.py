@@ -150,13 +150,13 @@ def cm_edit(entry, note):
         notesviewer.file.close_note(fp_content)
 
 
-def cm_delete(name):
+def cm_delete(note):
     """delete a note"""
 
-    prompt_msg = "Are you sure you want to delete " + name + " (yes/no)"
+    prompt_msg = "Are you sure you want to delete " + note + " (yes/no)"
 
-    if notesviewer.file.verify_note(name, "meta") is False:
-        error_msg = "The note " + name + " does not exist or is corrupted"
+    if notesviewer.file.verify_note(note, "meta") is False:
+        error_msg = "The note " + note + " does not exist or is corrupted"
         notesviewer.file.print_err_msg(error_msg)
         exit(notesviewer.error.ERROR_NO_META_FILE)
     else:
@@ -164,15 +164,15 @@ def cm_delete(name):
 
         prompt = prompt.lower()
         if prompt == "yes":
-            os.remove(notesviewer.file.getnotepath(name, "meta"))
-            if notesviewer.file.verify_note(name, "content") is True:
-                os.remove(notesviewer.file.getnotepath(name, "content"))
-                if notesviewer.file.verify_note(name, "link") is True:
-                    os.remove(notesviewer.file.getnotepath(name, "link"))
-                if notesviewer.file.verify_note(name, "tag") is True:
-                    os.remove(notesviewer.file.getnotepath(name, "tag"))
+            os.remove(notesviewer.file.getnotepath(note, "meta"))
+            if notesviewer.file.verify_note(note, "content") is True:
+                os.remove(notesviewer.file.getnotepath(note, "content"))
+                if notesviewer.file.verify_note(note, "link") is True:
+                    os.remove(notesviewer.file.getnotepath(note, "link"))
+                if notesviewer.file.verify_note(note, "tag") is True:
+                    os.remove(notesviewer.file.getnotepath(note, "tag"))
 
-            notesviewer.file.print_info_msg("Deleted " + name + " note")
+            notesviewer.file.print_info_msg("Deleted " + note + " note")
 
 
 def cm_remove(entry, name):
