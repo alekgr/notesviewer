@@ -33,7 +33,7 @@ def parse_arguments():
 
     # add
     add_parser = subparser.add_parser('add')
-    add_parser.add_argument('name', action='store')
+    add_parser.add_argument('note', action='store')
 
     # insert
     add_parser = subparser.add_parser('insert')
@@ -129,7 +129,7 @@ def process_args(argument):
         notesviewer.commands.cm_list(argument['verbose'])
     elif argument['cmd'] == 'add':
         notesviewer.file.verify_notes_root_path()
-        notesviewer.commands.cm_add(argument['name'])
+        notesviewer.commands.cm_add(argument['note'])
     elif argument['cmd'] == 'insert':
         notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_insert(argument['name'], argument['title'])

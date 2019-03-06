@@ -31,27 +31,27 @@ def cm_init():
     notesviewer.file.create_notes_root_path()
 
 
-def cm_add(name):
+def cm_add(note):
     """add a note"""
 
     # file permission
     mode = 0o600 | stat.S_IRUSR
 
-    meta_path = notesviewer.file.getnotepath(name, "meta")
-    content_path = notesviewer.file.getnotepath(name, "content")
-    tag_path = notesviewer.file.getnotepath(name, "tag")
-    link_path = notesviewer.file.getnotepath(name, "link")
+    meta_path = notesviewer.file.getnotepath(note, "meta")
+    content_path = notesviewer.file.getnotepath(note, "content")
+    tag_path = notesviewer.file.getnotepath(note, "tag")
+    link_path = notesviewer.file.getnotepath(note, "link")
 
     # create the note files
-    if notesviewer.file.verify_note(name, "meta") is True:
-        notesviewer.file.print_err_msg("The note " + name + " already exists")
+    if notesviewer.file.verify_note(note, "meta") is True:
+        notesviewer.file.print_err_msg("The note " + note + " already exists")
         exit(notesviewer.error.ERROR_META_FILE_ALREADY_EXISTS)
     else:
         os.mknod(meta_path, mode)
         os.mknod(content_path, mode)
         os.mknod(tag_path, mode)
         os.mknod(link_path, mode)
-        notesviewer.file.print_info_msg("Added " + name + " note")
+        notesviewer.file.print_info_msg("Added " + note + " note")
 
 
 def cm_insert(name, title):
