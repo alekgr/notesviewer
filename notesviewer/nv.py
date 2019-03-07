@@ -20,88 +20,136 @@ def parse_arguments():
     """ parse all the program arguments """
 
     # create the root parser
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        prog=notesviewer.vardata.PROGRAM_NAME,
+        description="Command line Notes viewer",
+        formatter_class=argparse.RawTextHelpFormatter
+    )
 
     # create subparser
     subparser = parser.add_subparsers(dest='cmd')
 
     # version command
-    version_parser = subparser.add_parser('version')
+    version_parser = subparser.add_parser(
+        'version', help='Show version number'
+    )
 
     # init notes directory
-    init_parser = subparser.add_parser('init')
+    init_parser = subparser.add_parser(
+        'init', help='Initalize note root directory'
+    )
 
     # add
-    add_parser = subparser.add_parser('add')
-    add_parser.add_argument('note', action='store')
+    add_parser = subparser.add_parser('add', help='Add a note')
+    add_parser.add_argument('note', action='store', help='Note')
 
     # insert
-    add_parser = subparser.add_parser('insert')
-    add_parser.add_argument('note', action='store')
-    add_parser.add_argument('title', action='store')
+    add_parser = subparser.add_parser(
+        'insert', help='Insert a note entry into a note'
+    )
+    add_parser.add_argument(
+        'note', action='store', help='Note inserted into'
+    )
+    add_parser.add_argument('title', action='store', help='Notes tiltle')
 
     # edit
-    edit_parser = subparser.add_parser('edit')
-    edit_parser.add_argument('entry', action='store', type=int)
-    edit_parser.add_argument('note', action='store')
+    edit_parser = subparser.add_parser('edit', help='Edit a note entry')
+    edit_parser.add_argument(
+        'entry', action='store', type=int,
+        help='Note entry index(integer) to edit'
+    )
+    edit_parser.add_argument('note', action='store', help='Note to be edited')
 
     # delete
-    delete_parser = subparser.add_parser('delete')
-    delete_parser.add_argument('note', action='store')
+    delete_parser = subparser.add_parser('delete', help='Delete a note')
+    delete_parser.add_argument('note', action='store', help='Note to delete')
 
     # remove
-    remove_parser = subparser.add_parser('remove')
-    remove_parser.add_argument('entry', action='store', type=int)
-    remove_parser.add_argument('note', action='store')
+    remove_parser = subparser.add_parser(
+        'remove', help='Remove a note entry from a note'
+    )
+    remove_parser.add_argument(
+        'entry', action='store',
+        type=int, help='Note entry index(integer) to remove'
+    )
+    remove_parser.add_argument(
+        'note', action='store', help='Note to remove from'
+    )
 
     # move
-    move_parser = subparser.add_parser('move')
-    move_parser.add_argument('entry', action='store', type=int)
+    move_parser = subparser.add_parser(
+        'move', help='Move a note entry from one note to another'
+    )
+    move_parser.add_argument(
+        'entry', action='store',
+        type=int, help='Note entry index(integer) to move'
+    )
     move_parser.add_argument('fromnote', action='store')
     move_parser.add_argument('tonote', action='store')
 
     # add tags
-    addtags_parser = subparser.add_parser('addtags')
-    addtags_parser.add_argument('note', action='store')
-    addtags_parser.add_argument('tag', action='store')
+    addtags_parser = subparser.add_parser(
+        'addtags', help='Add tag(s) to a note'
+    )
+    addtags_parser.add_argument(
+        'note', action='store', help='Note')
+    addtags_parser.add_argument('tag', action='store', help='Tag(s)')
 
     # show tags
-    tags_parser = subparser.add_parser('tags')
-    tags_parser.add_argument('note', action='store')
+    tags_parser = subparser.add_parser(
+        'tags', help='Show all the tags for a note'
+    )
+    tags_parser.add_argument('note', action='store', help='Note')
 
     # remove tags
-    remove_parser = subparser.add_parser('removetags')
-    remove_parser.add_argument('note', action='store')
-    remove_parser.add_argument('tags', action='store')
+    remove_parser = subparser.add_parser('removetags', help='Remove tag(s)')
+    remove_parser.add_argument('note', action='store', help='Note')
+    remove_parser.add_argument('tags', action='store', help='Tag(s)')
 
     # list
-    list_parser = subparser.add_parser('list')
-    list_parser.add_argument('--verbose', '-v', action='store_true')
+    list_parser = subparser.add_parser('list', help='List all notes')
+    list_parser.add_argument(
+        '--verbose', '-v', action='store_true', help='Verbose'
+    )
 
     # display
-    display_parser = subparser.add_parser('display')
-    display_parser.add_argument('note', action='store')
-    display_parser.add_argument('--short', '-s', action='store_true')
+    display_parser = subparser.add_parser(
+        'display', help='Display a note content'
+    )
+    display_parser.add_argument('note', action='store', help='Note')
+    display_parser.add_argument(
+        '--short', '-s', action='store_true', help='short'
+    )
 
     # showconfig
-    showconfig_parser = subparser.add_parser('showconfig')
+    showconfig_parser = subparser.add_parser(
+        'showconfig', help='Show current configuration'
+    )
 
     # setdefaultconfig
-    setdefaultconfig_parser = subparser.add_parser('setdefaultconfig')
+    setdefaultconfig_parser = subparser.add_parser(
+        'setdefaultconfig', help='Reset to default configuration'
+    )
 
     # search
-    search_parser = subparser.add_parser('search')
-    search_parser.add_argument('regex', action='store')
-    search_parser.add_argument(dest="note", action='store')
+    search_parser = subparser.add_parser('search', help='Regex search')
+    search_parser.add_argument('regex', action='store', help='regex string')
+    search_parser.add_argument(dest="note", action='store', help='note(s)')
 
-    # status
-    status_parser = subparser.add_parser('check')
+    # check
+    status_parser = subparser.add_parser(
+        'check', help='check notes files and metadata for errors'
+    )
 
     # interactive
-    interactive_parser = subparser.add_parser('interactive')
+    interactive_parser = subparser.add_parser(
+        'interactive', help='interactive session'
+    )
 
     # info lists python version and modues vesion for debugging
-    info_parser = subparser.add_parser('info')
+    info_parser = subparser.add_parser(
+        'info', help='Info about notesviewer environment'
+    )
 
     # parse user arguments
     args = vars(parser.parse_args())
