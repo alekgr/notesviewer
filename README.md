@@ -2,7 +2,7 @@
 
 A notes viewer written in python
 
-## install
+## installation
 
 pip install notesviewer
 
@@ -10,8 +10,27 @@ pip install notesviewer
 
 ```
 notesviewer --help
+notesviewer version 
 notesviewer list
-notesviewer display <note>
-notesviewer search apache <note>
+notesviewer display <note> 
+notesviewer insert <note> <title>
+nosteviewer edit   <index> <note>
+notesviewer delete <note>
+notesviewer remove <index> <note>
+notesviewer move <index> <fromnote> <tonote>
+notesviewer addtags <note> <tag>
+notesviewer tags <note>
+notesviewer removetags <note> <tag(s)>
+notesviewer showconfig
+notesviewer setdefaultconfig
+notesviewer search <regex> note(s)
+notesviewer check
+notesviewer interactive    #Not implemented yet
+
 ```
 
+#### Contributing 
+Pull requests are welcome. 
+
+##### Licsense 
+GPL2
