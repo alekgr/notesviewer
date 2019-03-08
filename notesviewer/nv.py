@@ -22,7 +22,7 @@ def parse_arguments():
     # create the root parser
     parser = argparse.ArgumentParser(
         prog=notesviewer.vardata.PROGRAM_NAME,
-        description="Command line Notes viewer",
+        description="Commandline notes viewer",
         formatter_class=argparse.RawTextHelpFormatter
     )
 
