@@ -6,7 +6,7 @@ A notes viewer written in python
 
 pip install notesviewer
 
-### usage
+## usage
 
 ```
 notesviewer --help
@@ -29,8 +29,15 @@ notesviewer interactive    #Not implemented yet
 
 ```
 
-#### Contributing 
+## changlog
+```
+0.9.3
+- Changed parser argument for add,insert,delete,remove from name to note to be consistant
+- Added help contenxt to commands when using notesviewer --help
+```
+
+## Contributing 
 Pull requests are welcome. 
 
-##### Licsense 
+## Licsense 
 GPL2
