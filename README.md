@@ -29,7 +29,7 @@ notesviewer interactive    #Not implemented yet
 
 ```
 
-## changlog
+## changelog
 ```
 0.9.3
 - Changed parser argument for add,insert,delete,remove from name to note to be consistant
@@ -39,5 +39,5 @@ notesviewer interactive    #Not implemented yet
 ## Contributing 
 Pull requests are welcome. 
 
-## Licsense 
+## License 
 GPL2
