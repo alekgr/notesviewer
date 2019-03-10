@@ -458,10 +458,16 @@ def cm_editlinks(note):
     # close fp
     notesviewer.file.close_note(fp_link)
 
-    # write back to content file
-    fp_link = notesviewer.file.open_note("link", note, "w+")
-    fp_link.write(edited_link)
-    notesviewer.file.close_note(fp_link)
+    if not notesviewer.note.check_links(edited_link):
+        notesviewer.file.print_err_msg(
+            "Unable to save some of the links --bye"
+        )
+    else:
+
+        # write back to content file
+        fp_link = notesviewer.file.open_note("link", note, "w+")
+        fp_link.write(edited_link)
+        notesviewer.file.close_note(fp_link)
 
 
 def cm_links(note):
@@ -481,6 +487,7 @@ def cm_links(note):
 
     # print all links
     notesviewer.file.print_list_per_line(lines, False)
+
 
 def cm_list(verbose):
     """ print name of the notes"""

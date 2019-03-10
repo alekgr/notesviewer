@@ -142,3 +142,28 @@ def get_note_uuids(note):
     notesviewer.file.close_note(content_fp)
 
     return meta_uuid, content_uuid
+
+
+def check_links(note_string):
+    """ check links for any issues """
+
+    # convert to list
+    note_list = note_string.split()
+
+    # verify all the links
+    for link in note_list:
+        if not verify_link(link):
+            return False
+    return True
+
+
+def verify_link(link):
+    """ verify a link for correctness """
+
+    # get the protocol from link string
+    link_parts = link.split(":")
+    if link_parts[0] == 'http':
+        return True
+    if link_parts[0] == 'https':
+        return True
+    return False
