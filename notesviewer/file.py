@@ -151,8 +151,13 @@ def print_info_msg(msg):
     print(colored(msg, notesviewer.vardata.OPTIONS['color_msg']))
 
 
-def print_list_per_line(mylist):
+def print_list_per_line(mylist, extra_line=True):
     """print a list"""
+
+    if extra_line is False:
+        for index in mylist:
+            print(colored(index, notesviewer.vardata.OPTIONS['color_msg']), end="")
+        return
 
     for index in mylist:
         print(colored(index, notesviewer.vardata.OPTIONS['color_note']))
