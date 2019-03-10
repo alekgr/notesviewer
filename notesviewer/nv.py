@@ -101,6 +101,18 @@ def parse_arguments():
     )
     tags_parser.add_argument('note', action='store', help='Note')
 
+    # edit links
+    editlink_parser = subparser.add_parser(
+        'editlinks', help='Edit links for a note'
+    )
+    editlink_parser.add_argument('note', action='store', help='note')
+
+    # show links
+    links_parser = subparser.add_parser(
+        'links', help='list all the links for a note'
+    )
+    links_parser.add_argument('note', action='store', help='note')
+
     # remove tags
     remove_parser = subparser.add_parser('removetags', help='Remove tag(s)')
     remove_parser.add_argument('note', action='store', help='Note')
@@ -205,6 +217,12 @@ def process_args(argument):
         notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_removetags(argument['note'],
                                            argument['tags'])
+    elif argument['cmd'] == 'editlinks':
+        notesviewer.file.verify_notes_root_path()
+        notesviewer.commands.cm_editlinks(argument['note'])
+    elif  argument['cmd'] == 'links':
+        notesviewer.file.verify_notes_root_path()
+        notesviewer.commands.cm_links(argument['note'])
     elif argument['cmd'] == 'display':
         notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_display(argument['note'],

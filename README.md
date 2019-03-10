@@ -21,6 +21,8 @@ notesviewer move <index> <fromnote> <tonote>
 notesviewer addtags <note> <tag>
 notesviewer tags <note>
 notesviewer removetags <note> <tag(s)>
+notesviewer editlinks <note>
+notesviewer links <note>
 notesviewer showconfig
 notesviewer setdefaultconfig
 notesviewer search <regex> note(s)

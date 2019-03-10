@@ -434,6 +434,54 @@ def cm_removetags(note, tags):
     notesviewer.file.close_note(fp_tags_removed)
 
 
+def cm_editlinks(note):
+    """ Edit link for a note """
+
+    if notesviewer.file.verify_note(note, "meta") is False:
+        notesviewer.file.print_err_msg(note + " Note does not exist --bye")
+        exit(notesviewer.error.ERROR_NO_META_FILE)
+
+    if notesviewer.file.verify_note(note, "link") is False:
+        notesviewer.file.print_err_msg(note + " Tag file does not exist --bye")
+        exit(notesviewer.error.ERROR_NO_TAG_FILE)
+
+    # open file and readlines
+    fp_link = notesviewer.file.open_note("link", note, "r")
+    lines = fp_link.readlines()
+
+    # convert to string
+    line_string = ''.join(lines)
+
+    # edit links
+    edited_link = notesviewer.note.edit_file(line_string)
+
+    # close fp
+    notesviewer.file.close_note(fp_link)
+
+    # write back to content file
+    fp_link = notesviewer.file.open_note("link", note, "w+")
+    fp_link.write(edited_link)
+    notesviewer.file.close_note(fp_link)
+
+
+def cm_links(note):
+    """ show all the links for a note """
+
+    if notesviewer.file.verify_note(note, "meta") is False:
+        notesviewer.file.print_err_msg(note + " Note does not exist --bye")
+        exit(notesviewer.error.ERROR_NO_META_FILE)
+
+    if notesviewer.file.verify_note(note, "link") is False:
+        notesviewer.file.print_err_msg(note + " Tag file does not exist --bye")
+        exit(notesviewer.error.ERROR_NO_TAG_FILE)
+
+    # open file and readlines
+    fp_link = notesviewer.file.open_note("link", note, "r")
+    lines = fp_link.readlines()
+
+    # print all links
+    notesviewer.file.print_list_per_line(lines, False)
+
 def cm_list(verbose):
     """ print name of the notes"""
 
