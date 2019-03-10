@@ -485,9 +485,14 @@ def cm_links(note):
     fp_link = notesviewer.file.open_note("link", note, "r")
     lines = fp_link.readlines()
 
+    if notesviewer.file.verify_empty_note(note, "link"):
+        notesviewer.file.print_info_msg("Empty link")
+        exit(notesviewer.error.ERROR_OK)
+
     # print all links
     notesviewer.file.print_list_per_line(lines, False)
 
+    exit(notesviewer.error.ERROR_OK)
 
 def cm_list(verbose):
     """ print name of the notes"""
