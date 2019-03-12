@@ -106,6 +106,17 @@ def setdefaultconfig(verbose):
     if verbose is True:
         notesviewer.file.print_info_msg("Default settings copied")
 
+def setconfig(key, value):
+    """ set config """
+
+    config = configparser.ConfigParser()
+    config.read(notesviewer.vardata.CONFIG_FILE_PATH)
+
+    config.set("settings", key, value)
+
+    # write to CONFIG_FILE
+    with open(notesviewer.vardata.CONFIG_FILE_PATH, "w") as filepointer:
+        config.write(filepointer)
 
 def verifyconfigfile():
     """verify if config file is found """

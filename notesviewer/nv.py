@@ -143,6 +143,13 @@ def parse_arguments():
         'setdefaultconfig', help='Reset to default configuration'
     )
 
+    # setconfig
+    setconfig_parser = subparser.add_parser(
+        'setconfig', help='set a config optin'
+    )
+    setconfig_parser.add_argument('key', action='store', help='Key')
+    setconfig_parser.add_argument('value', action='store', help='Value')
+
     # search
     search_parser = subparser.add_parser('search', help='Regex search')
     search_parser.add_argument('regex', action='store', help='regex string')
@@ -180,6 +187,8 @@ def process_args(argument):
         notesviewer.commands.cm_info()
     elif argument['cmd'] == 'setdefaultconfig':
         notesviewer.commands.cm_setdefaultconfig()
+    elif argument['cmd'] == 'setconfig':
+        notesviewer.commands.cm_setconfig(argument['key'], argument['value'])
     elif argument['cmd'] == 'showconfig':
         notesviewer.commands.cm_showconfig()
     elif argument['cmd'] == 'init':
