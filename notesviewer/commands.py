@@ -494,6 +494,7 @@ def cm_links(note):
 
     exit(notesviewer.error.ERROR_OK)
 
+
 def cm_list(verbose):
     """ print name of the notes"""
 
@@ -735,10 +736,12 @@ def cm_showconfig():
 
     showconfig()
 
+
 def cm_setconfig(key, value):
     """ set config for key:value"""
 
     notesviewer.config.setconfig(key, value)
+
 
 def cm_info():
     """info display pyton and modueles version"""
