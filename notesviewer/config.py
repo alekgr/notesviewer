@@ -106,49 +106,59 @@ def setdefaultconfig(verbose):
     if verbose is True:
         notesviewer.file.print_info_msg("Default settings copied")
 
+
 def setconfig(key, value):
     """ set config """
 
     if key == "graphical":
         if value not in ("True", "False"):
-            notesviewer.file.print_err_msg(key+" value can only be True or False")
+            notesviewer.file.print_err_msg(
+                key + " value can only be True or False"
+            )
             exit(0)
 
     elif key == "verbose":
         if value not in ("True", "False"):
-            notesviewer.file.print_err_msg(key+" value can only be True or False")
+            notesviewer.file.print_err_msg(
+                key + " value can only be True or False"
+            )
             exit(0)
 
     elif key == "editor":
         if value not in ("vim", "vi", "emacs", "nano", "pico"):
             notesviewer.file.print_err_msg(
-                "You can only set these editors: vim, vi, emacs, nano, pico")
+                "You can only set these editors: vim, vi, emacs, nano, pico"
+            )
             exit(0)
 
     elif key in (
-                "color_msg",
-                "color_err",
-                "color_note",
-                "color_title",
-                "color_content",
-                "color_search_string",
-                "color_search_notename"
-        ):
+            "color_msg",
+            "color_err",
+            "color_note",
+            "color_title",
+            "color_content",
+            "color_search_string",
+            "color_search_notename"):
         if value not in notesviewer.vardata.COLORS:
             notesviewer.file.print_err_msg(
-                "You can only set these colors "+", ".join(notesviewer.vardata.COLORS))
+                "You can only set these colors "
+                + ", ".join(notesviewer.vardata.COLORS))
             exit(0)
 
     elif key == "data_location":
-        if value.split(":", 1)[0] not in  "file":
-            notesviewer.file.print_err_msg("data_location can only set these protocols: file")
+        if value.split(":", 1)[0] not in "file":
+            notesviewer.file.print_err_msg(
+                "data_location can only set these protocols: file"
+            )
             exit(0)
         if not os.path.isdir(value.split(":", 1)[1]):
-            notesviewer.file.print_err_msg("dat_location path is not a directory")
+            notesviewer.file.print_err_msg(
+                "dat_location path is not a directory"
+            )
             exit(0)
 
     else:
-        notesviewer.file.print_err_msg("There is no such option "+key)
+        notesviewer.file.print_err_msg("There is no such option " + key)
         exit(0)
 
     config = configparser.ConfigParser()
@@ -159,6 +169,7 @@ def setconfig(key, value):
     # write to CONFIG_FILE
     with open(notesviewer.vardata.CONFIG_FILE_PATH, "w") as filepointer:
         config.write(filepointer)
+
 
 def verifyconfigfile():
     """verify if config file is found """
