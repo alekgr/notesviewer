@@ -150,6 +150,21 @@ def getnotepath(note, file_context):
         return notesviewer.vardata.NOTES_ROOT_PATH + "/" + "tags" + "/" + note
     return notesviewer.error.ERROR_WRONG_NOTE_FILE_CONTEXT
 
+def getrootpath(file_context):
+    """ return notes root path by file context """
+
+    if file_context == 'meta':
+        return notesviewer.vardata.NOTES_ROOT_PATH + "/" + "meta"
+    if file_context == 'content':
+        return  \
+            notesviewer.vardata.NOTES_ROOT_PATH + "/" + "content"
+    if file_context == 'link':
+        return notesviewer.vardata.NOTES_ROOT_PATH + "/" + "link"
+    if file_context == 'tag':
+        return notesviewer.vardata.NOTES_ROOT_PATH + "/" + "tags"
+    return notesviewer.error.ERROR_WRONG_NOTE_FILE_CONTEXT
+
+
 def print_msg(color, msg):
     """ print msg at color base """
 
