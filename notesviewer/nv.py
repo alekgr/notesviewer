@@ -229,7 +229,7 @@ def process_args(argument):
     elif argument['cmd'] == 'editlinks':
         notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_editlinks(argument['note'])
-    elif  argument['cmd'] == 'links':
+    elif argument['cmd'] == 'links':
         notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_links(argument['note'])
     elif argument['cmd'] == 'display':
