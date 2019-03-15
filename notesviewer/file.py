@@ -92,6 +92,7 @@ def create_notes_root_path():
 
 def verify_note(note, file_context):
     """ check note """
+
     path = getnotepath(note, file_context)
     if os.path.exists(path):
         return True
@@ -104,28 +105,28 @@ def verify_notes_root_path():
 
     no_root_msg = "No root note directory found"
     run_init_msg = "Use the init command to initalize Notes"
-    meta_data_msg = "Some of the metadata in notes directory are missing"
-    #meta_data_msg2 = "Please check "+notesviewer.vardata.NOTES_ROOT_PATH
-    meta_data_msg3a = "..Run   "+notesviewer.vardata.PROGRAM_NAME+" check"
-    meta_data_msg3b = " command  to check what's missing or"
-    meta_data_msg4a = "..Run   "+notesviewer.vardata.PROGRAM_NAME+" init"
-    meta_data_msg4b = " command   to initalize base metadata directories"
+    metadata_msg = "Some of the metadata in notes directory are missing"
+    metadata_msg3a = "..Run   " + notesviewer.vardata.PROGRAM_NAME + " check"
+    metadata_msg3b = " command  to check what's missing or"
+    metadata_msg4a = "..Run   " + notesviewer.vardata.PROGRAM_NAME + " init"
+    metadata_msg4b = " command   to initalize base metadata directories"
 
     if not os.path.exists(notesviewer.vardata.NOTES_ROOT_PATH):
         notesviewer.file.print_err_msg(no_root_msg)
         notesviewer.file.print_info_msg(run_init_msg)
         exit(notesviewer.error.ERROR_NO_ROOT_NOTE)
 
-    if not os.path.exists(notesviewer.vardata.NOTES_ROOT_PATH+"/"+"meta") or \
-       not os.path.exists(notesviewer.vardata.NOTES_ROOT_PATH+"/"+"content") or \
-       not os.path.exists(notesviewer.vardata.NOTES_ROOT_PATH+"/"+"link") or \
-       not os.path.exists(notesviewer.vardata.NOTES_ROOT_PATH+"/"+"tags"):
+    if not os.path.exists(notesviewer.vardata.NOTES_ROOT_PATH + "/meta") or \
+       not os.path.exists(notesviewer.vardata.NOTES_ROOT_PATH + "/content") or \
+       not os.path.exists(notesviewer.vardata.NOTES_ROOT_PATH + "/link") or \
+       not os.path.exists(notesviewer.vardata.NOTES_ROOT_PATH + "/" + "tags"):
 
-        notesviewer.file.print_err_msg(meta_data_msg)
-        notesviewer.file.print_info_msg(meta_data_msg3a+meta_data_msg3b)
-        notesviewer.file.print_info_msg(meta_data_msg4a+meta_data_msg4b)
+        notesviewer.file.print_err_msg(metadata_msg)
+        notesviewer.file.print_info_msg(metadata_msg3a + metadata_msg3b)
+        notesviewer.file.print_info_msg(metadata_msg4a + metadata_msg4b)
 
     exit(0)
+
 
 def verify_empty_note(note, file_context):
     """ check note if empty """
@@ -148,7 +149,6 @@ def getnotepath(note, file_context):
     if file_context == 'tag':
         return notesviewer.vardata.NOTES_ROOT_PATH + "/" + "tags" + "/" + note
     return notesviewer.error.ERROR_WRONG_NOTE_FILE_CONTEXT
-
 
 def print_msg(color, msg):
     """ print msg at color base """
