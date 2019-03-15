@@ -150,6 +150,7 @@ def getnotepath(note, file_context):
         return notesviewer.vardata.NOTES_ROOT_PATH + "/" + "tags" + "/" + note
     return notesviewer.error.ERROR_WRONG_NOTE_FILE_CONTEXT
 
+
 def getrootpath(file_context):
     """ return notes root path by file context """
 
@@ -188,7 +189,10 @@ def print_list_per_line(mylist, extra_line=True):
 
     if extra_line is False:
         for index in mylist:
-            print(colored(index, notesviewer.vardata.OPTIONS['color_msg']), end="")
+            print(
+                colored
+                (index, notesviewer.vardata.OPTIONS['color_msg']),
+                end="")
         return
 
     for index in mylist:
