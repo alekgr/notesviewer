@@ -116,10 +116,10 @@ def verify_notes_root_path():
         notesviewer.file.print_info_msg(run_init_msg)
         exit(notesviewer.error.ERROR_NO_ROOT_NOTE)
 
-    if not os.path.exists(notesviewer.vardata.NOTES_ROOT_PATH + "/meta") or \
-       not os.path.exists(notesviewer.vardata.NOTES_ROOT_PATH + "/content") or \
-       not os.path.exists(notesviewer.vardata.NOTES_ROOT_PATH + "/link") or \
-       not os.path.exists(notesviewer.vardata.NOTES_ROOT_PATH + "/" + "tags"):
+    if not os.path.exists(getrootpath("meta")) or \
+       not os.path.exists(getrootpath("content")) or \
+       not os.path.exists(getrootpath("link")) or \
+       not os.path.exists(getrootpath("tags")):
 
         notesviewer.file.print_err_msg(metadata_msg)
         notesviewer.file.print_info_msg(metadata_msg3a + metadata_msg3b)
