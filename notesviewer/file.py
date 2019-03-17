@@ -141,13 +141,12 @@ def verify_notes_root_path(verbose=False):
             notesviewer.file.print_info_msg("Tags folder OK")
         return missing
 
-
     # This will be called in process_args
 
     if not os.path.exists(getrootpath("meta")) or \
-        not os.path.exists(getrootpath("content")) or \
-        not os.path.exists(getrootpath("link")) or \
-        not os.path.exists(getrootpath("tag")):
+       not os.path.exists(getrootpath("content")) or \
+       not os.path.exists(getrootpath("link")) or \
+       not os.path.exists(getrootpath("tag")):
 
         notesviewer.file.print_err_msg(metadata_msg)
         notesviewer.file.print_info_msg(metadata_msg3a + metadata_msg3b)
@@ -155,6 +154,7 @@ def verify_notes_root_path(verbose=False):
         exit(notesviewer.error.ERROR_METADATA_MISSING)
 
     return notesviewer.error.ERROR_OK
+
 
 def verify_empty_note(note, file_context):
     """ check note if empty """
