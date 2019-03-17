@@ -678,10 +678,19 @@ def cm_search(regex, note):
 def cm_check():
     """ command to verify notes """
 
-    print("Checking notes files..")
+    print("Checking root folders..")
+
+    errors = notesviewer.file.verify_notes_root_path(True)
+    if notesviewer.error.ERROR_META_MISSING in errors:
+        exit(notesviewer.error.ERROR_META_MISSING)
 
     notes = os.listdir(notesviewer.vardata.NOTES_ROOT_PATH + "/" + "meta")
 
+    print()
+    print("Checking note files")
+    if not notes:
+        notesviewer.file.print_info_msg("Empty")
+        exit(notesviewer.error.ERROR_OK)
     for note in notes:
         status = notesviewer.note.inspect_note(note)
         print("Checking " + note)
@@ -706,7 +715,7 @@ def cm_check():
         else:
             notesviewer.file.print_err_msg('tags..MISSING')
 
-    print("\n")
+    print()
 
     # check for index mismatch
     print("Chekcing notes metadata..")

@@ -240,7 +240,6 @@ def process_args(argument):
         notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_search(argument['regex'], argument['note'])
     elif argument['cmd'] == 'check':
-        notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_check()
     elif argument['cmd'] == 'interactive':
         notesviewer.file.verify_notes_root_path()
