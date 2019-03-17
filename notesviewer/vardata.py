@@ -3,7 +3,7 @@
 from os.path import expanduser
 
 HOME = expanduser("~")
-PROGRAM_NAME = "noteviewer"
+PROGRAM_NAME = "notesviewer"
 
 
 # global constant variables
