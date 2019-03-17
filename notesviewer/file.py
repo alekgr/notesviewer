@@ -99,9 +99,9 @@ def verify_note(note, file_context):
     return False
 
 
-def verify_notes_root_path():
+def verify_notes_root_path(verbose=False):
 
-    """ check NOTES_ROOT_PATH folder exists"""
+    """ check NOTES_ROOT_PATH folder and it's metadata exists"""
 
     no_root_msg = "No root note directory found"
     run_init_msg = "Use the init command to initalize Notes"
@@ -116,16 +116,45 @@ def verify_notes_root_path():
         notesviewer.file.print_info_msg(run_init_msg)
         exit(notesviewer.error.ERROR_NO_ROOT_NOTE)
 
+    # This will be called by cm_check
+    if verbose is True:
+        missing = []
+        if not os.path.exists(getrootpath("meta")):
+            notesviewer.file.print_err_msg("Meta folder missing")
+            missing.append(notesviewer.error.ERROR_META_MISSING)
+        else:
+            notesviewer.file.print_info_msg("Meta folder OK")
+        if not os.path.exists(getrootpath("content")):
+            notesviewer.file.print_err_msg("Content folder missing")
+            missing.append(notesviewer.error.ERROR_CONTENT_MISSING)
+        else:
+            notesviewer.file.print_info_msg("Content folder OK")
+        if not os.path.exists(getrootpath("link")):
+            notesviewer.file.print_err_msg("Link folder missing")
+            missing.append(notesviewer.error.ERROR_LINK_MISSING)
+        else:
+            notesviewer.file.print_info_msg("Link folder OK")
+        if not os.path.exists(getrootpath("tag")):
+            notesviewer.file.print_err_msg("tags folder missing")
+            missing.append(notesviewer.error.ERROR_TAGS_MISSING)
+        else:
+            notesviewer.file.print_info_msg("Tags folder OK")
+        return missing
+
+
+    # This will be called in process_args
+
     if not os.path.exists(getrootpath("meta")) or \
-       not os.path.exists(getrootpath("content")) or \
-       not os.path.exists(getrootpath("link")) or \
-       not os.path.exists(getrootpath("tag")):
+        not os.path.exists(getrootpath("content")) or \
+        not os.path.exists(getrootpath("link")) or \
+        not os.path.exists(getrootpath("tag")):
 
         notesviewer.file.print_err_msg(metadata_msg)
         notesviewer.file.print_info_msg(metadata_msg3a + metadata_msg3b)
         notesviewer.file.print_info_msg(metadata_msg4a + metadata_msg4b)
-        exit(-1)
+        exit(notesviewer.error.ERROR_METADATA_MISSING)
 
+    return notesviewer.error.ERROR_OK
 
 def verify_empty_note(note, file_context):
     """ check note if empty """
