@@ -145,7 +145,7 @@ def parse_arguments():
 
     # setconfig
     setconfig_parser = subparser.add_parser(
-        'setconfig', help='set a config optin'
+        'setconfig', help='set a config option'
     )
     setconfig_parser.add_argument('key', action='store', help='Key')
     setconfig_parser.add_argument('value', action='store', help='Value')
