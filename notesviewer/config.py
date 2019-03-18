@@ -125,9 +125,9 @@ def setconfig(key, value):
             exit(0)
 
     elif key == "editor":
-        if value not in ("vim", "vi", "emacs", "nano", "pico"):
+        if value not in ("vi", "vim", "emacs", "nano", "pico"):
             notesviewer.file.print_err_msg(
-                "You can only set these editors: vim, vi, emacs, nano, pico"
+                "You can only set these editors: vi, vim, emacs, nano, pico"
             )
             exit(0)
 

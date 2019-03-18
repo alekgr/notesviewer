@@ -34,7 +34,7 @@ NOTES_ROOT_PATH = ""
 
 GRAPHICAL_DEFAULT = False
 VERBOSE_DEFAULT = False
-EDITOR_DEFAULT = "vim"
+EDITOR_DEFAULT = "vi"
 COLOR_ERR_DEFAULT = "white"
 COLOR_MSG_DEFAULT = "yellow"
 COLOR_NOTE_DEFAULT = "yellow"
@@ -44,7 +44,7 @@ COLOR_SEARCH_STRING_DEFAULT = "blue"
 COLOR_SEARCH_NOTE_DEFAULT = "green"
 DATA_DEFAULT = "file" + ":" + HOME + "/" + "notes"
 
-EDITORS = ['vim', 'emacs']
+EDITORS = ['vim', 'vim', 'emacs', 'pico', 'nano']
 COLORS = ['red', 'blue', 'green', 'yellow', 'black', 'white']
 
 PROTOCOL_GIT = "git"
