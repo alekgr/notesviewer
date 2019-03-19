@@ -45,7 +45,7 @@ COLOR_SEARCH_NOTE_DEFAULT = "green"
 DATA_DEFAULT = "file" + ":" + HOME + "/" + "notes"
 
 EDITORS = ['vim', 'vim', 'emacs', 'pico', 'nano']
-COLORS = ['red', 'blue', 'green', 'yellow', 'black', 'white']
+COLORS = ['red', 'blue', 'green', 'yellow', 'black', 'white', 'cyan', 'magenta', 'grey']
 
 PROTOCOL_GIT = "git"
 PROTOCOL_FILE = "file"
