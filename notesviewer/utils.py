@@ -225,3 +225,11 @@ def regex_string(note_enteries, regex):
             search_lists.append(list(search_list))
 
     return search_lists
+
+def validnotename(note):
+    """ check if a note's name has valid characters """
+
+    for char in note:
+        if char not in notesviewer.vardata.APPROVED_CHARS:
+            return False
+    return True

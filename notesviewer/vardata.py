@@ -64,6 +64,10 @@ OPTIONS = {
     "data_location": DATA_DEFAULT,
 }
 
+ALPHA_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+NUMBERS_CHARS = "0123456789"
+SPECIAL_CHARS = "@-_+="
+APPROVED_CHARS = ALPHA_CHARS+NUMBERS_CHARS+SPECIAL_CHARS
 
 def set_notes_root_path(path):
     """ set notes_root_path"""

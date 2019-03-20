@@ -34,6 +34,9 @@ def cm_init():
 def cm_add(note):
     """add a note"""
 
+    error_invalid_name_msg = note + " is not a valid note name. "
+    error_invalid_name_msg2 = "Please choose a name with these characters only: "
+
     # file permission
     mode = 0o600 | stat.S_IRUSR
 
@@ -47,12 +50,19 @@ def cm_add(note):
         notesviewer.file.print_err_msg("The note " + note + " already exists")
         exit(notesviewer.error.ERROR_META_FILE_ALREADY_EXISTS)
     else:
-        os.mknod(meta_path, mode)
-        os.mknod(content_path, mode)
-        os.mknod(tag_path, mode)
-        os.mknod(link_path, mode)
-        notesviewer.file.print_info_msg("Added " + note + " note")
-
+        if not notesviewer.utils.validnotename(note):
+            notesviewer.file.print_err_msg(error_invalid_name_msg +
+                                           error_invalid_name_msg2 +
+                                           notesviewer.vardata.APPROVED_CHARS
+                                           )
+            exit(notesviewer.error.ERROR_NOTE_INVALID_NOTE_CHARS)
+        else:
+            os.mknod(meta_path, mode)
+            os.mknod(content_path, mode)
+            os.mknod(tag_path, mode)
+            os.mknod(link_path, mode)
+            notesviewer.file.print_info_msg("Added " + note + " note")
+            exit(notesviewer.error.ERROR_OK)
 
 def cm_insert(note, title):
     """Insert a note with a title"""
