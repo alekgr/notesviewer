@@ -88,7 +88,7 @@ def get_content_by_uuid(content_lines, uuid):
         uid = uid.split(":")[1]
         if uid == uuid:
             content = get_content(line)
-            content = content.split(":")[1]
+            content = content.split(":",1)[1]
             return content
     return 0
 
