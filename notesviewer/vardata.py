@@ -23,13 +23,17 @@ INTERACTIVE_COMMANDS = [
 # command mode
 COMMAND_MODE = INTERACTIVE_COMMANDS[0]
 
+#ROOT
+ROOT = HOME + "/" + "." + PROGRAM_NAME
+
 # config file
 CONFIG_FILE = "config"
-CONFIG_FILE_PATH = HOME + "/" + "." + PROGRAM_NAME + "/" + CONFIG_FILE
+CONFIG_FILE_PATH = ROOT + "/" + CONFIG_FILE
 
 # buffer location where all the work is being done
 REPO_DIR = HOME + "/" + "notes"
 
+# notes root path in memory
 NOTES_ROOT_PATH = ""
 
 GRAPHICAL_DEFAULT = False
@@ -42,7 +46,7 @@ COLOR_NOTE_TITLE_DEFAULT = "blue"
 COLOR_NOTE_CONTENT_DEFAULT = "magenta"
 COLOR_SEARCH_STRING_DEFAULT = "blue"
 COLOR_SEARCH_NOTE_DEFAULT = "green"
-DATA_DEFAULT = "file" + ":" + HOME + "/" + "notes"
+DATA_DEFAULT = "file" + ":" + ROOT + "/" + "notes"
 
 EDITORS = ['vim', 'vim', 'emacs', 'pico', 'nano']
 COLORS = ['red', 'blue', 'green', 'yellow', 'black', 'white', 'cyan', 'magenta', 'grey']
