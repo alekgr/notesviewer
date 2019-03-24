@@ -53,6 +53,7 @@ COLOR_NOTE_CONTENT_DEFAULT = "magenta"
 COLOR_SEARCH_STRING_DEFAULT = "blue"
 COLOR_SEARCH_NOTE_DEFAULT = "green"
 DATA_DEFAULT = "file" + ":" + ROOT + "/" + "notes"
+DEFAULT_PROFILE = "profile0"
 
 EDITORS = ['vim', 'vim', 'emacs', 'pico', 'nano']
 COLORS = ['red', 'blue', 'green', 'yellow', 'black', 'white', 'cyan', 'magenta', 'grey']
@@ -72,6 +73,7 @@ OPTIONS = {
     "color_search_string": COLOR_SEARCH_STRING_DEFAULT,
     "color_search_notename": COLOR_SEARCH_NOTE_DEFAULT,
     "data_location": DATA_DEFAULT,
+    "default_profile": DEFAULT_PROFILE,
 }
 
 ALPHA_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
