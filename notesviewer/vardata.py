@@ -26,6 +26,9 @@ COMMAND_MODE = INTERACTIVE_COMMANDS[0]
 #ROOT
 ROOT = HOME + "/" + "." + PROGRAM_NAME
 
+#default profile
+DEFAULT_PROFILE = "profile0"
+
 # config file
 CONFIG_FILE = "config"
 CONFIG_FILE_PATH = ROOT + "/" + CONFIG_FILE
@@ -46,7 +49,7 @@ COLOR_NOTE_TITLE_DEFAULT = "blue"
 COLOR_NOTE_CONTENT_DEFAULT = "magenta"
 COLOR_SEARCH_STRING_DEFAULT = "blue"
 COLOR_SEARCH_NOTE_DEFAULT = "green"
-DATA_DEFAULT = "file" + ":" + ROOT + "/" + "notes"
+DATA_DEFAULT = "file" + ":" + ROOT + "/" + "notes" + "/" + DEFAULT_PROFILE
 
 EDITORS = ['vim', 'vim', 'emacs', 'pico', 'nano']
 COLORS = ['red', 'blue', 'green', 'yellow', 'black', 'white', 'cyan', 'magenta', 'grey']
