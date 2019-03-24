@@ -48,11 +48,8 @@ def create_config_file():
 
     mode = 0o600 | stat.S_IRUSR
 
-    config_path_dir = (notesviewer.vardata.HOME + "/" + "." +
-                       notesviewer.vardata.PROGRAM_NAME)
-
-    if not os.path.exists(config_path_dir):
-        os.mkdir(config_path_dir)
+    if not os.path.exists(notesviewer.vardata.ROOT):
+        os.mkdir(notesviewer.vardata.ROOT)
 
     error = os.mknod(notesviewer.vardata.CONFIG_FILE_PATH, mode)
     if error is not None:
