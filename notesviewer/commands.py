@@ -508,15 +508,15 @@ def cm_links(note):
 def cm_list(verbose):
     """ print name of the notes"""
 
-    meta_path = notesviewer.vardata.NOTES_ROOT_PATH + "/" + "meta"
+    meta_path = notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "meta"
 
     if len(os.listdir(meta_path)) is int(0):
         notesviewer.file.print_info_msg("empty")
 
-    notes = os.listdir(notesviewer.vardata.NOTES_ROOT_PATH + "/" + "meta")
+    notes = os.listdir(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "meta")
     if verbose is False:
         notesviewer.file.print_list_per_line(os.listdir(
-            notesviewer.vardata.NOTES_ROOT_PATH + "/" + "meta"))
+            notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "meta"))
 
     else:
         for note in notes:
@@ -564,14 +564,6 @@ def cm_display(note, short):
     # note list
     notes = []
     index = 0
-
-    # paths
-    # meta_path = notesviewer.vardata.NOTES_ROOT_PATH+"/"+"meta"+"/"+note
-    # content_path = notesviewer.vardata.NOTES_ROOT_PATH \
-    #    + "/" + "content" + "/" + note
-
-    # check if the  note is present
-    #        return
 
     if notesviewer.file.verify_note(note, "meta") is False:
         error_msg = "The note " + note + " does not exist -- bye"
@@ -694,7 +686,7 @@ def cm_check():
     if notesviewer.error.ERROR_META_MISSING in errors:
         exit(notesviewer.error.ERROR_META_MISSING)
 
-    notes = os.listdir(notesviewer.vardata.NOTES_ROOT_PATH + "/" + "meta")
+    notes = os.listdir(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "meta")
 
     print()
     print("Checking note files")

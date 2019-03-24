@@ -10,8 +10,8 @@ import notesviewer.file
 
 
 def getpath(name):
-    """ get notes roo path """
-    return notesviewer.vardata.NOTES_ROOT_PATH + "/" + name
+    """ get notes root path """
+    return notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + name
 
 
 def is_a_member_of_list(ali, item):
@@ -52,13 +52,13 @@ def get_note_name(uuid):
 def get_all_notes(ignore_empty=False):
     """return a list of all notes from meta"""
 
-    notes = os.listdir(notesviewer.vardata.NOTES_ROOT_PATH + "/" + "meta")
+    notes = os.listdir(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "meta")
 
     # remove the empty file from the notes list if we choose igonore
     if ignore_empty is True:
         for note in notes:
             if os.stat(
-                    notesviewer.vardata.NOTES_ROOT_PATH
+                    notesviewer.vardata.PROFILE_NOTES_ROOT_PATH
                     + "/" + "meta" + "/" + note).st_size == 0:
                 notes.remove(note)
 

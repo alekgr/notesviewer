@@ -15,14 +15,14 @@ def open_note(file_context, note, mode):
 
     # set the path for file_context
     if file_context == 'meta':
-        path = notesviewer.vardata.NOTES_ROOT_PATH + "/" + "meta" + "/" + note
+        path = notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "meta" + "/" + note
     elif file_context == 'content':
-        path = (notesviewer.vardata.NOTES_ROOT_PATH + "/"
+        path = (notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/"
                 + "content" + "/" + note)
     elif file_context == 'link':
-        path = notesviewer.vardata.NOTES_ROOT_PATH + "/" + "link" + "/" + note
+        path = notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "link" + "/" + note
     elif file_context == 'tag':
-        path = notesviewer.vardata.NOTES_ROOT_PATH + "/" + "tags" + "/" + note
+        path = notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "tags" + "/" + note
     else:
         return notesviewer.error.ERROR_WRONG_NOTE_FILE_CONTEXT
 
@@ -66,10 +66,10 @@ def create_notes_root_path():
     mode = 0o755 | stat.S_IRUSR
 
     try:
-        os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + "meta")
-        os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + "content")
-        os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + "tags")
-        os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + "link")
+        os.makedirs(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "meta")
+        os.makedirs(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "content")
+        os.makedirs(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "tags")
+        os.makedirs(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "link")
         notesviewer.file.print_info_msg("initalized Root note directory...")
     except OSError:
         notesviewer.file.print_info_msg("Note directory already exists")
@@ -79,11 +79,11 @@ def create_notes_root_path():
         prompt = input(prompt_msg1 + prompt_msg2)
         prompt = prompt.lower()
         if prompt == 'yes':
-            shutil.rmtree(notesviewer.vardata.NOTES_ROOT_PATH)
-            os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + "meta")
-            os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + "content")
-            os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + "tags")
-            os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + "link")
+            shutil.rmtree(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH)
+            os.makedirs(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "meta")
+            os.makedirs(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "content")
+            os.makedirs(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "tags")
+            os.makedirs(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "link")
             notesviewer.file.print_info_msg("Notes directory re-initalized")
 
 
@@ -98,7 +98,7 @@ def verify_note(note, file_context):
 
 def verify_notes_root_path(verbose=False):
 
-    """ check NOTES_ROOT_PATH folder and it's metadata exists"""
+    """ check PROFILE_NOTES_ROOT_PATH folder and it's metadata exists"""
 
     no_root_msg = "No root note directory found"
     run_init_msg = "Use the init command to initalize Notes"
@@ -108,7 +108,7 @@ def verify_notes_root_path(verbose=False):
     metadata_msg4a = "..Run   " + notesviewer.vardata.PROGRAM_NAME + " init"
     metadata_msg4b = " command   to initalize base metadata directories"
 
-    if not os.path.exists(notesviewer.vardata.NOTES_ROOT_PATH):
+    if not os.path.exists(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH):
         notesviewer.file.print_err_msg(no_root_msg)
         notesviewer.file.print_info_msg(run_init_msg)
         exit(notesviewer.error.ERROR_NO_ROOT_NOTE)
@@ -165,14 +165,14 @@ def getnotepath(note, file_context):
     """ return note's path by file_context"""
 
     if file_context == 'meta':
-        return notesviewer.vardata.NOTES_ROOT_PATH + "/" + "meta" + "/" + note
+        return notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "meta" + "/" + note
     if file_context == 'content':
         return  \
-            notesviewer.vardata.NOTES_ROOT_PATH + "/" + "content" + "/" + note
+            notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "content" + "/" + note
     if file_context == 'link':
-        return notesviewer.vardata.NOTES_ROOT_PATH + "/" + "link" + "/" + note
+        return notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "link" + "/" + note
     if file_context == 'tag':
-        return notesviewer.vardata.NOTES_ROOT_PATH + "/" + "tags" + "/" + note
+        return notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "tags" + "/" + note
     return notesviewer.error.ERROR_WRONG_NOTE_FILE_CONTEXT
 
 
@@ -180,14 +180,14 @@ def getrootpath(file_context):
     """ return notes root path by file context """
 
     if file_context == 'meta':
-        return notesviewer.vardata.NOTES_ROOT_PATH + "/" + "meta"
+        return notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "meta"
     if file_context == 'content':
         return  \
-            notesviewer.vardata.NOTES_ROOT_PATH + "/" + "content"
+            notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "content"
     if file_context == 'link':
-        return notesviewer.vardata.NOTES_ROOT_PATH + "/" + "link"
+        return notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "link"
     if file_context == 'tag':
-        return notesviewer.vardata.NOTES_ROOT_PATH + "/" + "tags"
+        return notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "tags"
     return notesviewer.error.ERROR_WRONG_NOTE_FILE_CONTEXT
 
 

@@ -37,11 +37,6 @@ def load_notes_enteries(notes):
     all_notes_enteries = []
 
     for note in notes:
-        # get te the fp for each note
-        # meta_path = notesviewer.vardata.NOTES_ROOT_PATH + "/" + "meta" + \
-        #                                        "/" + note
-        # content_path = notesviewer.vardata.NOTES_ROOT_PATH + "/" + \
-        #                                        "content" + "/" + note
 
         meta_path = notesviewer.file.getnotepath(note, "meta")
         content_path = notesviewer.file.getnotepath(note, "content")

@@ -52,7 +52,7 @@ COLOR_NOTE_TITLE_DEFAULT = "blue"
 COLOR_NOTE_CONTENT_DEFAULT = "magenta"
 COLOR_SEARCH_STRING_DEFAULT = "blue"
 COLOR_SEARCH_NOTE_DEFAULT = "green"
-DATA_DEFAULT = "file" + ":" + ROOT + "/" + "notes" + "/" + DEFAULT_PROFILE
+DATA_DEFAULT = "file" + ":" + ROOT + "/" + "notes"
 
 EDITORS = ['vim', 'vim', 'emacs', 'pico', 'nano']
 COLORS = ['red', 'blue', 'green', 'yellow', 'black', 'white', 'cyan', 'magenta', 'grey']
