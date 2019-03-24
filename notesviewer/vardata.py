@@ -39,6 +39,9 @@ REPO_DIR = HOME + "/" + "notes"
 # notes root path in memory
 NOTES_ROOT_PATH = ""
 
+# profile root path
+PROFILE_NOTES_ROOT_PATH = ""
+
 GRAPHICAL_DEFAULT = False
 VERBOSE_DEFAULT = False
 EDITOR_DEFAULT = "vi"
