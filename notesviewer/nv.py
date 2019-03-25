@@ -40,6 +40,13 @@ def parse_arguments():
         'init', help='Initalize note root directory'
     )
 
+    #  create_profile
+    create_profile_parser = subparser.add_parser(
+        'create_profile', help='Create a new profile'
+    )
+    create_profile_parser.add_argument(
+        'profile', action='store', help='Profile')
+
     # add
     add_parser = subparser.add_parser('add', help='Add a note')
     add_parser.add_argument('note', action='store', help='Note')
@@ -194,6 +201,8 @@ def process_args(argument):
         notesviewer.commands.cm_showconfig()
     elif argument['cmd'] == 'init':
         notesviewer.commands.cm_init()
+    elif argument['cmd'] == 'create_profile':
+        notesviewer.commands.cm_create_profile(argument['profile'])
     elif argument['cmd'] == 'list':
         notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_list(argument['verbose'])

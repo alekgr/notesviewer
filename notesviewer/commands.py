@@ -4,6 +4,7 @@ import sys
 import uuid
 import stat
 import os
+import shutil
 from termcolor import colored
 from notesviewer.config import showconfig, setdefaultconfig
 import notesviewer.file
@@ -30,6 +31,33 @@ def cm_init():
 
     notesviewer.file.create_notes_root_path()
 
+def cm_create_profile(profile):
+    """ create a new profile for """
+
+    mode = 0o755 | stat.S_IRUSR
+
+    try:
+        os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile)
+        os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile + "/" + "meta")
+        os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile + "/" + "content")
+        os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile + "/" + "tags")
+        os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile + "/" + "link")
+        notesviewer.file.print_info_msg(
+            "initalized Root note directory... for " + "profile " + profile)
+    except (OSError, FileExistsError):
+        notesviewer.file.print_info_msg("Note directory already exists")
+        prompt_msg1 = "Would you like to initalize it again(yes/no)\n"
+        prompt_msg2 = "This will delete all your notes: "
+
+        prompt = input(prompt_msg1 + prompt_msg2)
+        prompt = prompt.lower()
+        if prompt == 'yes':
+            shutil.rmtree(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile)
+            os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile + "/" + "meta")
+            os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile + "/" + "content")
+            os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile + "/" + "tags")
+            os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile + "/" + "link")
+            notesviewer.file.print_info_msg("Notes directory re-initalized")
 
 def cm_add(note):
     """add a note"""
