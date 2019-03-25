@@ -67,6 +67,16 @@ def loadconfig():
                 'data_location'] = \
                 config.get('settings',
                            'data_location')
+
+        if config.has_option('settings',
+                             'default_profle'):
+            notesviewer.vardata.OPTIONS[
+                'default_profile'] = \
+                config.get('settings',
+                           'data_profile')
+
+
+
     return True
 
 
@@ -98,6 +108,9 @@ def setdefaultconfig(verbose):
                notesviewer.vardata.COLOR_SEARCH_NOTE_DEFAULT)
     config.set("settings", "data_location",
                notesviewer.vardata.DATA_DEFAULT)
+    config.set("settings", "default_profile",
+               notesviewer.vardata.DEFAULT_PROFILE)
+
 
     # write to CONFIG_FILE
     with open(notesviewer.vardata.CONFIG_FILE_PATH, "w") as filepointer:
@@ -239,11 +252,25 @@ def set_data_location():
         notesviewer.vardata.set_notes_root_path(
             get_data_location_source())
 
+def set_default_profile():
+    """ set default profile """
+
+    profile_path = notesviewer.vardata.NOTES_ROOT_PATH + "/"
+
+    notesviewer.vardata.set_profile_notes_root_path(
+        notesviewer.vardata.NOTES_ROOT_PATH + "/"
+        + get_default_profile()
+        )
 
 def get_data_location_source():
     """ get data location source """
 
     return notesviewer.vardata.OPTIONS['data_location'].split(":", 1)[1]
+
+def get_default_profile():
+    """ get default profile from OPTIONS """
+
+    return notesviewer.vardata.OPTIONS['default_profile']
 
 
 def get_data_location_type():

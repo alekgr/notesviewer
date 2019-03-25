@@ -6,13 +6,14 @@ import argparse
 import notesviewer.vardata
 import notesviewer.interactive
 import notesviewer.commands
-from notesviewer.config import loadconfig, set_data_location
+from notesviewer.config import loadconfig, set_data_location, set_default_profile
 
 
 def main():
     """ main application function """
     loadconfig()
     set_data_location()
+    set_default_profile()
     parse_arguments()
 
 

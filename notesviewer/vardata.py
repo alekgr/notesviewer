@@ -95,3 +95,10 @@ def set_command_mode(interactive_command):
     global COMMAND_MODE
 
     COMMAND_MODE = interactive_command
+
+def set_profile_notes_root_path(path):
+    """ set profile for the root path """
+
+    global PROFILE_NOTES_ROOT_PATH
+
+    PROFILE_NOTES_ROOT_PATH = path
