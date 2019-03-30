@@ -31,7 +31,7 @@ def cm_init():
 
     notesviewer.file.create_notes_root_path()
 
-def cm_create_profile(profile):
+def cm_add_profile(profile):
     """ create a new profile for """
 
     mode = 0o755 | stat.S_IRUSR
@@ -58,6 +58,35 @@ def cm_create_profile(profile):
             os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile + "/" + "tags")
             os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile + "/" + "link")
             notesviewer.file.print_info_msg("Notes directory re-initalized")
+
+def cm_show_profiles():
+    """ print number of profiles """
+
+    profiles_path = notesviewer.vardata.NOTES_ROOT_PATH
+
+    if len(os.listdir(profiles_path)) is int(0):
+        notesviewer.file.print_info_msg("empty")
+
+    profiles = os.listdir(profiles_path)
+
+    for profile in profiles:
+        notesviewer.file.print_info_msg(profile)
+
+def cm_switch_profile(profile):
+    """ switch to a profile """
+
+    profile_path = notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile
+
+    if not os.path.exists(profile_path):
+        notesviewer.file.print_err_msg("The " + profile + " profile does not exist -- bye")
+        exit(notesviewer.error.ERROR_NO_PROFILE)
+
+    notesviewer.config.setconfig("default_profile", profile)
+
+def cm_profile():
+    """ show current profile """
+
+    notesviewer.file.print_info_msg(notesviewer.vardata.OPTIONS['default_profile'])
 
 def cm_add(note):
     """add a note"""

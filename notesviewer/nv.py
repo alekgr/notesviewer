@@ -16,7 +16,6 @@ def main():
     set_default_profile()
     parse_arguments()
 
-
 def parse_arguments():
     """ parse all the program arguments """
 
@@ -40,12 +39,22 @@ def parse_arguments():
         'init', help='Initalize note root directory'
     )
 
-    #  create_profile
-    create_profile_parser = subparser.add_parser(
-        'create_profile', help='Create a new profile'
+    #  add_profile
+    add_profile_parser = subparser.add_parser(
+        'add_profile', help='Add a new profile'
     )
-    create_profile_parser.add_argument(
+    add_profile_parser.add_argument(
         'profile', action='store', help='Profile')
+
+    # show profles
+    show_parser = subparser.add_parser('show_profiles', help='Show profiles')
+
+    # switch profie
+    switch_profile_parser = subparser.add_parser('switch_profile', help='Switch to a profile')
+    switch_profile_parser.add_argument('profile', action='store', help='profile')
+
+    # profile
+    profile_parser = subparser.add_parser('profile', help='Show current profile')
 
     # add
     add_parser = subparser.add_parser('add', help='Add a note')
@@ -201,8 +210,14 @@ def process_args(argument):
         notesviewer.commands.cm_showconfig()
     elif argument['cmd'] == 'init':
         notesviewer.commands.cm_init()
-    elif argument['cmd'] == 'create_profile':
-        notesviewer.commands.cm_create_profile(argument['profile'])
+    elif argument['cmd'] == 'add_profile':
+        notesviewer.commands.cm_add_profile(argument['profile'])
+    elif argument['cmd'] == 'show_profiles':
+        notesviewer.commands.cm_show_profiles()
+    elif argument['cmd'] == 'switch_profile':
+        notesviewer.commands.cm_switch_profile(argument['profile'])
+    elif argument['cmd'] == 'profile':
+        notesviewer.commands.cm_profile()
     elif argument['cmd'] == 'list':
         notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_list(argument['verbose'])
