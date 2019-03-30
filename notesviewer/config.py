@@ -69,11 +69,11 @@ def loadconfig():
                            'data_location')
 
         if config.has_option('settings',
-                             'default_profle'):
+                             'default_profile'):
             notesviewer.vardata.OPTIONS[
                 'default_profile'] = \
                 config.get('settings',
-                           'data_profile')
+                           'default_profile')
 
 
 
@@ -169,6 +169,12 @@ def setconfig(key, value):
                 "dat_location path is not a directory"
             )
             exit(0)
+
+    elif key == "default_profile":
+        profile_path = notesviewer.vardata.NOTES_ROOT_PATH + "/" + value
+        if not os.path.exists(profile_path):
+            notesviewer.file.print_err_msg("The " + value + " profile does not exist -- bye")
+            exit(notesviewer.error.ERROR_NO_PROFILE)
 
     else:
         notesviewer.file.print_err_msg("There is no such option " + key)
