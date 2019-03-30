@@ -83,6 +83,8 @@ def cm_switch_profile(profile):
 
     notesviewer.config.setconfig("profile", profile)
 
+    notesviewer.file.print_info_msg("Switched to " + profile)
+
 def cm_profile():
     """ show current profile """
 
