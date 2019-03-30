@@ -81,12 +81,12 @@ def cm_switch_profile(profile):
         notesviewer.file.print_err_msg("The " + profile + " profile does not exist -- bye")
         exit(notesviewer.error.ERROR_NO_PROFILE)
 
-    notesviewer.config.setconfig("default_profile", profile)
+    notesviewer.config.setconfig("profile", profile)
 
 def cm_profile():
     """ show current profile """
 
-    notesviewer.file.print_info_msg(notesviewer.vardata.OPTIONS['default_profile'])
+    notesviewer.file.print_info_msg(notesviewer.vardata.OPTIONS['profile'])
 
 def cm_add(note):
     """add a note"""

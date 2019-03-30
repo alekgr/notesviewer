@@ -69,11 +69,11 @@ def loadconfig():
                            'data_location')
 
         if config.has_option('settings',
-                             'default_profile'):
+                             'profile'):
             notesviewer.vardata.OPTIONS[
-                'default_profile'] = \
+                'profile'] = \
                 config.get('settings',
-                           'default_profile')
+                           'profile')
 
 
 
@@ -108,8 +108,8 @@ def setdefaultconfig(verbose):
                notesviewer.vardata.COLOR_SEARCH_NOTE_DEFAULT)
     config.set("settings", "data_location",
                notesviewer.vardata.DATA_DEFAULT)
-    config.set("settings", "default_profile",
-               notesviewer.vardata.DEFAULT_PROFILE)
+    config.set("settings", "profile",
+               notesviewer.vardata.PROFILE)
 
 
     # write to CONFIG_FILE
@@ -170,7 +170,7 @@ def setconfig(key, value):
             )
             exit(0)
 
-    elif key == "default_profile":
+    elif key == "profile":
         profile_path = notesviewer.vardata.NOTES_ROOT_PATH + "/" + value
         if not os.path.exists(profile_path):
             notesviewer.file.print_err_msg("The " + value + " profile does not exist -- bye")
@@ -258,14 +258,14 @@ def set_data_location():
         notesviewer.vardata.set_notes_root_path(
             get_data_location_source())
 
-def set_default_profile():
+def set_profile():
     """ set default profile """
 
     profile_path = notesviewer.vardata.NOTES_ROOT_PATH + "/"
 
     notesviewer.vardata.set_profile_notes_root_path(
         notesviewer.vardata.NOTES_ROOT_PATH + "/"
-        + get_default_profile()
+        + get_profile()
         )
 
 def get_data_location_source():
@@ -273,10 +273,10 @@ def get_data_location_source():
 
     return notesviewer.vardata.OPTIONS['data_location'].split(":", 1)[1]
 
-def get_default_profile():
+def get_profile():
     """ get default profile from OPTIONS """
 
-    return notesviewer.vardata.OPTIONS['default_profile']
+    return notesviewer.vardata.OPTIONS['profile']
 
 
 def get_data_location_type():
