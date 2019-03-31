@@ -211,12 +211,16 @@ def process_args(argument):
     elif argument['cmd'] == 'init':
         notesviewer.commands.cm_init()
     elif argument['cmd'] == 'add_profile':
+        notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_add_profile(argument['profile'])
     elif argument['cmd'] == 'show_profiles':
+        notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_show_profiles()
     elif argument['cmd'] == 'switch_profile':
+        notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_switch_profile(argument['profile'])
     elif argument['cmd'] == 'profile':
+        notesviewer.file.verify_notes_root_path()
         notesviewer.commands.cm_profile()
     elif argument['cmd'] == 'list':
         notesviewer.file.verify_notes_root_path()
