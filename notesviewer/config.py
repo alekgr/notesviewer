@@ -258,8 +258,8 @@ def set_data_location():
         notesviewer.vardata.set_notes_root_path(
             get_data_location_source())
 
-def set_profile():
-    """ set default profile """
+def set_profile_path():
+    """ set profile path """
 
     profile_path = notesviewer.vardata.NOTES_ROOT_PATH + "/"
 
