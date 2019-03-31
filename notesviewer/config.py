@@ -274,7 +274,7 @@ def get_data_location_source():
     return notesviewer.vardata.OPTIONS['data_location'].split(":", 1)[1]
 
 def get_profile_from_OPTIONS():
-    """ get default profile from OPTIONS """
+    """ get profile from OPTIONS """
 
     return notesviewer.vardata.OPTIONS['profile']
 
