@@ -45,9 +45,9 @@ def cm_add_profile(profile):
         notesviewer.file.print_info_msg(
             "initalized Root note directory... for " + "profile " + profile)
     except (OSError, FileExistsError):
-        notesviewer.file.print_info_msg("Note directory already exists")
+        notesviewer.file.print_info_msg("Profile already exists")
         prompt_msg1 = "Would you like to initalize it again(yes/no)\n"
-        prompt_msg2 = "This will delete all your notes: "
+        prompt_msg2 = "This will also delete all your notes in your profile\n"
 
         prompt = input(prompt_msg1 + prompt_msg2)
         prompt = prompt.lower()
