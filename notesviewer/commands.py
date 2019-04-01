@@ -128,12 +128,12 @@ def cm_insert(note, title):
 
     # verfiy note
     if notesviewer.file.verify_note(note, "meta") is False:
-        notesviewer.file.print_err_msg("The meta note " + note + " \
-                                            does not exist -- bye")
+        notesviewer.file.print_err_msg("The note " + note +  \
+                                            "does not exist -- bye")
         exit(notesviewer.error.ERROR_NO_META_FILE)
     if notesviewer.file.verify_note(note, "content") is False:
-        notesviewer.file.print_msg("The content " + note + " \
-                                            does not exist -- bye")
+        notesviewer.file.print_msg("The " + note +  \
+                                            "does not exist -- bye")
         exit(notesviewer.error.ERROR_NO_CONTENT_FILE)
 
     # create uuid for the note
