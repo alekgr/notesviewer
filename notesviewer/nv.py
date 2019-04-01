@@ -67,7 +67,7 @@ def parse_arguments():
     add_parser.add_argument(
         'note', action='store', help='Note inserted into'
     )
-    add_parser.add_argument('title', action='store', help='Notes tiltle')
+    add_parser.add_argument('title', action='store', help='Notes title')
 
     # edit
     edit_parser = subparser.add_parser('edit', help='Edit a note entry')
