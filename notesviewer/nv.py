@@ -16,6 +16,7 @@ def main():
     set_profile_path()
     parse_arguments()
 
+
 def parse_arguments():
     """ parse all the program arguments """
 
@@ -50,11 +51,17 @@ def parse_arguments():
     show_parser = subparser.add_parser('show_profiles', help='Show profiles')
 
     # switch profie
-    switch_profile_parser = subparser.add_parser('switch_profile', help='Switch to a profile')
-    switch_profile_parser.add_argument('profile', action='store', help='profile')
+    switch_profile_parser = subparser.add_parser(
+        'switch_profile', help='Switch to a profile'
+    )
+    switch_profile_parser.add_argument(
+        'profile', action='store', help='profile'
+    )
 
     # profile
-    profile_parser = subparser.add_parser('profile', help='Show current profile')
+    profile_parser = subparser.add_parser(
+        'profile', help='Show current profile'
+    )
 
     # add
     add_parser = subparser.add_parser('add', help='Add a note')
