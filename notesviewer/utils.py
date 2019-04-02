@@ -52,7 +52,9 @@ def get_note_name(uuid):
 def get_all_notes(ignore_empty=False):
     """return a list of all notes from meta"""
 
-    notes = os.listdir(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "meta")
+    notes = os.listdir(
+        notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "meta"
+    )
 
     # remove the empty file from the notes list if we choose igonore
     if ignore_empty is True:
@@ -225,6 +227,7 @@ def regex_string(note_enteries, regex):
             search_lists.append(list(search_list))
 
     return search_lists
+
 
 def validnotename(note):
     """ check if a note's name has valid characters """
