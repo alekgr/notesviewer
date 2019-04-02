@@ -31,17 +31,20 @@ def cm_init():
 
     notesviewer.file.create_notes_root_path()
 
+
 def cm_add_profile(profile):
     """ create a new profile for """
 
     mode = 0o755 | stat.S_IRUSR
 
+    profile_path = notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile
+
     try:
-        os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile)
-        os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile + "/" + "meta")
-        os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile + "/" + "content")
-        os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile + "/" + "tags")
-        os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile + "/" + "link")
+        os.makedirs(profile_path)
+        os.makedirs(profile_path + "/" + "meta")
+        os.makedirs(profile_path + "/" + "content")
+        os.makedirs(profile_path + "/" + "tags")
+        os.makedirs(profile_path + "/" + "link")
         notesviewer.file.print_info_msg(
             "initalized Root note directory... for " + "profile " + profile)
     except (OSError, FileExistsError):
@@ -52,12 +55,13 @@ def cm_add_profile(profile):
         prompt = input(prompt_msg1 + prompt_msg2)
         prompt = prompt.lower()
         if prompt == 'yes':
-            shutil.rmtree(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile)
-            os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile + "/" + "meta")
-            os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile + "/" + "content")
-            os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile + "/" + "tags")
-            os.makedirs(notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile + "/" + "link")
+            shutil.rmtree(profile_path)
+            os.makedirs(profile_path + "/" + "meta")
+            os.makedirs(profile_path + "/" + "content")
+            os.makedirs(profile_path + "/" + "tags")
+            os.makedirs(profile_path + "/" + "link")
             notesviewer.file.print_info_msg("Notes directory re-initalized")
+
 
 def cm_show_profiles():
     """ print number of profiles """
@@ -72,29 +76,35 @@ def cm_show_profiles():
     for profile in profiles:
         notesviewer.file.print_info_msg(profile)
 
+
 def cm_switch_profile(profile):
     """ switch to a profile """
 
     profile_path = notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile
 
     if not os.path.exists(profile_path):
-        notesviewer.file.print_err_msg("The " + profile + " profile does not exist -- bye")
+        notesviewer.file.print_err_msg("The " + profile +
+                                       " profile does not exist -- bye"
+                                       )
         exit(notesviewer.error.ERROR_NO_PROFILE)
 
     notesviewer.config.setconfig("profile", profile)
 
     notesviewer.file.print_info_msg("Switched to " + profile)
 
+
 def cm_profile():
     """ show current profile """
 
     notesviewer.file.print_info_msg(notesviewer.vardata.OPTIONS['profile'])
 
+
 def cm_add(note):
     """add a note"""
 
     error_invalid_name_msg = note + " is not a valid note name. "
-    error_invalid_name_msg2 = "Please choose a name with these characters only: "
+    error_invalid_name_msg2 = "Please choose a name with " + \
+                              "these characters only: "
 
     # file permission
     mode = 0o600 | stat.S_IRUSR
@@ -123,17 +133,18 @@ def cm_add(note):
             notesviewer.file.print_info_msg("Added " + note + " note")
             exit(notesviewer.error.ERROR_OK)
 
+
 def cm_insert(note, title):
     """Insert a note with a title"""
 
     # verfiy note
     if notesviewer.file.verify_note(note, "meta") is False:
-        notesviewer.file.print_err_msg("The note " + note +  \
-                                            "does not exist -- bye")
+        notesviewer.file.print_err_msg("The note " + note +
+                                       "does not exist -- bye")
         exit(notesviewer.error.ERROR_NO_META_FILE)
     if notesviewer.file.verify_note(note, "content") is False:
-        notesviewer.file.print_msg("The " + note +  \
-                                            "does not exist -- bye")
+        notesviewer.file.print_msg("The " + note +
+                                   "does not exist -- bye")
         exit(notesviewer.error.ERROR_NO_CONTENT_FILE)
 
     # create uuid for the note
@@ -572,7 +583,8 @@ def cm_list(verbose):
     if len(os.listdir(meta_path)) is int(0):
         notesviewer.file.print_info_msg("empty")
 
-    notes = os.listdir(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "meta")
+    notes = os.listdir(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" +
+                       "meta")
     if verbose is False:
         notesviewer.file.print_list_per_line(os.listdir(
             notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "meta"))
@@ -745,7 +757,8 @@ def cm_check():
     if notesviewer.error.ERROR_META_MISSING in errors:
         exit(notesviewer.error.ERROR_META_MISSING)
 
-    notes = os.listdir(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH + "/" + "meta")
+    notes = os.listdir(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH +
+                       "/" + "meta")
 
     print()
     print("Checking note files")
