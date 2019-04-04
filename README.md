@@ -20,6 +20,10 @@ notesviewer delete <note>
 notesviewer remove <index> <note>
 notesviewer move <index> <fromnote> <tonote>
 notesviewer addtags <note> <tag>
+notesviewer add_profile <profile>
+notesviewer show_profiles
+notesviewer switch_profile
+notesviewer profile
 notesviewer tags <note>
 notesviewer removetags <note> <tag(s)>
 notesviewer editlinks <note>
@@ -46,6 +50,15 @@ notesviewer interactive    #Not implemented yet
 - Added root note verification
 - Updated the check command to include the new root note verification
 - Fixed --help to display notesviewer name correctly
+
+0.9.5
+- Changed the default editor to vi
+- Added cyan, magenta and grey color options
+- Changed some of the default colors
+- Added note naming convention with approved characters
+- Fixed display command bug when inserting with : character
+- Notes root path and config are in the same location now
+- Added profile, add_profile, show_profies, switch_profile commands for profile managment
 ```
 
 ## Contributing 
