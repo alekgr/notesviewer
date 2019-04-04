@@ -23,10 +23,10 @@ INTERACTIVE_COMMANDS = [
 # command mode
 COMMAND_MODE = INTERACTIVE_COMMANDS[0]
 
-#ROOT
+# ROOT
 ROOT = HOME + "/" + "." + PROGRAM_NAME
 
-#default profile
+# default profile
 DEFAULT_PROFILE = "profile0"
 
 # config file
@@ -56,7 +56,8 @@ DATA_DEFAULT = "file" + ":" + ROOT + "/" + "notes"
 PROFILE = "profile0"
 
 EDITORS = ['vim', 'vim', 'emacs', 'pico', 'nano']
-COLORS = ['red', 'blue', 'green', 'yellow', 'black', 'white', 'cyan', 'magenta', 'grey']
+COLORS = ['red', 'blue', 'green', 'yellow', 'black',
+          'white', 'cyan', 'magenta', 'grey']
 
 PROTOCOL_GIT = "git"
 PROTOCOL_FILE = "file"
@@ -79,7 +80,8 @@ OPTIONS = {
 ALPHA_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 NUMBERS_CHARS = "0123456789"
 SPECIAL_CHARS = "@-_+=."
-APPROVED_CHARS = ALPHA_CHARS+NUMBERS_CHARS+SPECIAL_CHARS
+APPROVED_CHARS = ALPHA_CHARS + NUMBERS_CHARS + SPECIAL_CHARS
+
 
 def set_notes_root_path(path):
     """ set notes_root_path"""
@@ -95,6 +97,7 @@ def set_command_mode(interactive_command):
     global COMMAND_MODE
 
     COMMAND_MODE = interactive_command
+
 
 def set_profile_notes_root_path(path):
     """ set profile for the root path """
