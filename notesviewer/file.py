@@ -100,7 +100,7 @@ def verify_note(note, file_context):
     return False
 
 
-def verify_notes_root_path(verbose=False):
+def verify_profile_path(verbose=False):
 
     """ check PROFILE_NOTES_ROOT_PATH folder and it's metadata exists"""
 

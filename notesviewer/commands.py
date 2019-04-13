@@ -756,7 +756,7 @@ def cm_check():
 
     print("Checking root folders..")
 
-    errors = notesviewer.file.verify_notes_root_path(True)
+    errors = notesviewer.file.verify_profile_path(True)
     if notesviewer.error.ERROR_META_MISSING in errors:
         exit(notesviewer.error.ERROR_META_MISSING)
 
