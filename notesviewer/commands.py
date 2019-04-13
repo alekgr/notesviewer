@@ -29,7 +29,9 @@ def cm_version():
 def cm_init():
     """ initalize data """
 
-    notesviewer.file.create_notes_root_path()
+    notesviewer.file.create_notes_root_path(
+        notesviewer.vardata.PROFILE_NOTES_ROOT_PATH
+        )
 
 
 def cm_add_profile(profile):
@@ -537,6 +539,7 @@ def cm_editlinks(note):
 
     # close fp
     notesviewer.file.close_note(fp_link)
+
 
     if not notesviewer.note.check_links(edited_link):
         notesviewer.file.print_err_msg(
