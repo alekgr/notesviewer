@@ -63,12 +63,11 @@ def create_config_file():
         notesviewer.commands.setdefaultconfig(False)
 
 
-def create_notes_root_path():
+def create_notes_root_path(profile_path):
     """ creat a note root directory """
 
     mode = 0o755 | stat.S_IRUSR
 
-    profile_path = notesviewer.vardata.PROFILE_NOTES_ROOT_PATH
 
     try:
         os.makedirs(profile_path + "/" + "meta")
