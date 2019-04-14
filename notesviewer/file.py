@@ -113,9 +113,8 @@ def verify_profile_path(verbose=False):
     metadata_msg4b = " command   to initalize base metadata directories"
 
     if not os.path.exists(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH):
-        notesviewer.file.print_err_msg(no_root_msg)
-        notesviewer.file.print_info_msg(run_init_msg)
-        exit(notesviewer.error.ERROR_NO_ROOT_NOTE)
+        return notesviewer.error.ERROR_NO_ROOT_NOTE
+
 
     # This will be called by cm_check
     if verbose is True:
