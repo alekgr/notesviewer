@@ -263,9 +263,11 @@ def set_profile_path():
     profile_path = notesviewer.vardata.NOTES_ROOT_PATH + \
         "/" + get_profile_from_options()
 
-    if not os.path.exists(profile_path):
-        notesviewer.file.print_err_msg("Profile in your config does exist")
-        exit(notesviewer.error.ERROR_NO_PROFILE)
+
+    #if not os.path.exists(profile_path):
+    #    notesviewer.file.print_err_msg("Profile in your config does exist")
+    #    exit(notesviewer.error.ERROR_NO_PROFILE)
+
 
     notesviewer.vardata.set_profile_notes_root_path(profile_path)
 
@@ -285,3 +287,13 @@ def get_profile_from_options():
 def get_data_location_type():
     """ get data location type """
     return notesviewer.vardata.OPTIONS['data_location'].split(":")[0]
+
+def create_default_profile():
+    """ create a default profile if there isn't one"""
+
+    default_profile_path = notesviewer.vardata.NOTES_ROOT_PATH + "/" + \
+    notesviewer.vardata.DEFAULT_PROFILE
+
+    if not os.path.exists(default_profile_path):
+        os.mkdir(default_profile_path)
+        notesviewer.file.create_notes_root_path(default_profile_path)
