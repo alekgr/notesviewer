@@ -256,6 +256,9 @@ def set_data_location():
         notesviewer.vardata.set_notes_root_path(
             get_data_location_source())
 
+    # Make NOTES_ROOT_PATH if not there
+    if not os.path.exists(notesviewer.vardata.NOTES_ROOT_PATH):
+        os.mkdir(notesviewer.vardata.NOTES_ROOT_PATH)
 
 def set_profile_path():
     """ set profile path """
@@ -263,14 +266,22 @@ def set_profile_path():
     profile_path = notesviewer.vardata.NOTES_ROOT_PATH + \
         "/" + get_profile_from_options()
 
-
-    #if not os.path.exists(profile_path):
-    #    notesviewer.file.print_err_msg("Profile in your config does exist")
-    #    exit(notesviewer.error.ERROR_NO_PROFILE)
-
-
     notesviewer.vardata.set_profile_notes_root_path(profile_path)
 
+    # make PROFILE_NOTES_ROOT_PATH
+    if not os.path.exists(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH):
+        os.mkdir(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH)
+
+    # create meta data folders if missing
+    errors = notesviewer.file.verify_profile_path()
+    if errors[0] != notesviewer.error.ERROR_OK:
+        notesviewer.file.create_notes_root_path(profile_path, "meta", False)
+    if errors[1] != notesviewer.error.ERROR_OK:
+        notesviewer.file.create_notes_root_path(profile_path, "content", False)
+    if errors[2] != notesviewer.error.ERROR_OK:
+        notesviewer.file.create_notes_root_path(profile_path, "link", False)
+    if errors[3] != notesviewer.error.ERROR_OK:
+        notesviewer.file.create_notes_root_path(profile_path, "tags", False)
 
 def get_data_location_source():
     """ get data location source """
