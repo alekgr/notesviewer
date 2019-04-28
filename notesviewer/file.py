@@ -63,17 +63,25 @@ def create_config_file():
         notesviewer.commands.setdefaultconfig(False)
 
 
-def create_notes_root_path(profile_path):
+def create_notes_root_path(profile_path, dir, prompt=True):
     """ creat a note root directory """
 
     mode = 0o755 | stat.S_IRUSR
 
-
     try:
-        os.makedirs(profile_path + "/" + "meta")
-        os.makedirs(profile_path + "/" + "content")
-        os.makedirs(profile_path + "/" + "tags")
-        os.makedirs(profile_path + "/" + "link")
+        if dir == all:
+            os.makedirs(profile_path + "/" + "meta")
+            os.makedirs(profile_path + "/" + "content")
+            os.makedirs(profile_path + "/" + "tags")
+            os.makedirs(profile_path + "/" + "link")
+        if dir == "meta":
+            os.makedirs(profile_path + "/" + "meta")
+        if dir == "content":
+            os.makedirs(profile_path + "/" + "content")
+        if dir == "link":
+            os.makedirs(profile_path + "/" + "link")
+        if dir == "tags":
+            os.makedirs(profile_path + "/" + "tags")
     except OSError:
         notesviewer.file.print_info_msg("Note directory already exists")
         prompt_msg1 = "Would you like to initalize it again(yes/no)\n"
@@ -116,44 +124,42 @@ def verify_profile_path(verbose=False):
 
 
     # This will be called by cm_check
-    if verbose is True:
-        missing = []
-        if not os.path.exists(getrootpath("meta")):
+   
+    missing = []
+    if not os.path.exists(getrootpath("meta")):
+        if verbose == True:
             notesviewer.file.print_err_msg("Meta folder missing")
-            missing.append(notesviewer.error.ERROR_META_MISSING)
-        else:
+        missing.append(notesviewer.error.ERROR_META_MISSING)
+    else:
+        if verbose == True:
             notesviewer.file.print_info_msg("Meta folder OK")
-        if not os.path.exists(getrootpath("content")):
+        missing.append(notesviewer.error.ERROR_OK)
+    if not os.path.exists(getrootpath("content")):
+        if verbose == True:
             notesviewer.file.print_err_msg("Content folder missing")
-            missing.append(notesviewer.error.ERROR_CONTENT_MISSING)
-        else:
+        missing.append(notesviewer.error.ERROR_CONTENT_MISSING)
+    else:
+        if verbose == True:
             notesviewer.file.print_info_msg("Content folder OK")
-        if not os.path.exists(getrootpath("link")):
+        missing.append(notesviewer.error.ERROR_OK)
+    if not os.path.exists(getrootpath("link")):
+        if verbose == True:
             notesviewer.file.print_err_msg("Link folder missing")
-            missing.append(notesviewer.error.ERROR_LINK_MISSING)
-        else:
+        missing.append(notesviewer.error.ERROR_LINK_MISSING)
+    else:
+        if verbose == True:
             notesviewer.file.print_info_msg("Link folder OK")
-        if not os.path.exists(getrootpath("tag")):
+        missing.append(notesviewer.error.ERROR_OK)
+    if not os.path.exists(getrootpath("tag")):
+        if verbose == True:
             notesviewer.file.print_err_msg("tags folder missing")
-            missing.append(notesviewer.error.ERROR_TAGS_MISSING)
-        else:
+        missing.append(notesviewer.error.ERROR_TAGS_MISSING)
+    else:
+        if verbose == True:
             notesviewer.file.print_info_msg("Tags folder OK")
-        return missing
-
-    # This will be called in process_args
-
-    if not os.path.exists(getrootpath("meta")) or \
-       not os.path.exists(getrootpath("content")) or \
-       not os.path.exists(getrootpath("link")) or \
-       not os.path.exists(getrootpath("tag")):
-
-        notesviewer.file.print_err_msg(metadata_msg)
-        notesviewer.file.print_info_msg(metadata_msg3a + metadata_msg3b)
-        notesviewer.file.print_info_msg(metadata_msg4a + metadata_msg4b)
-        exit(notesviewer.error.ERROR_METADATA_MISSING)
-
-    return notesviewer.error.ERROR_OK
-
+        missing.append(notesviewer.error.ERROR_OK)
+       
+    return missing
 
 def verify_empty_note(note, file_context):
     """ check note if empty """
