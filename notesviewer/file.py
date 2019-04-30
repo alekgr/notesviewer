@@ -127,35 +127,35 @@ def verify_profile_path(verbose=False):
 
     missing = []
     if not os.path.exists(getrootpath("meta")):
-        if verbose == True:
+        if verbose:
             notesviewer.file.print_err_msg("Meta folder missing")
         missing.append(notesviewer.error.ERROR_META_MISSING)
     else:
-        if verbose == True:
+        if verbose: 
             notesviewer.file.print_info_msg("Meta folder OK")
         missing.append(notesviewer.error.ERROR_OK)
     if not os.path.exists(getrootpath("content")):
-        if verbose == True:
+        if verbose:
             notesviewer.file.print_err_msg("Content folder missing")
         missing.append(notesviewer.error.ERROR_CONTENT_MISSING)
     else:
-        if verbose == True:
+        if verbose:
             notesviewer.file.print_info_msg("Content folder OK")
         missing.append(notesviewer.error.ERROR_OK)
     if not os.path.exists(getrootpath("link")):
-        if verbose == True:
+        if verbose:
             notesviewer.file.print_err_msg("Link folder missing")
         missing.append(notesviewer.error.ERROR_LINK_MISSING)
     else:
-        if verbose == True:
+        if verbose:
             notesviewer.file.print_info_msg("Link folder OK")
         missing.append(notesviewer.error.ERROR_OK)
     if not os.path.exists(getrootpath("tag")):
-        if verbose == True:
+        if verbose:
             notesviewer.file.print_err_msg("tags folder missing")
         missing.append(notesviewer.error.ERROR_TAGS_MISSING)
     else:
-        if verbose == True:
+        if verbose:
             notesviewer.file.print_info_msg("Tags folder OK")
         missing.append(notesviewer.error.ERROR_OK)
 
