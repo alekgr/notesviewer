@@ -6,7 +6,8 @@ import argparse
 import notesviewer.vardata
 import notesviewer.interactive
 import notesviewer.commands
-from notesviewer.config import loadconfig, set_data_location, set_profile_path, create_default_profile
+from notesviewer.config import loadconfig, set_data_location, set_profile_path, \
+create_default_profile
 
 
 def main():
