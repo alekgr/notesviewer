@@ -260,6 +260,7 @@ def set_data_location():
     if not os.path.exists(notesviewer.vardata.NOTES_ROOT_PATH):
         os.mkdir(notesviewer.vardata.NOTES_ROOT_PATH)
 
+
 def set_profile_path():
     """ set profile path """
 
@@ -283,6 +284,7 @@ def set_profile_path():
     if errors[3] != notesviewer.error.ERROR_OK:
         notesviewer.file.create_notes_root_path(profile_path, "tags", False)
 
+
 def get_data_location_source():
     """ get data location source """
 
@@ -299,11 +301,12 @@ def get_data_location_type():
     """ get data location type """
     return notesviewer.vardata.OPTIONS['data_location'].split(":")[0]
 
+
 def create_default_profile():
     """ create a default profile if there isn't one"""
 
     default_profile_path = notesviewer.vardata.NOTES_ROOT_PATH + "/" + \
-    notesviewer.vardata.DEFAULT_PROFILE
+        notesviewer.vardata.DEFAULT_PROFILE
 
     if not os.path.exists(default_profile_path):
         os.mkdir(default_profile_path)
