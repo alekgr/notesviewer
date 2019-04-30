@@ -122,7 +122,6 @@ def verify_profile_path(verbose=False):
     if not os.path.exists(notesviewer.vardata.PROFILE_NOTES_ROOT_PATH):
         return notesviewer.error.ERROR_NO_ROOT_NOTE
 
-
     # This will be called by cm_check
 
     missing = []
@@ -160,6 +159,7 @@ def verify_profile_path(verbose=False):
         missing.append(notesviewer.error.ERROR_OK)
 
     return missing
+
 
 def verify_empty_note(note, file_context):
     """ check note if empty """
