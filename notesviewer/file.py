@@ -63,24 +63,24 @@ def create_config_file():
         notesviewer.commands.setdefaultconfig(False)
 
 
-def create_notes_root_path(profile_path, dir, prompt=True):
+def create_notes_root_path(profile_path, metadata_dir, prompt=True):
     """ creat a note root directory """
 
     mode = 0o755 | stat.S_IRUSR
 
     try:
-        if dir == all:
+        if metadata_dir == all:
             os.makedirs(profile_path + "/" + "meta")
             os.makedirs(profile_path + "/" + "content")
             os.makedirs(profile_path + "/" + "tags")
             os.makedirs(profile_path + "/" + "link")
-        if dir == "meta":
+        if metadata_dir == "meta":
             os.makedirs(profile_path + "/" + "meta")
-        if dir == "content":
+        if metadata_dir == "content":
             os.makedirs(profile_path + "/" + "content")
-        if dir == "link":
+        if metadata_dir == "link":
             os.makedirs(profile_path + "/" + "link")
-        if dir == "tags":
+        if metadata_dir == "tags":
             os.makedirs(profile_path + "/" + "tags")
     except OSError:
         notesviewer.file.print_info_msg("Note directory already exists")
@@ -124,7 +124,7 @@ def verify_profile_path(verbose=False):
 
 
     # This will be called by cm_check
-   
+
     missing = []
     if not os.path.exists(getrootpath("meta")):
         if verbose == True:
@@ -158,7 +158,7 @@ def verify_profile_path(verbose=False):
         if verbose == True:
             notesviewer.file.print_info_msg("Tags folder OK")
         missing.append(notesviewer.error.ERROR_OK)
-       
+
     return missing
 
 def verify_empty_note(note, file_context):
