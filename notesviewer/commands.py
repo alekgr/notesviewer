@@ -30,7 +30,7 @@ def cm_init():
     """ initalize data """
 
     notesviewer.file.create_notes_root_path(
-        notesviewer.vardata.PROFILE_NOTES_ROOT_PATH,all
+        notesviewer.vardata.PROFILE_NOTES_ROOT_PATH, all
         )
 
 def cm_add_profile(profile):
