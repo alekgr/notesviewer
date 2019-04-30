@@ -69,7 +69,7 @@ def create_notes_root_path(profile_path, metadata_dir, prompt=True):
     mode = 0o755 | stat.S_IRUSR
 
     try:
-        if metadata_dir == all:
+        if metadata_dir == "all":
             os.makedirs(profile_path + "/" + "meta")
             os.makedirs(profile_path + "/" + "content")
             os.makedirs(profile_path + "/" + "tags")
@@ -131,7 +131,7 @@ def verify_profile_path(verbose=False):
             notesviewer.file.print_err_msg("Meta folder missing")
         missing.append(notesviewer.error.ERROR_META_MISSING)
     else:
-        if verbose: 
+        if verbose:
             notesviewer.file.print_info_msg("Meta folder OK")
         missing.append(notesviewer.error.ERROR_OK)
     if not os.path.exists(getrootpath("content")):
