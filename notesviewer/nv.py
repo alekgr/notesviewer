@@ -6,8 +6,8 @@ import argparse
 import notesviewer.vardata
 import notesviewer.interactive
 import notesviewer.commands
-from notesviewer.config import loadconfig, set_data_location, set_profile_path, \
-create_default_profile
+from notesviewer.config import loadconfig, set_data_location, \
+    set_profile_path, create_default_profile
 
 
 def main():
@@ -18,6 +18,7 @@ def main():
     set_profile_path()
     create_default_profile()
     parse_arguments()
+
 
 def parse_arguments():
     """ parse all the program arguments """
@@ -263,6 +264,7 @@ def process_args(argument):
         notesviewer.commands.cm_check()
     elif argument['cmd'] == 'interactive':
         notesviewer.interactive.interactive()
+
 
 if __name__ == '__main__':
     main()
