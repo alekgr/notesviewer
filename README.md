@@ -59,6 +59,11 @@ notesviewer interactive    #Not implemented yet
 - Fixed display command bug when inserting with : character
 - Notes root path and config are in the same location now
 - Added profile, add_profile, show_profies, switch_profile commands for profile managment
+
+0.9.5.1
+- A default profile is created upon initalization
+- Will Create a the profile path from config if missing
+
 ```
 
 ## Contributing 
