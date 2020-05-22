@@ -1,6 +1,7 @@
 """ global variable list """
 
 from os.path import expanduser
+import os
 
 HOME = expanduser("~")
 PROGRAM_NAME = "notesviewer"
@@ -23,8 +24,20 @@ INTERACTIVE_COMMANDS = [
 # command mode
 COMMAND_MODE = INTERACTIVE_COMMANDS[0]
 
+def setROOT():
+    """ set ROOT directory """
+    """ first by testing on current directory and then testing  home directory """
+
+    global  ROOT
+
+    if os.path.isdir(os.getcwd() + "/" + "." + PROGRAM_NAME):
+        ROOT =  os.getcwd() + "/" + "." + PROGRAM_NAME
+    else:
+        ROOT =os.path.expanduser('~') + "/" + "." + PROGRAM_NAME
+
 # ROOT
-ROOT = HOME + "/" + "." + PROGRAM_NAME
+ROOT = "" 
+setROOT()
 
 # default profile
 DEFAULT_PROFILE = "profile0"
