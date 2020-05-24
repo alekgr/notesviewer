@@ -38,6 +38,12 @@ def parse_arguments():
         'version', help='Show version number'
     )
 
+    # create ROOT in your current directory
+    ROOT_parser = subparser.add_parser(
+        'create_ROOT', help='create ROOT in the current directory'
+    )
+
+    
     # init notes directory
     init_parser = subparser.add_parser(
         'init', help='Initalize note root directory'
@@ -210,6 +216,8 @@ def process_args(argument):
 
     if argument['cmd'] == 'version':
         notesviewer.commands.cm_version()
+    elif argument['cmd'] == 'create_ROOT':
+        notesviewer.commands.cm_create_ROOT()
     elif argument['cmd'] == 'info':
         notesviewer.commands.cm_info()
     elif argument['cmd'] == 'setdefaultconfig':

@@ -32,6 +32,17 @@ def cm_init():
     notesviewer.file.create_notes_root_path(
         notesviewer.vardata.PROFILE_NOTES_ROOT_PATH, "all")
 
+def cm_create_ROOT():
+    """ create a ROOT in the current direcoty """
+
+    ROOT_path = os.getcwd()
+
+    try:
+        os.makedirs(ROOT_path + "/" + "." + notesviewer.vardata.PROGRAM_NAME)
+ 
+    except OSError: 
+        notesviewer.file.print_info_msg("ROOT directory already exists in the current directory")
+
 
 def cm_add_profile(profile):
     """ create a new profile for """
