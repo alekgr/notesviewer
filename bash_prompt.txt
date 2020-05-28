@@ -1,0 +1,15 @@
+In order to have a bash_prompt that shows your current profile:
+
+Add the following function to your ~/.bash_profile
+
+function git-branch-prompt {
+        local branch=`git-branch-name`
+        if [ $branch ]; then
+            printf " [%s]" $branch;
+        fi
+}
+
+and then update your PS1 some with the function
+
+
+PS1="\u@\h \[\033[0;38m\]\W\[\033[0m\]\[\033[0;32m\]\$(git-branch-prompt)\[\033[0m\]\$(noteviewer-prompt)\$ "
