@@ -56,6 +56,15 @@ def parse_arguments():
     add_profile_parser.add_argument(
         'profile', action='store', help='Profile')
 
+    # delete_profile
+    delete_profile_parser = subparser.add_parser(
+        'delete_profile', help='Delete a profile'        
+    )
+    delete_profile_parser.add_argument(
+        'profile', action='store', help='Profile'
+    )
+    
+
     # show profles
     show_parser = subparser.add_parser('show_profiles', help='Show profiles')
 
@@ -230,6 +239,8 @@ def process_args(argument):
         notesviewer.commands.cm_init()
     elif argument['cmd'] == 'add_profile':
         notesviewer.commands.cm_add_profile(argument['profile'])
+    elif argument['cmd'] == 'delete_profile':
+        notesviewer.commands.cm_delete_profile(argument['profile'])
     elif argument['cmd'] == 'show_profiles':
         notesviewer.commands.cm_show_profiles()
     elif argument['cmd'] == 'switch_profile':

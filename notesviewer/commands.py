@@ -74,6 +74,41 @@ def cm_add_profile(profile):
             os.makedirs(profile_path + "/" + "link")
             notesviewer.file.print_info_msg("Notes directory re-initalized")
 
+def cm_delete_profile(profile):
+    """ delete a profile and it's note content """ 
+
+    #paths
+    profile_path = notesviewer.vardata.NOTES_ROOT_PATH + "/" + profile
+    profiles_path = notesviewer.vardata.NOTES_ROOT_PATH
+
+
+    # somehow there is no profile directory to delete
+    current_profile = notesviewer.config.get_profile_from_options() 
+    if len(os.listdir(profiles_path)) is int(0):
+        notesviewer.file.print_err_msg("There are no profile to delete")
+  
+    # You cannot delete current profile
+    if profile == current_profile:
+        notesviewer.file.print_err_msg("Unable to delete current profile. Please switch to another profile before deleteing")
+        exit(0)
+   
+    # delete profile directory 
+    profiles = os.listdir(profiles_path)
+    if profile in profiles:
+        try:
+            prompt_msg = "Are you sure you want to delete "
+            prompt = input(prompt_msg+profile+" profile"+" ")
+            if prompt == 'yes':
+                shutil.rmtree(profile_path)
+                notesviewer.file.print_info_msg("Deleted profile "+profile)
+            else:
+                exit(0)
+        except OSErrore:
+            notesviewer.file.print_err_msg("Unable to delete "+profile+ " profile")
+
+    else:
+        notesviewer.file.print_err_msg("There is no profile "+ profile)
+        
 
 def cm_show_profiles():
     """ print number of profiles """
