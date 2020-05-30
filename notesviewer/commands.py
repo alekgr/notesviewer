@@ -91,7 +91,12 @@ def cm_delete_profile(profile):
     if profile == current_profile:
         notesviewer.file.print_err_msg("Unable to delete current profile. Please switch to another profile before deleteing")
         exit(0)
-   
+
+    # You canot delete default profile
+    if profile == notesviewer.vardata.DEFAULT_PROFILE:
+        notesviewer.file.print_err_msg("You cannot delete default profile")
+        exit(0)
+
     # delete profile directory 
     profiles = os.listdir(profiles_path)
     if profile in profiles:
@@ -103,7 +108,7 @@ def cm_delete_profile(profile):
                 notesviewer.file.print_info_msg("Deleted profile "+profile)
             else:
                 exit(0)
-        except OSErrore:
+        except OSError:
             notesviewer.file.print_err_msg("Unable to delete "+profile+ " profile")
 
     else:
