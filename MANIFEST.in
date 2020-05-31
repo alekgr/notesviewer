@@ -1,1 +1,4 @@
-include README.md LICENSE notesviewer/_version
+include README.md 
+include LICENSE 
+include notesviewer/_version
+include bash_prompt.txt
