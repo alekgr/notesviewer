@@ -13,6 +13,7 @@ notesviewer --help
 notesviewer version 
 notesviewer list
 notesviewer display <note> 
+notesviewer create_ROOT
 notesviewer add <note>
 notesviewer insert <note> <title>
 nosteviewer edit   <index> <note>
@@ -21,6 +22,7 @@ notesviewer remove <index> <note>
 notesviewer move <index> <fromnote> <tonote>
 notesviewer addtags <note> <tag>
 notesviewer add_profile <profile>
+notesviewer delete_profile <profile>
 notesviewer show_profiles
 notesviewer switch_profile
 notesviewer profile
@@ -63,6 +65,12 @@ notesviewer interactive    #Not implemented yet
 0.9.5.1
 - A default profile is created upon initalization
 - Will Create a the profile path from config if missing
+
+0.9.5.2
+- Added a create_ROOT command to create a ROOT path on the current directory. This is need if doing development work
+- Added Instructions on how to update bash prompt for notesviewer profiles
+- Added a delete_profile command 
+- Added a Makefile for building and uploading to pypi repository(only available on git source)
 
 ```
 
