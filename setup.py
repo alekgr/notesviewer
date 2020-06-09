@@ -1,8 +1,11 @@
 """ setup file """
 from setuptools import setup, find_packages
 
+program_name='notesviewer'
+doc_location='share/docs/'+program_name
+
 setup(
-    name='notesviewer',
+    name=program_name,
     version=open('notesviewer/_version').read(),
     description='notesviewer',
     packages=find_packages(),
@@ -32,6 +35,10 @@ setup(
         # operation system
         'Topic :: System :: Operating System Kernels :: Linux',
     ],
+
+    
+
+    data_files=[(doc_location, ['bash_prompt.txt', 'README.md'])],
 
     entry_points={
         "console_scripts": [
